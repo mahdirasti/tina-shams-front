@@ -8,4 +8,5 @@ export { default as OrgTypography } from "./o-typography";
 export { default as OrgRadio } from "./o-radio";
 export { default as OrgOtpInput } from "./o-otp-input";
 export { default as OrgTabs } from "./o-tabs";
+export { default as OSpace } from "./o-space";
 export { default as OrgTextarea } from "./o-textarea";
