@@ -4,6 +4,7 @@ import { LayoutProps } from "@/types/layout";
 import LocaleContext from "../locale-context";
 import { LocaleType } from "@/types/locale";
 import { getDictionary } from "../dictionaries";
+import FooterPart from "@/components/partials/footer";
 
 type Props = LayoutProps & { params: { locale: LocaleType } };
 
@@ -16,6 +17,7 @@ export default async function Layout({ children, params }: Props) {
       <LocaleContext langJson={dict} locale={params.locale}>
         {children}
       </LocaleContext>
+      <FooterPart />
     </main>
   );
 }

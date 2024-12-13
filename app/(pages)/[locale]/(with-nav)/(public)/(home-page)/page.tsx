@@ -6,6 +6,7 @@ import { LocaleType } from "@/types/locale";
 import { getDictionary } from "../../../dictionaries";
 import Pieces from "./components/pieces";
 import { PieceType } from "@/types/piece";
+import Banners from "./components/banners";
 
 async function getHome() {
   // return axiosInstance.get(`/home`);
@@ -51,6 +52,21 @@ export default async function HomePage({ params: { locale } }: Props) {
       <Radiance />
       <OSpace height={64} />
       <Pieces items={MOCK_PIECES} />
+      <OSpace height={64} />
+      <Banners
+        items={[
+          {
+            background: `/assets/images/banner-1.jpg`,
+            desc: 'The "Mad Love ring is a bold statement piece \n — combining elegance and charm.',
+            title: "Mad Love",
+          },
+          {
+            background: `/assets/images/banner-2.jpg`,
+            desc: "Introducing The Time Collection \n — a splendid fusion of artistry and precision",
+            title: "The Time",
+          },
+        ]}
+      />
     </>
   );
 }
