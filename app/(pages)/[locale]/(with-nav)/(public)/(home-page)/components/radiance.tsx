@@ -15,7 +15,7 @@ export default function Radiance() {
     <SmallContainer>
       <section
         className='radience h-[760px] md:h-[520px] w-full relative before:z-[10] before:absolute before:right-0 before:top-0 before:bottom-0 before:w-[100px] before:bg-gradient-to-l before:from-background before:to-transparent after:absolute after:bottom-0 after:left-0 after:w-full after:bg-gradient-to-t after:top-0 after:from-white/70 after:to-transparent after:z-[9] md:after:hidden'
-        id='radience-bg'
+        id='radience'
       >
         <Image
           alt=''
@@ -55,7 +55,7 @@ export default function Radiance() {
           <Link
             className={buttonVariants({
               variant: "default",
-              class: "!rounded-[100px] w-[235px] md:w-[117px]",
+              class: "w-[235px] md:w-[117px]",
             })}
             href={`#`}
           >

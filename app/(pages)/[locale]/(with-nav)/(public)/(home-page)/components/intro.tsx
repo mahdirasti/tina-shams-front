@@ -17,7 +17,7 @@ export default function Intro() {
         src={`/assets/images/intro-slide.jpg`}
         className='object-cover md:object-center'
       />
-      <div className='flex flex-col gap-y-16 relative z-10'>
+      <div className='flex flex-col gap-y-16 relative z-1'>
         <div className='flex flex-col gap-y-4 items-center'>
           {/* <div>
             <img
@@ -56,7 +56,7 @@ export default function Intro() {
             className={buttonVariants({
               variant: "outlined",
               class:
-                "rounded-[100px] w-[194px] max-w-full hover:bg-neutral-foreground hover:text-neutral-on-foreground",
+                "w-[194px] max-w-full hover:bg-neutral-foreground hover:text-neutral-on-foreground",
             })}
           >
             {dict.common.explore}
