@@ -1,9 +1,14 @@
+"use client";
+
+import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function Intro() {
+  const { dict } = useLocale();
+
   return (
     <section className='min-h-screen bg-black/10 relative flex items-center justify-center'>
       <Image
@@ -14,7 +19,7 @@ export default function Intro() {
       />
       <div className='flex flex-col gap-y-16 relative z-10'>
         <div className='flex flex-col gap-y-4 items-center'>
-          <div>
+          {/* <div>
             <img
               src='/assets/images/illum-desktop.svg'
               alt='Illum Desktop'
@@ -37,7 +42,13 @@ export default function Intro() {
               alt='Billing And Shine Mobile'
               className='mobile flex md:hidden'
             />
-          </div>
+          </div> */}
+          <h2 className='text-4xl md:text-7xl font-medium whitespace-pre-line md:whitespace-nowrap text-center'>
+            {dict.common.intro_title}
+          </h2>
+          <span className='text-xl md:text-2xl'>
+            {dict.common.intro_subtitle}
+          </span>
         </div>
         <div className='flex flex-col items-center'>
           <Link
@@ -48,7 +59,7 @@ export default function Intro() {
                 "rounded-[100px] w-[194px] max-w-full hover:bg-neutral-foreground hover:text-neutral-on-foreground",
             })}
           >
-            Explore
+            {dict.common.explore}
           </Link>
         </div>
       </div>

@@ -1,3 +1,7 @@
+"use client";
+
+import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { cn } from "@/app/lib/utils";
 import SmallContainer from "@/components/containers/small-container";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
@@ -5,6 +9,8 @@ import Link from "next/link";
 import React from "react";
 
 export default function Radiance() {
+  const { dict, dir } = useLocale();
+
   return (
     <SmallContainer>
       <section
@@ -23,19 +29,28 @@ export default function Radiance() {
           fill
           className='z-[9] object-cover object-center mobile-bg md:hidden'
         />
-        <div className='details p-6 md:p-0 z-[20] absolute left-0 md:left-[450px] md:top-[50%] md:translate-y-[-50%] bottom-0 md:bottom-[initial] flex flex-col items-center md:items-start gap-y-4'>
+        <div
+          className={cn(
+            "details p-6 md:p-0 z-[20] max-w-[545px] absolute left-0 md:top-[50%] md:translate-y-[-50%] bottom-0 md:bottom-[initial] flex flex-col items-center md:items-start gap-y-4",
+            dir === "ltr" ? "md:left-[450px]" : "md:right-[0]"
+          )}
+        >
           <h2 className='font-medium text-5xl mb-4 md:mb-0'>
-            <span className='w-[150px] h-[1px] bg-black inline-flex mr-3'></span>
-            Unveil <br />
-            Your Radiance
+            <span
+              className={cn(
+                "w-[150px] h-[1px] bg-black inline-flex",
+                dir === "ltr" ? "mr-3" : "ml-3"
+              )}
+            ></span>
+            {dict.common.radience_title}
           </h2>
-          <p className='text-center md:text-left'>
-            Tina Shams is a luxury jewelry brand that captures elegance and
-            modern sophistication. With a unique blend of timeless craftsmanship
-            and contemporary design, Tina Shams offers stunning collections that
-            bring out the brilliance in every piece. Whether its for a special
-            occasion or everyday glam, the brand lives by its slogan, Bling and
-            Shine, ensuring every wearer sparkles with confidence.
+          <p
+            className={cn(
+              "text-center whitespace-pre-line",
+              dir === "ltr" ? "md:text-left" : "md:text-right"
+            )}
+          >
+            {dict.common.radience_desc}
           </p>
           <Link
             className={buttonVariants({
@@ -44,7 +59,7 @@ export default function Radiance() {
             })}
             href={`#`}
           >
-            Read More
+            {dict.common.read_more}
           </Link>
         </div>
       </section>
