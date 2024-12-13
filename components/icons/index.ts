@@ -1,0 +1,54 @@
+import colors from "tailwindcss/colors";
+
+export type IconPropsType = {
+  size?: number;
+  color?: string;
+};
+
+export const defaultColor = colors["gray"][700];
+
+export { default as HomeIcon } from "./home";
+export { default as FillCartIcon } from "./fill-cart";
+export { default as FillProfileIcon } from "./fill-profile";
+export { default as EditIcon } from "./edit";
+export { default as LocationIcon } from "./location";
+export { default as UserIcon } from "./user";
+export { default as ChatIcon } from "./chat";
+export { default as OrderIcon } from "./order";
+export { default as DangerIcon } from "./danger";
+export { default as LogoutIcon } from "./logout";
+export { default as FillUserIcon } from "./fill-user";
+export { default as FillLocIcon } from "./fill-location";
+export { default as TrashIcon } from "./trash";
+export { default as FillOrderIcon } from "./fill-order";
+export { default as FillChatIcon } from "./fill-chat";
+export { default as FillDangerIcon } from "./fill-danger";
+export { default as ErrorCircleIcon } from "./error-circle";
+export { default as CalendarIcon } from "./calendar";
+export { default as CheckCircleIcon } from "./check-circle";
+export { default as ClockIcon } from "./clock";
+export { default as DoubleTikcet } from "./double-ticket";
+export { default as FillDoubleTicket } from "./fill-double-ticket";
+export { default as NextLineIcon } from "./next-line";
+export { default as CartIcon } from "./cart";
+export { default as ProfileIcon } from "./profile";
+export { default as BurgerMenuIcon } from "./burger-menu";
+export { default as DeliverySecurityIcon } from "./delivery-security";
+export { default as TruckIcon } from "./truck";
+export { default as DiscountIcon } from "./discount";
+export { default as TelegramIcon } from "./telegram";
+export { default as TwitterIcon } from "./twitter";
+export { default as InstagramIcon } from "./instagram";
+export { default as FilterIcon } from "./filter";
+export { default as FillHomeIcon } from "./fill-home";
+export { default as FillStarIcon } from "./fill-star";
+export { default as StarIcon } from "./star";
+export { default as GradientStarIcon } from "./gradient-star";
+export { default as HeartIcon } from "./heart-icon";
+export { default as RepeatIcon } from "./repeat";
+export { default as BoxingIcon } from "./boxing";
+export { default as FillHeartIcon } from "./fill-heart";
+export { default as RidingIcon } from "./riding";
+export { default as SadIcon } from "./sad-icon";
+export { default as ChevronDown } from "./chevron-down";
+export { default as DeliveryHandToHand } from "./delivery-hand-to-hand";

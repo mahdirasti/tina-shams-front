@@ -1,0 +1,405 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /*primary colors*/
+  --primary: #1c110c;
+  --primary-90: #2e1a15;
+  --primary-85: #43241b;
+  --primary-80: #582d22;
+  --primary-75: #6e3728;
+  --primary-70: #85412f;
+  --primary-65: #9c4b36;
+  --primary-60: #b5553d;
+  --primary-55: #cd5f45;
+  --primary-50: #e76a4c;
+  --primary-45: #ec7a5c;
+  --primary-40: #f0896d;
+  --primary-35: #f4987f;
+  --primary-30: #f8a790;
+  --primary-25: #fbb6a2;
+  --primary-20: #fdc4b4;
+  --primary-15: #ffd3c6;
+  --primary-10: #ffe2d9;
+  --primary-5: #fff0ec;
+  --primary-foreground: #cd5f45;
+  --primary-background: #fff0ec;
+  --primary-on-background-default: #161618;
+  --primary-on-background-subdued: #5a5a61;
+  --primary-on-background-active: #161618;
+  --primary-on-background-cta: #cd5f45;
+  --primary-on-background-disabled: #c6c6c9;
+  --primary-background-tint: #fff0ec;
+  --primary-on-background-tint-default: #85412f;
+  --primary-on-background-tint-disabled: #f4987f;
+
+  /*Neutral colors*/
+  --neutral-975: #050506;
+  --neutral-950: #0b0b0c;
+  --neutral-925: #101012;
+  --neutral-900: #161618;
+  --neutral-850: #212124;
+  --neutral-800: #2d2d30;
+  --neutral-750: #38383d;
+  --neutral-700: #434349;
+  --neutral-650: #4f4f55;
+  --neutral-600: #5a5a61;
+  --neutral-550: #65656d;
+  --neutral-500: #71717a;
+  --neutral-450: #7f7f87;
+  --neutral-400: #8d8d94;
+  --neutral-350: #9b9ba1;
+  --neutral-300: #a9a9af;
+  --neutral-250: #b8b8bc;
+  --neutral-200: #c6c6c9;
+  --neutral-150: #79747E;
+  --neutral-100: #e2e2e4;
+  --neutral-75: #e9e9eb;
+  --neutral-50: #f0f0f1;
+  --neutral-25: #f7f7f8;
+  --neutral-foreground: #161618;
+  --neutral-foreground-disabled: #e2e2e4;
+  --neutral-foreground-subdued: #212124;
+  --neutral-on-foreground: #ffffff;
+  --neutral-on-foreground-disabled: #9b9ba1;
+  --neutral-on-foreground-cta: #90caf9;
+  --neutral-background: #ffffff;
+  --neutral-background-2: #f7f7f8;
+  --neutral-background-3: #f0f0f1;
+  --neutral-background-4: #e9e9eb;
+  --neutral-background-tint: #f0f0f1;
+  --neutral-on-background-default: #161618;
+  --neutral-on-background-subdued: #5a5a61;
+  --neutral-on-background-active: #161618;
+  --neutral-on-background-cta: #cd5f45;
+  --neutral-on-background-disabled: #c6c6c9;
+  --neutral-on-background-tint: #0b0b0c;
+  --neutral-stroke-1: #79747E;
+  --neutral-stroke-2: #e2e2e4;
+  --neutral-stroke-2-active: #161618;
+  --neutral-stroke-2-error: #b71c1c;
+  --neutral-stroke-2-hover: #c6c6c9;
+  --neutral-stroke-3: #f0f0f1;
+
+  /*red colors*/
+  --red-95: #971111;
+  --red-90: #b71c1c;
+  --red-80: #c62828;
+  --red-70: #d32f2f;
+  --red-60: #e53935;
+  --red-50: #f24b3f;
+  --red-40: #ee5a57;
+  --red-30: #e57373;
+  --red-20: #ef9a9a;
+  --red-10: #ffcdd2;
+  --red-5: #ffebee;
+
+  /*blue colors*/
+  --blue-95: #093579;
+  --blue-90: #0d47a1;
+  --blue-80: #1565c0;
+  --blue-70: #1976d2;
+  --blue-60: #1e88e5;
+  --blue-50: #2196f3;
+  --blue-40: #42a5f5;
+  --blue-30: #64b5f6;
+  --blue-20: #90caf9;
+  --blue-10: #bbdefb;
+  --blue-5: #e3f2fd;
+
+  /*green colors*/
+  --green-95: #164d1a;
+  --green-90: #1b5e20;
+  --green-80: #2e7d32;
+  --green-70: #388e3c;
+  --green-60: #43a047;
+  --green-50: #4caf50;
+  --green-40: #66bb6a;
+  --green-30: #81c784;
+  --green-20: #a5d6a7;
+  --green-10: #c8e6c9;
+  --green-5: #e8f5e9;
+
+  /*yellow colors*/
+  --yellow-95: #2a2001;
+  --yellow-90: #554002;
+  --yellow-80: #7f6003;
+  --yellow-70: #aa8004;
+  --yellow-60: #d4a005;
+  --yellow-50: #ffc107;
+  --yellow-40: #ffcb30;
+  --yellow-30: #ffd559;
+  --yellow-20: #ffe083;
+  --yellow-10: #ffeaac;
+  --yellow-5: #fff4d5;
+
+  --success-foreground: #388e3c;
+  --success-on-background-default: #164d1a;
+  --success-on-background-subdued: #388e3c;
+  --success-on-background-disabled: #a5d6a7;
+  --success-on-background-tint: #1b5e20;
+  --success-background-tint: #e8f5e9;
+
+  --warning-foreground: #aa8004;
+  --warning-on-background-default: #2a2001;
+  --warning-on-background-subdued: #aa8004;
+  --warning-on-background-disabled: #ffe083;
+  --warning-on-background-tint: #7f6003;
+  --warning-background-tint: #fff4d5;
+
+  --error-foreground: #d32f2f;
+  --error-on-background-default: #971111;
+  --error-on-background-subdued: #d32f2f;
+  --error-on-background-tint: #971111;
+  --error-on-background-disabled: #ef9a9a;
+  --error-background-tint: #ffebee;
+
+  --inverted-stroke: #f7f7f8;
+  --inverted-stroke-2: #ffffff;
+
+  --secondary: #cae8ff;
+
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /****Typographie's size****/
+
+  --caption-medium-size: 0.75rem;
+
+  --body-large-size: 1.125rem;
+  --body-medium-size: 1rem;
+  --body-small-size: 0.875rem;
+
+  --button-large-size: 1rem;
+  --button-medium-size: 0.875rem;
+  --button-small-size: 0.875rem;
+  --button-extra-small-size: 0.75rem;
+
+  --subtitle-large-size: 1.5rem;
+  --subtitle-medium-size: 1.25rem;
+  --subtitle-small-size: 1rem;
+
+  --heading-1-size: 2.75rem;
+  --heading-2-size: 2.25rem;
+  --heading-3-size: 1.875rem;
+  --heading-4-size: 1.5rem;
+  --heading-5-size: 1.25rem;
+  --heading-6-size: 1.125rem;
+
+  --display-large-size: 4rem;
+  --display-medium-size: 3.5rem;
+  --display-small-size: 3rem;
+
+  --mobile-caption-medium-size: 0.75rem;
+
+  --mobile-body-large-size: 1.125rem;
+  --mobile-body-medium-size: 1rem;
+  --mobile-body-small-size: 0.875rem;
+
+  --mobile-button-large-size: 1rem;
+  --mobile-button-medium-size: 0.875rem;
+  --mobile-button-small-size: 0.875rem;
+  --mobile-button-extra-small-size: 0.75rem;
+
+  --mobile-subtitle-large-size: 1.5rem;
+  --mobile-subtitle-medium-size: 1.25rem;
+  --mobile-subtitle-small-size: 1rem;
+
+  --mobile-heading-1-size: 2.25rem;
+  --mobile-heading-2-size: 1.75rem;
+  --mobile-heading-3-size: 1.5rem;
+  --mobile-heading-4-size: 1.25rem;
+  --mobile-heading-5-size: 1.125rem;
+  --mobile-heading-6-size: 1rem;
+
+  --mobile-display-large-size: 2.875rem;
+  --mobile-display-medium-size: 2.5rem;
+  --mobile-display-small-size: 2.25rem;
+
+  --tablet-caption-medium-size: 0.75rem;
+  --tablet-body-large-size: 1.125rem;
+  --tablet-body-medium-size: 1rem;
+  --tablet-body-small-size: 0.875rem;
+  --tablet-button-large-size: 1rem;
+  --tablet-button-medium-size: 0.875rem;
+  --tablet-button-small-size: 0.875rem;
+  --tablet-button-extra-small-size: 0.75rem;
+  --tablet-subtitle-large-size: 1.5rem;
+  --tablet-subtitle-medium-size: 1.25rem;
+  --tablet-subtitle-small-size: 1rem;
+  --tablet-heading-1-size: 2.5rem;
+  --tablet-heading-2-size: 2rem;
+  --tablet-heading-3-size: 1.75rem;
+  --tablet-heading-4-size: 1.375rem;
+  --tablet-heading-5-size: 1.25rem;
+  --tablet-heading-6-size: 1.125rem;
+  --tablet-display-large-size: 3.5rem;
+  --tablet-display-medium-size: 3rem;
+  --tablet-display-small-size: 2.75rem;
+
+  /****Typographie's LineHeight****/
+
+  --caption-medium-leading: 1rem;
+
+  --body-large-leading: 1.5rem;
+  --body-medium-leading: 1.5rem;
+  --body-small-leading: 0.25rem;
+
+  --button-large-leading: 1.5rem;
+  --button-medium-leading: 1.5rem;
+  --button-small-leading: 1.25rem;
+  --button-extra-small-leading: 1rem;
+
+  --subtitle-large-leading: 2rem;
+  --subtitle-medium-leading: 1.625rem;
+  --subtitle-small-leading: 1.375rem;
+
+  --heading-1-leading: 3.625rem;
+  --heading-2-leading: 3rem;
+  --heading-3-leading: 2.375rem;
+  --heading-4-leading: 2rem;
+  --heading-5-leading: 1.625rem;
+  --heading-6-leading: 1.5rem;
+
+  --display-large-leading: 5.25rem;
+  --display-medium-leading: 4.625rem;
+  --display-small-leading: 4rem;
+
+  /*mobile leading*/
+  --mobile-caption-medium-leading: 1rem;
+
+  --mobile-body-large-leading: 1.5rem;
+  --mobile-body-medium-leading: 1.5rem;
+  --mobile-body-small-leading: 0.25rem;
+
+  --mobile-button-large-leading: 1.5rem;
+  --mobile-button-medium-leading: 1.5rem;
+  --mobile-button-small-leading: 1.25rem;
+  --mobile-button-extra-small-leading: 1rem;
+
+  --mobile-subtitle-large-leading: 2rem;
+  --mobile-subtitle-medium-leading: 1.625rem;
+  --mobile-subtitle-small-leading: 1.375rem;
+
+  --mobile-heading-1-leading: 3.625rem;
+  --mobile-heading-2-leading: 2.375rem;
+  --mobile-heading-3-leading: 2rem;
+  --mobile-heading-4-leading: 1.875rem;
+  --mobile-heading-5-leading: 1.625rem;
+  --mobile-heading-6-leading: 1.5rem;
+
+  --mobile-display-large-leading: 3.75rem;
+  --mobile-display-medium-leading: 3.25rem;
+  --mobile-display-small-leading: 3rem;
+
+  /*tablet leading*/
+  --tablet-caption-medium-leading: 1rem;
+
+  --tablet-body-large-leading: 1.5rem;
+  --tablet-body-medium-leading: 1.5rem;
+  --tablet-body-small-leading: 0.25rem;
+
+  --tablet-button-large-leading: 1.5rem;
+  --tablet-button-medium-leading: 1.5rem;
+  --tablet-button-small-leading: 1.25rem;
+  --tablet-button-extra-small-leading: 1rem;
+
+  --tablet-subtitle-large-leading: 2rem;
+  --tablet-subtitle-medium-leading: 1.625rem;
+  --tablet-subtitle-small-leading: 1.375rem;
+
+  --tablet-heading-1-leading: 3.625rem;
+  --tablet-heading-2-leading: 2.75rem;
+  --tablet-heading-3-leading: 2.25rem;
+  --tablet-heading-4-leading: 2rem;
+  --tablet-heading-5-leading: 1.625rem;
+  --tablet-heading-6-leading: 1.5rem;
+
+  --tablet-display-large-leading: 4.5rem;
+  --tablet-display-medium-leading: 4rem;
+  --tablet-display-small-leading: 3.5rem;
+}
+
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to clamp */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.marker {
+  background-image: url("https://docs.mapbox.com/demos/custom-markers-gl-js/mapbox-icon.png");
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .custom-swiper-container .swiper-pagination {
+    @apply !w-[480px] max-w-full;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-swiper-container .swiper-pagination {
+    @apply !w-[300px] max-w-full;
+  }
+}
+
+.custom-swiper-container .swiper-pagination {
+  @apply bg-white !bottom-0 !left-[50%] translate-x-[-50%] rounded-tl-[24px] rounded-tr-[24px] h-[48px] flex flex-row items-center justify-center;
+}
+
+.custom-swiper-container .swiper-pagination .swiper-pagination-bullet {
+  @apply h-[6px] w-[10px] bg-black rounded-[20px] transition-all;
+}
+
+.custom-swiper-container .swiper-pagination .swiper-pagination-bullet-active {
+  @apply w-[20px];
+}
+
+.mapboxgl-marker svg path {
+  fill: #000;
+}

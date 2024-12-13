@@ -1,0 +1,30 @@
+# name: Remote Update and Deploy
+
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v2
+
+#       - name: Deploy to Remote Server
+#         uses: appleboy/ssh-action@v0.1.5
+#         with:
+#           host: ${{ secrets.REMOTE_HOST }}
+#           port: ${{ secrets.REMOTE_PORT }}
+#           username: ${{ secrets.REMOTE_USER }}
+#           key: ${{ secrets.REMOTE_SSH_KEY }}
+#           script: |
+#             cd /var/www/shirin-navab-deployment/customer
+#             git pull origin main
+#             cd /var/www/shirin-navab-deployment
+#             git pull origin main
+#             docker-compose down -v
+#             docker-compose up -d --build webserver
