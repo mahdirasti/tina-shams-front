@@ -23,6 +23,18 @@
        "purity":"Puirty",
        "design":"Design",
        "purity_unit_k":"k",
-       "order":"Order"
+       "order":"Order",
+       "contact_title":"Get the help you need.",
+       "contact_desc":"Give us a few details and we’ll offer the best solution. \n Connect by phone, chat, email, and more.",
+       "email_to_support":"Email to support",
+       "we_are_here_to_help":"We’re here to help",
+       "send_email":"Send Email",
+       "call_us":"Call Us",
+       "visit_us":"Visit Us",
+       "gallery_address_here":"Gallery address here.",
+       "google_map":"Google Map",
+       "chat_to_sale":"Chat to sale",
+       "whats_app":"Whatsapp",
+       "speak_to_our_friendly_team":"Speak to our friendly team."
     }
 }
