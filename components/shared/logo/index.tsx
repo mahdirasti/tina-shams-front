@@ -1,3 +1,5 @@
+import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { getLinkWithLocale } from "@/app/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -7,6 +9,8 @@ type Props = {
 };
 
 export default function Logo({ clickable = true }: Props) {
+  const { locale } = useLocale();
+
   let logoContent = (
     <Image
       width={44}
@@ -18,7 +22,7 @@ export default function Logo({ clickable = true }: Props) {
   );
 
   return clickable ? (
-    <Link href={`/`} title='Tina Shams'>
+    <Link href={getLinkWithLocale(`/`, locale)} title='Tina Shams'>
       {logoContent}
     </Link>
   ) : (

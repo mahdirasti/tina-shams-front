@@ -1,13 +1,14 @@
 "use client";
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { getLinkWithLocale } from "@/app/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function Intro() {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
 
   return (
     <section
@@ -29,7 +30,7 @@ export default function Intro() {
         </div>
         <Link
           className={buttonVariants({ variant: "outlined" })}
-          href={`/pieces`}
+          href={getLinkWithLocale(`/pieces`, locale)}
         >
           {dict.common.our_pieces}
         </Link>

@@ -211,3 +211,7 @@ export function gramsAmount(amount: number | string, unit?: string) {
 export function purityAmount(amount: number | string, unit?: string) {
   return `${amount}${unit ? ` ${unit}` : ""}`;
 }
+
+export function getLinkWithLocale(path: string, locale?: string) {
+  return `/${locale}${path}`;
+}

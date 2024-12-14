@@ -37,6 +37,7 @@ export default function CollaborationForm() {
         title={dict.common.basic_information}
         content={
           <form
+            id='collaboration_form'
             onSubmit={handleSubmit}
             className='flex flex-col items-start gap-y-8'
           >

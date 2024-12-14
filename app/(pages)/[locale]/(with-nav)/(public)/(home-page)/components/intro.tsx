@@ -1,13 +1,14 @@
 "use client";
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { getLinkWithLocale } from "@/app/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function Intro() {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
 
   return (
     <section className='min-h-screen bg-black/10 relative flex items-center justify-center'>
@@ -52,7 +53,7 @@ export default function Intro() {
         </div>
         <div className='flex flex-col items-center'>
           <Link
-            href={`#`}
+            href={getLinkWithLocale(`/pieces`, locale)}
             className={buttonVariants({
               variant: "outlined",
               class:

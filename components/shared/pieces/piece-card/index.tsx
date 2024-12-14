@@ -1,4 +1,5 @@
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { getLinkWithLocale } from "@/app/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { PieceType } from "@/types/piece";
 import Image from "next/image";
@@ -8,9 +9,9 @@ type Props = {
   item: PieceType;
 };
 export default function PieceCard({ item }: Props) {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
 
-  const link = `/pieces/${item.slug}`;
+  const link = getLinkWithLocale(`/pieces/${item.slug}`, locale);
 
   return (
     <div className='w-full rounded-xl border border-neutral-100 overflow-hidden'>

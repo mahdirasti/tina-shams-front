@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
-import { cn } from "@/app/lib/utils";
+import { cn, getLinkWithLocale } from "@/app/lib/utils";
 import SmallContainer from "@/components/containers/small-container";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function Radiance() {
-  const { dict, dir } = useLocale();
+  const { dict, dir, locale } = useLocale();
 
   return (
     <SmallContainer>
@@ -57,7 +57,7 @@ export default function Radiance() {
               variant: "default",
               class: "w-[235px] md:w-[117px]",
             })}
-            href={`#`}
+            href={getLinkWithLocale(`/about`, locale)}
           >
             {dict.common.read_more}
           </Link>
