@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
+  Autoplay,
   Navigation,
   Pagination,
   Scrollbar,
@@ -84,7 +85,14 @@ const CustomSwiper: React.FC<SwiperComponentProps> = ({
       {!!beforeNode && beforeNode}
       <div className={cn("custom-swiper-container", className)}>
         <Swiper
-          modules={[Navigation, Pagination, Scrollbar, A11y, EffectFade]}
+          modules={[
+            Autoplay,
+            Navigation,
+            Pagination,
+            Scrollbar,
+            A11y,
+            EffectFade,
+          ]}
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
