@@ -203,3 +203,11 @@ export function isWithinRadius(
   );
   return distance <= radius;
 }
+
+export function gramsAmount(amount: number | string, unit?: string) {
+  return `${amount}${unit ? ` ${unit}` : ""}`;
+}
+
+export function purityAmount(amount: number | string, unit?: string) {
+  return `${amount}${unit ? ` ${unit}` : ""}`;
+}

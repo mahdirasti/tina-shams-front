@@ -42,14 +42,12 @@ export default function RootLayout({
   const dir = params.locale === "en" ? "ltr" : "rtl";
 
   return (
-    <html lang={params.locale} dir={dir}>
-      <body className={`${roboto.className} select-none antialiased`}>
-        <ReduxWrapper>
-          {children}
-          <Toaster dir={dir} className={`${roboto.className}`} />
-          <div id='portal'></div>
-        </ReduxWrapper>
-      </body>
-    </html>
+    <main dir={dir} className={`${roboto.className} select-none antialiased`}>
+      <ReduxWrapper>
+        {children}
+        <Toaster dir={dir} className={`${roboto.className}`} />
+        <div id='portal'></div>
+      </ReduxWrapper>
+    </main>
   );
 }
