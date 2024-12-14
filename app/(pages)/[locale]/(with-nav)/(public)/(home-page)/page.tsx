@@ -3,10 +3,10 @@ import Intro from "./components/intro";
 import Radiance from "./components/radiance";
 import { OSpace } from "@/components/shared-ui";
 import { LocaleType } from "@/types/locale";
-import { getDictionary } from "../../../dictionaries";
-import Pieces from "./components/pieces";
+import Pieces from "@/components/shared/pieces/items";
 import { PieceType } from "@/types/piece";
 import Banners from "./components/banners";
+import HomePieces from "./components/pieces";
 
 async function getHome() {
   // return axiosInstance.get(`/home`);
@@ -20,6 +20,7 @@ type Props = {
 
 const MOCK_PIECES: PieceType[] = [
   {
+    slug: "shark-ring",
     source: "/assets/images/piece-1.jpg",
     title: "Shark Ring",
     category: "Ring",
@@ -27,6 +28,7 @@ const MOCK_PIECES: PieceType[] = [
     link: "/pieces/shark-ring",
   },
   {
+    slug: "mad-love",
     source: "/assets/images/piece-2.jpg",
     title: "Mad Love",
     category: "Ring",
@@ -34,6 +36,7 @@ const MOCK_PIECES: PieceType[] = [
     link: "/pieces/mad-love",
   },
   {
+    slug: "papillon",
     source: "/assets/images/piece-3.jpg",
     title: "Papillon",
     category: "Ear Ring",
@@ -51,7 +54,7 @@ export default async function HomePage({ params: { locale } }: Props) {
       <OSpace height={64} />
       <Radiance />
       <OSpace height={64} />
-      <Pieces items={MOCK_PIECES} />
+      <HomePieces items={MOCK_PIECES} />
       <OSpace height={64} />
       <Banners
         items={[

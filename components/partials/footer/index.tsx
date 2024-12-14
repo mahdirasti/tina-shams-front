@@ -1,5 +1,4 @@
-import SmallContainer from "@/components/containers/small-container";
-import { TwitterIcon } from "@/components/icons";
+import { MainContainer } from "@/components/containers";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +7,7 @@ import React from "react";
 export default function FooterPart() {
   return (
     <footer className='border-t border-t-black py-8 mt-16'>
-      <SmallContainer className='flex flex-col md:flex-row items-center gap-y-4 justify-between'>
+      <MainContainer className='flex flex-col md:flex-row items-center gap-y-4 justify-between'>
         <strong>© Copyright 2024. All Rights Reserved.</strong>
         <div className='social-medias flex flex-row items-center gap-x-4'>
           {[
@@ -32,7 +31,7 @@ export default function FooterPart() {
             </Link>
           ))}
         </div>
-      </SmallContainer>
+      </MainContainer>
     </footer>
   );
 }
