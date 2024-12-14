@@ -65,6 +65,10 @@
        "collaboration_goal":"Collaboration Goal and Vision",
        "collaboration_idea_desc":"Collaboration Idea Description",
        "how_did_you_hear_us":"How did you hear us?",
-       "submit":"Submit"
+       "submit":"Submit",
+       "en":"EN",
+       "fa":"FA",
+       "ar":"AR",
+       "copyright":"© Copyright 2024. All Rights Reserved."
     }
 }

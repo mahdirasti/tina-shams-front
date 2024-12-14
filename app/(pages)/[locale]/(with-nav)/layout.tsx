@@ -13,11 +13,11 @@ export default async function Layout({ children, params }: Props) {
 
   return (
     <main className='main min-w-screen min-h-screen'>
-      <HeaderPart />
       <LocaleContext langJson={dict} locale={params.locale}>
+        <HeaderPart />
         {children}
+        <FooterPart />
       </LocaleContext>
-      <FooterPart />
     </main>
   );
 }

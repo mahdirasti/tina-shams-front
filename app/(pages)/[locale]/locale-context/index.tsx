@@ -9,9 +9,14 @@ type Props = {
   langJson: any;
 };
 
-const LangContext = createContext<{ dict: any; dir: "ltr" | "rtl" }>({
+const LangContext = createContext<{
+  dict: any;
+  dir: "ltr" | "rtl";
+  locale?: LocaleType;
+}>({
   dict: undefined,
   dir: "ltr",
+  locale: undefined,
 });
 
 export const useLocale = () => useContext(LangContext);
@@ -19,7 +24,7 @@ export const useLocale = () => useContext(LangContext);
 export default function LocaleContext({ children, locale, langJson }: Props) {
   return (
     <LangContext.Provider
-      value={{ dict: langJson, dir: locale === "en" ? "ltr" : "rtl" }}
+      value={{ dict: langJson, dir: locale === "en" ? "ltr" : "rtl", locale }}
     >
       {children}
     </LangContext.Provider>

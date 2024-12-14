@@ -2,6 +2,7 @@ import { MainContainer } from "@/components/containers";
 import Image from "next/image";
 import mockProducts from "../data/mock.json";
 import PiecesDetails from "./components/details";
+import CoverDetails from "./components/cover-details";
 
 type Props = {
   params: {
@@ -22,14 +23,10 @@ export default function PiecesSinglePage({ params: { slug } }: Props) {
             className='object-cover object-center'
             fill
           />
-          <div className='absolute left-0 w-full bottom-24 md:bottom-12 md:left-12 flex flex-col gap-y-4 text-neutral-on-foreground z-[2]'>
-            <strong className='text-5xl text-center md:text-left'>
-              {product?.title ?? ""}
-            </strong>
-            <desc className='font-medium text-sm text-center md:text-left'>
-              {product?.desc ?? ""}
-            </desc>
-          </div>
+          <CoverDetails
+            title={product?.title ?? ""}
+            desc={product?.desc ?? ""}
+          />
         </div>
         <PiecesDetails product={product} />
       </MainContainer>
