@@ -3,7 +3,7 @@ import PieceBannerCard from "./card";
 
 export default function PiecesBanners() {
   return (
-    <div className='grid grid-cols-12 gap-4 h-[690px]'>
+    <div className='grid grid-cols-12 gap-4 h-auto md:h-[690px]'>
       <div className='col-span-12 md:col-span-6'>
         <PieceBannerCard
           background='/assets/images/pieces-banner-1.jpg'

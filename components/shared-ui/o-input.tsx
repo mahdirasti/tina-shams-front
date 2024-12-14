@@ -44,7 +44,7 @@ const OrgInput = ({
   let helperTextClss = "text-sm text-black/[0.87] font-medium";
 
   let defaultClss =
-    "flex w-full relative items-center h-full gap-x-2 rounded-3xl overflow-hidden ";
+    "flex w-full relative items-center h-full gap-x-2 rounded-md overflow-hidden ";
 
   switch (variant) {
     default:
