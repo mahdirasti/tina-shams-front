@@ -4,41 +4,32 @@ import Details from "./components/details";
 import { PieceType } from "@/types/piece";
 import AboutPieces from "./components/pieces";
 import { OSpace } from "@/components/shared-ui";
+import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
+import { LocaleType } from "@/types/locale";
 
-const MOCK_PIECES: PieceType[] = [
-  {
-    slug: "shark-ring",
-    source: "/assets/images/piece-1.jpg",
-    title: "Shark Ring",
-    category: "Ring",
-    desc: "The Shark Ring is a masterful blend of motion and power.",
-    link: "/pieces/shark-ring",
-  },
-  {
-    slug: "mad-love",
-    source: "/assets/images/piece-2.jpg",
-    title: "Mad Love",
-    category: "Ring",
-    desc: "The “Mad Love” ring is a bold statement piece, blending elegance and charm effortlessly. ",
-    link: "/pieces/mad-love",
-  },
-  {
-    slug: "papillon",
-    source: "/assets/images/piece-3.jpg",
-    title: "Papillon",
-    category: "Ear Ring",
-    desc: "Elegance tied in knots, not wings. It's called 'Nodo,' not your usual Papillon, babes..",
-    link: "/pieces/papillon",
-  },
-];
+const getPieces = () => {
+  return axiosInstance.get(`/products`);
+};
 
-export default function AboutPage() {
+type Props = {
+  params: {
+    locale: LocaleType;
+  };
+};
+
+export default async function AboutPage({ params: { locale } }: Props) {
+  setDefaultLocale(locale);
+
+  const productsRes = await getPieces();
+
+  const products: PieceType[] = productsRes?.data?.data?.items ?? [];
+
   return (
     <div>
       <Intro />
       <Details />
       <OSpace height={80} />
-      <AboutPieces items={MOCK_PIECES} />
+      <AboutPieces items={products} />
     </div>
   );
 }

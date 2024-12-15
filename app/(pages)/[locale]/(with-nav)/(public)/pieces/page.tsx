@@ -26,10 +26,10 @@ const getPiecesSliders = () => {
 export default async function PiecesPage({ params: { locale } }: Props) {
   setDefaultLocale(locale);
 
-  const home = await getPieces();
+  const productsRes = await getPieces();
   const sliderRes = await getPiecesSliders();
 
-  const products: PieceType[] = home?.data?.data?.items ?? [];
+  const products: PieceType[] = productsRes?.data?.data?.items ?? [];
   const sliders: SliderType[] = sliderRes?.data?.data ?? [];
 
   return (

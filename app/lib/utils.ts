@@ -3,8 +3,6 @@ import moment from "moment";
 import { twMerge } from "tailwind-merge";
 import { _VARZ } from "../const/_varz";
 import { UserType } from "@/types/user";
-import { CartType } from "@/types/cart";
-import { ProductType } from "@/types/product";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -115,94 +113,6 @@ export const generateSeoData = ({
 
   return metadata;
 };
-
-export const meetMinimumCartPrice = (min: number, cart?: CartType) => {
-  if (!cart)
-    return {
-      isCartPriceMeetMinimum: false,
-      leftOver: 0,
-      leftOverPercentage: 0,
-    };
-
-  const cartTotalPrice = cart ? cart.total_price : 0;
-
-  const cartMinimumPrice = min;
-
-  const isCartPriceMeetMinimum = cartMinimumPrice <= cartTotalPrice;
-
-  const leftOver = Math.round(cartMinimumPrice - cartTotalPrice);
-  const leftOverPercentage =
-    cartMinimumPrice === 0
-      ? 100
-      : calculatePercentage(cartTotalPrice, cartMinimumPrice);
-
-  return {
-    isCartPriceMeetMinimum,
-    leftOver,
-    leftOverPercentage,
-  };
-};
-
-export function productPriceFinal(product: ProductType) {
-  let productPrice = product?.price;
-
-  if (product?.discountAmount) {
-    productPrice = productPrice - product?.discountAmount;
-  } else if (product?.discountPercentage) {
-    productPrice =
-      product.price - (product.price * product.discountPercentage) / 100;
-  }
-
-  return productPrice;
-}
-
-export function productDiscountFinal(product: ProductType) {
-  if (product?.discountAmount) return product.discountAmount;
-
-  if (product?.discountPercentage) {
-    return (product.price * product.discountPercentage) / 100;
-  }
-
-  return 0;
-}
-
-export function haversineDistance(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number
-): number {
-  const toRadians = (degree: number) => (degree * Math.PI) / 180;
-
-  const R = 6371; // Earth's radius in kilometers
-  const dLat = toRadians(lat2 - lat1);
-  const dLng = toRadians(lng2 - lng1);
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(lat1)) *
-      Math.cos(toRadians(lat2)) *
-      Math.sin(dLng / 2) *
-      Math.sin(dLng / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  return R * c; // Distance in kilometers
-}
-
-export function isWithinRadius(
-  centerLat: number,
-  centerLng: number,
-  targetLat: number,
-  targetLng: number,
-  radius: number
-): boolean {
-  const distance = haversineDistance(
-    centerLat,
-    centerLng,
-    targetLat,
-    targetLng
-  );
-  return distance <= radius;
-}
 
 export function gramsAmount(amount: number | string, unit?: string) {
   return `${amount}${unit ? ` ${unit}` : ""}`;
