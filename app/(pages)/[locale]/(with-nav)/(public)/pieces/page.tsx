@@ -7,6 +7,7 @@ import PiecesBanners from "./components/banner";
 import { LocaleType } from "@/types/locale";
 import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
 import { PieceType } from "@/types/piece";
+import { SliderType } from "@/types/slider";
 
 type Props = {
   params: {
@@ -18,21 +19,27 @@ const getPieces = () => {
   return axiosInstance.get(`/products`);
 };
 
+const getPiecesSliders = () => {
+  return axiosInstance.get(`/slider/search`);
+};
+
 export default async function PiecesPage({ params: { locale } }: Props) {
   setDefaultLocale(locale);
 
   const home = await getPieces();
+  const sliderRes = await getPiecesSliders();
 
   const products: PieceType[] = home?.data?.data?.items ?? [];
+  const sliders: SliderType[] = sliderRes?.data?.data ?? [];
 
   return (
     <div className='md:mt-24'>
       <MainContainer>
-        <Slider />
+        <Slider items={sliders.filter((a) => a.location === "home")} />
         <OSpace height={80} />
         <PiecesItems items={products} />
         <OSpace height={80} />
-        <PiecesBanners />
+        <PiecesBanners items={sliders.filter((a) => a.location === "pieces")} />
       </MainContainer>
     </div>
   );

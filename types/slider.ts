@@ -1,13 +1,14 @@
 import { FileType } from "./file";
 
-export type HomeSliderType = {
+export type SliderType = {
   id: string;
-  name: string;
+  title: string;
+  desc: string;
+  location: string;
   link: string;
   button_text: string;
   createdAt: string;
   udpatedAt: string;
   isActive: boolean;
-  desktop: FileType;
-  mobile: FileType;
+  cover: FileType;
 };

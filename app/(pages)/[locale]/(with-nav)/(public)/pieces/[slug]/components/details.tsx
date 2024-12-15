@@ -8,7 +8,6 @@ import {
   gramsAmount,
   purityAmount,
 } from "@/app/lib/utils";
-import { OrgButton } from "@/components/shared-ui";
 import { buttonVariants } from "@/components/ui/button";
 import { PieceType } from "@/types/piece";
 import Link from "next/link";

@@ -13,6 +13,7 @@ import {
   Scrollbar,
   A11y,
   EffectFade,
+  Keyboard,
 } from "swiper/modules";
 import type { Swiper as SwiperType, SwiperOptions } from "swiper/types";
 import { cn } from "@/app/lib/utils";
@@ -92,6 +93,7 @@ const CustomSwiper: React.FC<SwiperComponentProps> = ({
             Scrollbar,
             A11y,
             EffectFade,
+            Keyboard,
           ]}
           navigation={{
             prevEl: prevRef.current,

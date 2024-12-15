@@ -3,7 +3,7 @@ import React from "react";
 import HomeBannerCard from "./card";
 
 type Props = {
-  items: { background: string; title: string; desc: string }[];
+  items: { background: string; title: string; desc: string; link: string }[];
 };
 
 export default function Banners({ items }: Props) {

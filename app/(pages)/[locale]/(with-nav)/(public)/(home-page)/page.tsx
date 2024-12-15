@@ -7,6 +7,8 @@ import { PieceType } from "@/types/piece";
 import Banners from "./components/banners";
 import HomePieces from "./components/pieces";
 import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
+import { SliderType } from "@/types/slider";
+import { getFullAssets, getLinkWithLocale } from "@/app/lib/utils";
 
 async function getHome() {
   return axiosInstance.get(`/home`);
@@ -24,6 +26,7 @@ export default async function HomePage({ params: { locale } }: Props) {
   const home = await getHome();
 
   const products: PieceType[] = home?.data?.data?.products ?? [];
+  const sliders: SliderType[] = home?.data?.data?.sliders ?? [];
 
   return (
     <>
@@ -34,18 +37,12 @@ export default async function HomePage({ params: { locale } }: Props) {
       <HomePieces items={products} />
       <OSpace height={64} />
       <Banners
-        items={[
-          {
-            background: `/assets/images/banner-1.jpg`,
-            desc: 'The "Mad Love ring is a bold statement piece \n — combining elegance and charm.',
-            title: "Mad Love",
-          },
-          {
-            background: `/assets/images/banner-2.jpg`,
-            desc: "Introducing The Time Collection \n — a splendid fusion of artistry and precision",
-            title: "The Time",
-          },
-        ]}
+        items={sliders.map((item) => ({
+          background: item.cover ? getFullAssets(item.cover.fileName) : "",
+          desc: item.desc,
+          title: item.title,
+          link: getLinkWithLocale(item.link, locale),
+        }))}
       />
     </>
   );
