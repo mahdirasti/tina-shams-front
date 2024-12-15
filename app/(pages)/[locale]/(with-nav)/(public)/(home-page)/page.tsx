@@ -3,13 +3,13 @@ import Intro from "./components/intro";
 import Radiance from "./components/radiance";
 import { OSpace } from "@/components/shared-ui";
 import { LocaleType } from "@/types/locale";
-import Pieces from "@/components/shared/pieces/items";
 import { PieceType } from "@/types/piece";
 import Banners from "./components/banners";
 import HomePieces from "./components/pieces";
+import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
 
 async function getHome() {
-  // return axiosInstance.get(`/home`);
+  return axiosInstance.get(`/home`);
 }
 
 type Props = {
@@ -18,35 +18,12 @@ type Props = {
   };
 };
 
-const MOCK_PIECES: PieceType[] = [
-  {
-    slug: "shark-ring",
-    source: "/assets/images/piece-1.jpg",
-    title: "Shark Ring",
-    category: "Ring",
-    desc: "The Shark Ring is a masterful blend of motion and power.",
-    link: "/pieces/shark-ring",
-  },
-  {
-    slug: "mad-love",
-    source: "/assets/images/piece-2.jpg",
-    title: "Mad Love",
-    category: "Ring",
-    desc: "The “Mad Love” ring is a bold statement piece, blending elegance and charm effortlessly. ",
-    link: "/pieces/mad-love",
-  },
-  {
-    slug: "papillon",
-    source: "/assets/images/piece-3.jpg",
-    title: "Papillon",
-    category: "Ear Ring",
-    desc: "Elegance tied in knots, not wings. It's called 'Nodo,' not your usual Papillon, babes..",
-    link: "/pieces/papillon",
-  },
-];
-
 export default async function HomePage({ params: { locale } }: Props) {
+  setDefaultLocale(locale);
+
   const home = await getHome();
+
+  const products: PieceType[] = home?.data?.data?.products ?? [];
 
   return (
     <>
@@ -54,7 +31,7 @@ export default async function HomePage({ params: { locale } }: Props) {
       <OSpace height={64} />
       <Radiance />
       <OSpace height={64} />
-      <HomePieces items={MOCK_PIECES} />
+      <HomePieces items={products} />
       <OSpace height={64} />
       <Banners
         items={[

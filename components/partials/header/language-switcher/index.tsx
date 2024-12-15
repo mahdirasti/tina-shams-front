@@ -10,7 +10,7 @@ import React from "react";
 export default function LanguageSwitcher() {
   const pathname = usePathname();
 
-  const { dict, dir, locale } = useLocale();
+  const { dict, locale } = useLocale();
 
   return (
     <div className='w-auto'>
@@ -36,8 +36,6 @@ export default function LanguageSwitcher() {
             const changedPathname = pathname
               .split("/")
               .filter((item) => !!item);
-
-            console.log("changedPathname", changedPathname);
 
             let finalPathname = `/`;
 

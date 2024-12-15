@@ -1,1 +1,21 @@
-export type PieceType = any;
+import { CategoryType } from "./category";
+import { FileType } from "./file";
+
+export type PieceType = {
+  title: string;
+  title_multi_lang: string;
+  short_desc: string;
+  purity: number;
+  design_desc: string;
+  slug: string;
+  content: string;
+  seo_title: string;
+  seo_description: string;
+  seo_keyword: string;
+  thumbnail: FileType;
+  cover: FileType;
+  categories: CategoryType[];
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+};

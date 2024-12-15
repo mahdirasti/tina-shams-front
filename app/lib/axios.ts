@@ -53,9 +53,9 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const state = store.getState();
-
     if (typeof window !== "undefined") {
+      const state = store.getState();
+
       const accessToken = state?.authReducer?.access_token;
 
       if (accessToken) {
@@ -134,5 +134,9 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export const setDefaultLocale = (locale: string) => {
+  axiosInstance.defaults.headers.common["lang"] = locale;
+};
 
 export default axiosInstance;

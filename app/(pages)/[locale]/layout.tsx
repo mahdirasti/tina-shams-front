@@ -12,6 +12,9 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import "swiper/css/free-mode";
 import { LocaleType } from "@/types/locale";
+import ClientInit from "./init";
+import { headers } from "next/headers";
+import axiosInstance from "@/app/lib/axios";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +46,7 @@ export default function RootLayout({
 
   return (
     <main dir={dir} className={`${roboto.className} select-none antialiased`}>
+      <ClientInit lang={params.locale} />
       <ReduxWrapper>
         {children}
         <Toaster dir={dir} className={`${roboto.className}`} />

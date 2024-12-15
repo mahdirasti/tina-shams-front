@@ -1,5 +1,5 @@
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
-import { getLinkWithLocale } from "@/app/lib/utils";
+import { getFullAssets, getLinkWithLocale } from "@/app/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { PieceType } from "@/types/piece";
 import Image from "next/image";
@@ -16,20 +16,26 @@ export default function PieceCard({ item }: Props) {
   return (
     <div className='w-full rounded-xl border border-neutral-100 overflow-hidden'>
       <Link href={link} className='flex h-[397px] relative'>
-        <Image
-          fill
-          src={item.source}
-          alt=''
-          className='object-cover object-center'
-        />
+        {!!item.thumbnail && (
+          <Image
+            fill
+            src={getFullAssets(item.thumbnail.fileName)}
+            alt=''
+            className='object-cover object-center'
+          />
+        )}
       </Link>
       <div className='p-4 flex flex-col gap-y-6'>
         <div className='flex flex-col gap-y-1'>
           <h3 className='font-normal text-base'>{item.title}</h3>
-          <span className='text-neutral-150 text-sm'>{item.category}</span>
+          <span className='text-neutral-150 text-sm'>
+            {item.categories.map((x) => x.name).join(", ")}
+          </span>
         </div>
         <div className='flex flex-col gap-y-2'>
-          <p className='text-sm text-neutral-150 min-h-[80px]'>{item.desc}</p>
+          <p className='text-sm text-neutral-150 min-h-[80px]'>
+            {item.short_desc}
+          </p>
           <div className='flex flex-row justify-end'>
             <Link
               href={link}
