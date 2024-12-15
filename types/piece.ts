@@ -17,5 +17,6 @@ export type PieceType = {
   categories: CategoryType[];
   createdAt: string;
   updatedAt: string;
+  weight: string;
   id: string;
 };

@@ -4,7 +4,7 @@ import { PieceType } from "@/types/piece";
 import ExpandAll from "./exapnd-all";
 
 type Props = {
-  title: string;
+  title?: string;
   items: PieceType[];
 };
 

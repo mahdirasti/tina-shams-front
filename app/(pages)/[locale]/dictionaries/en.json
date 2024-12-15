@@ -69,6 +69,10 @@
        "en":"EN",
        "fa":"FA",
        "ar":"AR",
-       "copyright":"© Copyright 2024. All Rights Reserved."
+       "copyright":"© Copyright 2024. All Rights Reserved.",
+       "collaboration":"Collaboration",
+       "contact":"Contact",
+       "pieces":"Pieces",
+       "about_us":"About Us"
     }
 }

@@ -7,7 +7,7 @@ import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { getLinkWithLocale } from "@/app/lib/utils";
 
 export default function DesktopHeaderMenu() {
-  const { locale } = useLocale();
+  const { locale, dict } = useLocale();
 
   return (
     <nav>
@@ -19,7 +19,7 @@ export default function DesktopHeaderMenu() {
               title={menuItem.title}
               className='font-medium text-sm'
             >
-              {menuItem.title}
+              {dict?.common?.[menuItem.title] ?? menuItem.title}
             </Link>
           </li>
         ))}

@@ -1,25 +1,34 @@
 "use client";
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
-import { cn, gramsAmount, purityAmount } from "@/app/lib/utils";
+import {
+  cn,
+  getFullAssets,
+  getLinkWithLocale,
+  gramsAmount,
+  purityAmount,
+} from "@/app/lib/utils";
 import { OrgButton } from "@/components/shared-ui";
+import { buttonVariants } from "@/components/ui/button";
 import { PieceType } from "@/types/piece";
-import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   product: PieceType;
 };
 export default function PiecesDetails({ product }: Props) {
-  const { dict, dir } = useLocale();
+  const { dict, dir, locale } = useLocale();
 
   return (
     <>
       <div className='product-details h-auto md:h-[400px] relative w-full overflow-hidden'>
-        <img
-          src={`/assets/images/product-cover-2.jpg`}
-          alt=''
-          className='object-cover object-center md:absolute md:top-0 md:left-0 md:right-0 md:bottom-0 mb-4 md:mb-0 w-full'
-        />
+        {!!product?.cover && (
+          <img
+            src={getFullAssets(product.cover.fileName)}
+            alt=''
+            className='object-cover object-center md:absolute md:top-0 md:left-0 md:right-0 md:bottom-0 mb-4 md:mb-0 w-full'
+          />
+        )}
         <div
           className={cn(
             "details relative md:absolute md:top-12 flex flex-col items-center md:items-start gap-y-4",
@@ -57,9 +66,15 @@ export default function PiecesDetails({ product }: Props) {
             </div>
           ))}
           <div className='w-full md:w-auto mt-8'>
-            <OrgButton className='w-full md:w-auto'>
+            <Link
+              href={getLinkWithLocale(`/contact`, locale)}
+              className={buttonVariants({
+                variant: "default",
+                class: "w-full md:w-auto",
+              })}
+            >
               {dict.common.order}
-            </OrgButton>
+            </Link>
           </div>
         </div>
       </div>

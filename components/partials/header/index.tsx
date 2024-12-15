@@ -6,10 +6,10 @@ import DesktopHeader from "./desktop";
 import { MainContainer } from "@/components/containers";
 
 export const headerMenuItems: { title: string; href: string }[] = [
-  { title: "About Us", href: "/about" },
-  { title: "Pieces", href: "/pieces" },
-  { title: "Contact", href: "/contact" },
-  { title: "Collaboration", href: "/collaboration" },
+  { title: "about_us", href: "/about" },
+  { title: "pieces", href: "/pieces" },
+  { title: "contact", href: "/contact" },
+  { title: "collaboration", href: "/collaboration" },
 ];
 
 export default function MainHeaderPart() {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { cn } from "@/app/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,6 +10,8 @@ type Props = {
   title: string;
 };
 export default function BurgerMenuLink({ link, title }: Props) {
+  const { dict } = useLocale();
+
   const pathname = usePathname();
 
   return (
@@ -17,7 +20,7 @@ export default function BurgerMenuLink({ link, title }: Props) {
       title={title}
       className={cn("relative pl-4", link === pathname ? "font-bold" : "")}
     >
-      {title}
+      {dict?.common?.[title] ?? title}
     </Link>
   );
 }
