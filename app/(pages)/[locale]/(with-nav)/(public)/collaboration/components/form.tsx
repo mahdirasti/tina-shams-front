@@ -1,13 +1,18 @@
 "use client";
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
-import { OrgButton, OrgInput, OSpace } from "@/components/shared-ui";
 import { useFormik } from "formik";
+import axiosInstance from "@/app/lib/axios";
+import { useLoading } from "@/app/hooks";
+import { toast } from "sonner";
 import * as Yup from "yup";
+import { OrgButton, OrgInput, OSpace } from "@/components/shared-ui";
 import CollaborationContent from "./content";
 
 export default function CollaborationForm() {
   const { dict } = useLocale();
+
+  const { startLoading, stopLoading, isLoading } = useLoading();
 
   const { handleSubmit, getFieldProps, errors, touched } = useFormik({
     initialValues: {
@@ -23,8 +28,22 @@ export default function CollaborationForm() {
       collaboration_idea_desc: "",
       how_did_you_hear_us: "",
     },
-    validationSchema: Yup.object().shape({}),
-    onSubmit: (values) => {},
+    validationSchema: Yup.object().shape({
+      email: Yup.string().email(dict.common.please_insert_valid_email),
+    }),
+    onSubmit: (values, actions) => {
+      startLoading();
+      axiosInstance
+        .post(`/collaboration`, values)
+        .then((res) => {
+          stopLoading();
+          actions.resetForm();
+          toast.success(dict.common.collaboration_form_submitted);
+        })
+        .catch((err) => {
+          stopLoading();
+        });
+    },
   });
 
   return (
@@ -172,7 +191,9 @@ export default function CollaborationForm() {
               </div>
             </div>
             <div>
-              <OrgButton>{dict.common.submit}</OrgButton>
+              <OrgButton type='submit' loading={isLoading}>
+                {dict.common.submit}
+              </OrgButton>
             </div>
           </form>
         }
