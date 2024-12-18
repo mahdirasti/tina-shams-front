@@ -37,7 +37,7 @@ export default function PiecesDetails({ product }: Props) {
           {[
             {
               title: dict.common.weight_range,
-              value: gramsAmount(product.weight, dict.common.grams),
+              value: gramsAmount(product.weight ?? 0, dict.common.grams),
             },
             {
               title: dict.common.purity,

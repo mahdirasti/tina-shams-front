@@ -1,6 +1,5 @@
 import { MainContainer } from "@/components/containers";
 import Image from "next/image";
-import mockProducts from "../data/mock.json";
 import PiecesDetails from "./components/details";
 import CoverDetails from "./components/cover-details";
 import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";

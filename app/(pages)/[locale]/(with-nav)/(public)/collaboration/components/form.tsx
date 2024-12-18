@@ -29,7 +29,11 @@ export default function CollaborationForm() {
       how_did_you_hear_us: "",
     },
     validationSchema: Yup.object().shape({
-      email: Yup.string().email(dict.common.please_insert_valid_email),
+      phone_number: Yup.string().required(dict.common.phone_number_is_required),
+      full_name: Yup.string().required(dict.common.full_name_is_required),
+      email: Yup.string()
+        .required(dict.common.email_is_required)
+        .email(dict.common.please_insert_valid_email),
     }),
     onSubmit: (values, actions) => {
       startLoading();

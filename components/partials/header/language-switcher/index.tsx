@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { cn } from "@/app/lib/utils";
 import { ChevronDown } from "@/components/icons";
 import { OrgButton, OrgPopover } from "@/components/shared-ui";
 import Link from "next/link";
@@ -10,7 +11,7 @@ import React from "react";
 export default function LanguageSwitcher() {
   const pathname = usePathname();
 
-  const { dict, locale } = useLocale();
+  const { dict, locale, dir } = useLocale();
 
   return (
     <div className='w-auto'>
@@ -21,7 +22,10 @@ export default function LanguageSwitcher() {
           <OrgButton
             variant={"outlined"}
             endIcon={<ChevronDown />}
-            className='w-[80px] pl-4 min-w-[auto] justify-between'
+            className={cn(
+              "w-[80px] min-w-[auto] justify-between",
+              dir === "ltr" ? "pl-4" : "pr-4"
+            )}
           >
             {dict?.common?.[locale as any] ?? locale}
           </OrgButton>

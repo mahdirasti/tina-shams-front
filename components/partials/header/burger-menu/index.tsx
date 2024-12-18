@@ -1,4 +1,4 @@
-import { cn } from "@/app/lib/utils";
+import { cn, getLinkWithLocale } from "@/app/lib/utils";
 import { OrgIconButton } from "@/components/shared-ui";
 import { EllipsisVertical, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -6,8 +6,11 @@ import { headerMenuItems } from "..";
 import BurgerMenuLink from "./link";
 import BlurFade from "@/components/ui/blur-fade";
 import { usePathname } from "next/navigation";
+import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 
 export default function BurgerMenu() {
+  const { locale } = useLocale();
+
   const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
@@ -29,6 +32,7 @@ export default function BurgerMenu() {
           `fixed top-0 left-0 w-screen h-screen bg-black/50 !backdrop-blur-md transition-all z-10`,
           open ? "opacity-100 visible" : "invisible opacity-0"
         )}
+        onClick={() => setOpen(false)}
       >
         <div
           className={cn(
@@ -36,10 +40,13 @@ export default function BurgerMenu() {
             !open ? "translate-y-[-100%]" : "translate-y-0"
           )}
         >
-          <div className='flex flex-col gap-y-4 pt-20 pb-4 px-6 items-center w-full'>
+          <div className='flex flex-col gap-y-4 pt-20 pb-8 px-6 items-center w-full'>
             {headerMenuItems.map((item, key) => (
               <BlurFade key={key} inView delay={0.3 * (1 + key)}>
-                <BurgerMenuLink link={item.href} title={item.title} />
+                <BurgerMenuLink
+                  link={getLinkWithLocale(item.href, locale)}
+                  title={item.title}
+                />
               </BlurFade>
             ))}
           </div>
