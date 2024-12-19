@@ -9,7 +9,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "api.shirinnavab.com"
+        hostname: "api.tinashams.com"
       },
     ]
   },
