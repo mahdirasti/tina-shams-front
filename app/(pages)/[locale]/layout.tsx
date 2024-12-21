@@ -1,4 +1,4 @@
-import { Roboto, Almarai, Cormorant } from "next/font/google";
+import { Roboto, Almarai } from "next/font/google";
 import localFont from "next/font/local";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Metadata, Viewport } from "next";
@@ -84,7 +84,7 @@ export default function RootLayout({
 }>) {
   const dir = params.locale === "en" ? "ltr" : "rtl";
 
-  let className = "select-none antialiased";
+  let className = "select-none antialiased pt-4 md:pt-0";
 
   switch (params.locale) {
     case "en":

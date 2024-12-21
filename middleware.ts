@@ -2,7 +2,6 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import axiosInstance from "./app/lib/axios";
 
 // Supported locales and default locale
 let locales = ["en", "fa", "ar"];
@@ -65,8 +64,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    // Skip all internal paths (_next)
-    "/((?!_next|api|assets).*)/",
-  ],
+  matcher: ["/((?!_next|api|assets|favicon|manifest).*)/"],
 };

@@ -5,10 +5,11 @@ import CollaborationText from "./components/text";
 import { OSpace } from "@/components/shared-ui";
 import CollaborationContents from "./components/contents";
 import CollaborationForm from "./components/form";
+import BlurFade from "@/components/ui/blur-fade";
 
 export default function CollaborationPage() {
   return (
-    <div className='md:mt-32'>
+    <BlurFade inView className='md:mt-32'>
       <MainContainer className='px-0 md:px-2'>
         <div className='grid grid-cols-12 gap-4'>
           <div className='col-span-12 md:col-span-6'>
@@ -31,6 +32,6 @@ export default function CollaborationPage() {
           <CollaborationForm />
         </div>
       </MainContainer>
-    </div>
+    </BlurFade>
   );
 }

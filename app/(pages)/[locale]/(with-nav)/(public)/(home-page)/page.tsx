@@ -9,6 +9,7 @@ import HomePieces from "./components/pieces";
 import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
 import { SliderType } from "@/types/slider";
 import { getFullAssets, getLinkWithLocale } from "@/app/lib/utils";
+import BlurFade from "@/components/ui/blur-fade";
 
 async function getHome() {
   return axiosInstance.get(`/home`);
@@ -29,7 +30,7 @@ export default async function HomePage({ params: { locale } }: Props) {
   const sliders: SliderType[] = home?.data?.data?.sliders ?? [];
 
   return (
-    <>
+    <BlurFade inView>
       <Intro />
       <OSpace height={64} />
       <Radiance />
@@ -44,6 +45,6 @@ export default async function HomePage({ params: { locale } }: Props) {
           link: getLinkWithLocale(item.link, locale),
         }))}
       />
-    </>
+    </BlurFade>
   );
 }

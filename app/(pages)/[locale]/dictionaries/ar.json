@@ -78,6 +78,8 @@
        "please_insert_valid_email":"الرجاء إدخال بريد إلكتروني صالح",
         "phone_number_is_required":"رقم الهاتف مطلوب",
        "email_is_required":"البريد الإلكتروني مطلوب",
-       "full_name_is_required":"الاسم الكامل مطلوب"
+       "full_name_is_required":"الاسم الكامل مطلوب",
+       "explore_all":"استكشاف الكل",
+       "show_less":"إظهار أقل"
     }    
 }

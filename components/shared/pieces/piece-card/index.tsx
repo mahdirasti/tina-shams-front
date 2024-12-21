@@ -36,11 +36,12 @@ export default function PieceCard({ item }: Props) {
           <p className='text-sm text-neutral-150 min-h-[80px]'>
             {item.short_desc}
           </p>
-          <div className='flex flex-row justify-end'>
+          <div className='flex flex-row justify-end w-full'>
             <Link
               href={link}
               className={buttonVariants({
                 variant: "outlined",
+                class: "w-full md:w-auto",
               })}
             >
               {dict.common.view_details}

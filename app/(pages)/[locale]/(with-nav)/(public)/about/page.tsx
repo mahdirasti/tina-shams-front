@@ -6,6 +6,7 @@ import AboutPieces from "./components/pieces";
 import { OSpace } from "@/components/shared-ui";
 import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
 import { LocaleType } from "@/types/locale";
+import BlurFade from "@/components/ui/blur-fade";
 
 const getPieces = () => {
   return axiosInstance.get(`/products`);
@@ -25,11 +26,11 @@ export default async function AboutPage({ params: { locale } }: Props) {
   const products: PieceType[] = productsRes?.data?.data?.items ?? [];
 
   return (
-    <div>
+    <BlurFade inView>
       <Intro />
       <Details />
       <OSpace height={80} />
       <AboutPieces items={products} />
-    </div>
+    </BlurFade>
   );
 }

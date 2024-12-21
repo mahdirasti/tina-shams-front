@@ -194,8 +194,12 @@ export default function CollaborationForm() {
                 />
               </div>
             </div>
-            <div>
-              <OrgButton type='submit' loading={isLoading}>
+            <div className='w-full'>
+              <OrgButton
+                type='submit'
+                loading={isLoading}
+                className='w-full md:w-auto'
+              >
                 {dict.common.submit}
               </OrgButton>
             </div>

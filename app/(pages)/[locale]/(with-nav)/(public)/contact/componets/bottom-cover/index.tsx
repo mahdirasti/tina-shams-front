@@ -35,7 +35,7 @@ export default function ContactBottomCover() {
           className={buttonVariants({
             variant: "default",
             class:
-              "w-full md:w-auto bg-neutral-on-foreground text-neutral-foreground md:bg-foreground md:text-neutral-on-foreground",
+              "w-full md:w-auto bg-white text-black md:bg-foreground md:text-neutral-on-foreground",
           })}
         >
           {dict.common.call_us}

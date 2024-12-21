@@ -25,7 +25,10 @@ export default function CollaborationText() {
           <p>{dict.common.collaboration_desc_2}</p>
         </div>
       </div>
-      <Link href={`#collaboration_form`} className={buttonVariants()}>
+      <Link
+        href={`#collaboration_form`}
+        className={buttonVariants({ class: "w-full md:w-auto" })}
+      >
         {dict.common.collaboration_form}
       </Link>
     </div>

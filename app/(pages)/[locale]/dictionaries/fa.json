@@ -78,6 +78,8 @@
        "please_insert_valid_email":"لطفا یک ایمیل معتبر وارد کنید",
        "phone_number_is_required":"شماره تلفن الزامی است",
        "email_is_required":"ایمیل الزامی است",
-       "full_name_is_required":"نام کامل الزامی است"
+       "full_name_is_required":"نام کامل الزامی است",
+       "explore_all":"نمایش همه",
+        "show_less":"نمایش کمتر"
     }
 }

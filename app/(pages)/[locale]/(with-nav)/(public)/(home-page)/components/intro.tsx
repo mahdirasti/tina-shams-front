@@ -8,6 +8,7 @@ const cormorant = Cormorant({
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { getLinkWithLocale } from "@/app/lib/utils";
+import BlurFade from "@/components/ui/blur-fade";
 import { buttonVariants } from "@/components/ui/button";
 import { Cormorant } from "next/font/google";
 import Image from "next/image";
@@ -27,11 +28,13 @@ export default function Intro() {
       />
       <div className='flex flex-col gap-y-16 relative z-1 w-full'>
         <div className='flex flex-col gap-y-4 items-center'>
-          <h2
-            className={`text-4xl md:text-7xl font-medium whitespace-pre-line md:whitespace-nowrap text-center ${cormorant.className}`}
-          >
-            {"Illuminate \n your elegance"}
-          </h2>
+          <BlurFade inView yOffset={0}>
+            <h2
+              className={`text-4xl md:text-7xl font-medium whitespace-pre-line md:whitespace-nowrap text-center ${cormorant.className}`}
+            >
+              {"Illuminate \n your elegance"}
+            </h2>
+          </BlurFade>
           <span
             className={`text-xl md:text-2xl font-cormorant ${cormorant.className}`}
           >

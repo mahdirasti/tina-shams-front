@@ -8,39 +8,61 @@ import { LocaleType } from "@/types/locale";
 import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
 import { PieceType } from "@/types/piece";
 import { SliderType } from "@/types/slider";
+import { CategoryType } from "@/types/category";
+import CategoryChips from "./components/chips";
+import { urlWithQueryParams } from "@/app/lib/utils";
+import BlurFade from "@/components/ui/blur-fade";
 
 type Props = {
   params: {
     locale: LocaleType;
   };
+  searchParams: {
+    categories: string;
+  };
 };
 
-const getPieces = () => {
-  return axiosInstance.get(`/products`);
+const getPieces = (categories?: string) => {
+  const filterQuery: { [key: string]: string } = {};
+
+  if (categories) filterQuery["categories"] = categories;
+
+  return axiosInstance.get(urlWithQueryParams(`/products`, filterQuery));
 };
 
 const getPiecesSliders = () => {
   return axiosInstance.get(`/slider/search`);
 };
 
-export default async function PiecesPage({ params: { locale } }: Props) {
+const getCategories = () => {
+  return axiosInstance.get(`/category`);
+};
+
+export default async function PiecesPage({
+  params: { locale },
+  searchParams,
+}: Props) {
   setDefaultLocale(locale);
 
-  const productsRes = await getPieces();
+  const productsRes = await getPieces(searchParams.categories);
   const sliderRes = await getPiecesSliders();
+  const categoryRes = await getCategories();
 
   const products: PieceType[] = productsRes?.data?.data?.items ?? [];
   const sliders: SliderType[] = sliderRes?.data?.data ?? [];
+  const categories: CategoryType[] = categoryRes?.data?.data?.items ?? [];
 
   return (
-    <div className='md:mt-24'>
+    <BlurFade inView className='md:mt-24'>
       <MainContainer>
         <Slider items={sliders.filter((a) => a.location === "home")} />
+        <OSpace height={80} />
+        <CategoryChips items={categories} />
         <OSpace height={80} />
         <PiecesItems items={products} />
         <OSpace height={80} />
         <PiecesBanners items={sliders.filter((a) => a.location === "pieces")} />
       </MainContainer>
-    </div>
+    </BlurFade>
   );
 }

@@ -18,7 +18,7 @@ export default function BurgerMenuLink({ link, title }: Props) {
     <Link
       href={link}
       title={title}
-      className={cn("relative pl-4", link === pathname ? "font-bold" : "")}
+      className={cn("relative px-4", link === pathname ? "font-bold" : "")}
     >
       {dict?.common?.[title] ?? title}
     </Link>

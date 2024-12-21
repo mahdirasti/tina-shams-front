@@ -78,6 +78,8 @@
        "pieces":"Pieces",
        "about_us":"About Us",
        "collaboration_form_submitted":"Thank you for submitting collaboration form, we'll call you as soon as possible.",
-       "please_insert_valid_email":"Please insert valid email"
+       "please_insert_valid_email":"Please insert valid email",
+       "explore_all":"Explore All",
+       "show_less":"Show Less"
     }
 }
