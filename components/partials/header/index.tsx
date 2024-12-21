@@ -15,11 +15,8 @@ export const headerMenuItems: { title: string; href: string }[] = [
   { title: "collaboration", href: "/collaboration" },
 ];
 
-const filledPaths = ["/about"];
-
 export default function MainHeaderPart() {
   const pathname = usePathname();
-  console.log("pathname", pathname);
 
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {

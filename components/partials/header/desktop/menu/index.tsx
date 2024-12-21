@@ -17,7 +17,7 @@ export default function DesktopHeaderMenu() {
             <Link
               href={getLinkWithLocale(menuItem.href, locale)}
               title={menuItem.title}
-              className='font-medium text-sm'
+              className='font-medium text-sm md:text-white'
             >
               {dict?.common?.[menuItem.title] ?? menuItem.title}
             </Link>

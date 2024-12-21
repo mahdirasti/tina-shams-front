@@ -23,7 +23,7 @@ export default function LanguageSwitcher() {
             variant={"outlined"}
             endIcon={<ChevronDown />}
             className={cn(
-              "w-[80px] min-w-[auto] justify-between",
+              "w-[80px] min-w-[auto] justify-between border-white text-white [&_path]:fill-white",
               dir === "ltr" ? "pl-4" : "pr-4"
             )}
           >

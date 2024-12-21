@@ -19,7 +19,7 @@ export default function Intro() {
   const { dict, locale } = useLocale();
 
   return (
-    <section className='min-h-screen bg-black/10 flex items-center justify-center relative'>
+    <section className='min-h-screen bg-black/10 flex items-center justify-center relative before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-black/40 before:z-10'>
       {/* <Image
         fill
         alt='Intro slide'
@@ -33,17 +33,17 @@ export default function Intro() {
         muted
         className='absolute top-0 left-0 w-full h-full object-cover'
       />
-      <div className='flex flex-col gap-y-16 relative z-1 w-full'>
+      <div className='flex flex-col gap-y-16 w-full relative z-20'>
         <div className='flex flex-col gap-y-4 items-center'>
           <BlurFade inView yOffset={0}>
             <h2
-              className={`text-4xl md:text-7xl font-medium whitespace-pre-line md:whitespace-nowrap text-center ${cormorant.className}`}
+              className={`text-4xl md:text-7xl font-medium whitespace-pre-line md:whitespace-nowrap text-center text-white ${cormorant.className}`}
             >
               {"Illuminate \n your elegance"}
             </h2>
           </BlurFade>
           <span
-            className={`text-xl md:text-2xl font-cormorant ${cormorant.className}`}
+            className={`text-xl md:text-2xl font-cormorant text-white ${cormorant.className}`}
           >
             {"bling & shine"}
           </span>
