@@ -1,8 +1,15 @@
 "use client";
 
+const cormorant = Cormorant({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+});
+
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { getLinkWithLocale } from "@/app/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { Cormorant } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -18,49 +25,39 @@ export default function Intro() {
         src={`/assets/images/intro-slide.jpg`}
         className='object-cover md:object-center'
       />
-      <div className='flex flex-col gap-y-16 relative z-1'>
+      <div className='flex flex-col gap-y-16 relative z-1 w-full'>
         <div className='flex flex-col gap-y-4 items-center'>
-          {/* <div>
-            <img
-              src='/assets/images/illum-desktop.svg'
-              alt='Illum Desktop'
-              className='desktop hidden md:flex'
-            />
-            <img
-              src='/assets/images/illum-mobile.svg'
-              alt='Illum Desktop'
-              className='mobile flex md:hidden'
-            />
-          </div>
-          <div>
-            <img
-              src='/assets/images/bling-and-shine-desktop.svg'
-              alt='Billing And Shine desktop'
-              className='desktop hidden md:flex'
-            />
-            <img
-              src='/assets/images/bling-and-shine-desktop.svg'
-              alt='Billing And Shine Mobile'
-              className='mobile flex md:hidden'
-            />
-          </div> */}
-          <h2 className='text-4xl md:text-7xl font-medium whitespace-pre-line md:whitespace-nowrap text-center'>
-            {dict.common.intro_title}
+          <h2
+            className={`text-4xl md:text-7xl font-medium whitespace-pre-line md:whitespace-nowrap text-center ${cormorant.className}`}
+          >
+            {"Illuminate \n your elegance"}
           </h2>
-          <span className='text-xl md:text-2xl'>
-            {dict.common.intro_subtitle}
+          <span
+            className={`text-xl md:text-2xl font-cormorant ${cormorant.className}`}
+          >
+            {"bling & shine"}
           </span>
         </div>
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col gap-y-4 items-center w-full px-6 md:px-0'>
           <Link
             href={getLinkWithLocale(`/pieces`, locale)}
             className={buttonVariants({
               variant: "outlined",
               class:
-                "w-[194px] max-w-full hover:bg-neutral-foreground hover:text-neutral-on-foreground",
+                "w-full md:w-[194px] max-w-full hover:bg-neutral-foreground hover:text-neutral-on-foreground",
             })}
           >
             {dict.common.explore}
+          </Link>
+          <Link
+            href={getLinkWithLocale(`/about`, locale)}
+            className={buttonVariants({
+              variant: "default",
+              class:
+                "w-full md:w-[194px] md:hidden max-w-full hover:bg-neutral-foreground hover:text-neutral-on-foreground",
+            })}
+          >
+            {dict.common.about_us}
           </Link>
         </div>
       </div>

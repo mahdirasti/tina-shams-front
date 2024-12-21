@@ -321,6 +321,9 @@ const config: Config = {
         "tablet-display-medium": "var(--tablet-display-medium-leading)",
         "tablet-display-small": "var(--tablet-display-small-leading)",
       },
+      fontFamily: {
+        cormorant: ["var(--font-cormorant)"],
+      },
     },
   },
   plugins: [

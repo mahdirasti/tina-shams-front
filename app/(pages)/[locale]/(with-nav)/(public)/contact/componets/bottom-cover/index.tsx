@@ -1,13 +1,14 @@
 "use client";
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { cn } from "@/app/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function ContactBottomCover() {
-  const { dict } = useLocale();
+  const { dict, dir } = useLocale();
 
   return (
     <div className='w-full h-[828px] md:h-[520px] relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-full after:bg-gradient-to-t after:from-black/80 after:to-transparent md:after:hidden after:z-[1]'>
@@ -21,7 +22,12 @@ export default function ContactBottomCover() {
         <strong className='text-4xl md:text-5xl whitespace-pre-line md:whitespace-nowrap text-center md:text-left'>
           {dict.common.tina_shams_support_team}
         </strong>
-        <p className='text-center md:text-left'>
+        <p
+          className={cn(
+            "text-center",
+            dir === "ltr" ? "md:text-left" : "md:text-right"
+          )}
+        >
           {dict.common.tina_shams_contact_desc}
         </p>
         <Link

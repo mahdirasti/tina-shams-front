@@ -12,7 +12,7 @@ export default function Intro() {
 
   return (
     <section
-      className='about-us-intro min-h-[calc(100vh-64px)] md:min-h-screen relative after:absolute after:bottom-0 after:left-0 after:w-full after:top-0 after:bg-gradient-to-t after:from-black after:to-transparent'
+      className='about-us-intro min-h-[calc(100vh-64px)] md:min-h-screen relative before:absolute before:top-0 before:left-0 before:w-full before:bg-gradient-to-b before:from-white/50 before:to-transparent before:h-full before:z-10 after:absolute after:bottom-0 after:left-0 after:w-full after:top-0 after:bg-gradient-to-t after:from-black after:to-transparent'
       id='intro'
     >
       <Image

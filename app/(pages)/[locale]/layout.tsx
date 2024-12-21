@@ -1,4 +1,4 @@
-import { Roboto, Almarai } from "next/font/google";
+import { Roboto, Almarai, Cormorant } from "next/font/google";
 import localFont from "next/font/local";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Metadata, Viewport } from "next";
