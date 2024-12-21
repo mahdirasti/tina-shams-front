@@ -25,6 +25,7 @@ const SimpleVideo: React.FC<SimpleVideoProps> = ({
       autoPlay={autoPlay}
       className={`w-full h-auto ${className}`}
       onEnded={onEnd}
+      playsInline
     />
   );
 };

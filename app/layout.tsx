@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className='pt-16 md:pt-0'>{children}</body>
+      <body className='md:pt-0'>{children}</body>
     </html>
   );
 }

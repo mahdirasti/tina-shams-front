@@ -30,7 +30,7 @@ export default async function HomePage({ params: { locale } }: Props) {
   const sliders: SliderType[] = home?.data?.data?.sliders ?? [];
 
   return (
-    <BlurFade inView>
+    <BlurFade inView yOffset={0}>
       <Intro />
       <OSpace height={64} />
       <Radiance />

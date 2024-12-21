@@ -19,7 +19,7 @@ export default function PiecesDetails({ product }: Props) {
   const { dict, dir, locale } = useLocale();
 
   return (
-    <>
+    <div className='px-4 md:px-0'>
       <div className='product-details h-auto md:h-[400px] relative w-full overflow-hidden'>
         {!!product?.cover && (
           <img
@@ -81,6 +81,6 @@ export default function PiecesDetails({ product }: Props) {
         className='mt-16 [&_p]:mb-4'
         dangerouslySetInnerHTML={{ __html: product?.content ?? "" }}
       ></div>
-    </>
+    </div>
   );
 }

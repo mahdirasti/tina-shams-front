@@ -19,9 +19,5 @@ export default function ClientInit({ lang }: Props) {
     axiosInstance.defaults.headers.common["lang"] = lang;
   }, [lang]);
 
-  if (isLoading) {
-    return <SplashScreen />;
-  }
-
-  return null;
+  return <SplashScreen />;
 }

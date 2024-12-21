@@ -32,7 +32,7 @@ const SplashScreen = ({ onFinished }: { onFinished?: () => void }) => {
     >
       <SimpleVideo
         src='/assets/videos/tina-shams-splash-screen.mp4'
-        className='w-[800px] max-w-full h-auto'
+        className='w-full scale-125 md:scale-100 md:!w-[992px] max-w-full h-auto'
         onEnd={closeSplashScreen}
       />
     </div>
