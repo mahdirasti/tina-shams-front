@@ -7,7 +7,11 @@ import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { cn, getLinkWithLocale } from "@/app/lib/utils";
 import { usePage } from "@/app/hooks/use-page";
 
-export default function DesktopHeaderMenu() {
+type Props = {
+  scrolled: boolean;
+};
+
+export default function DesktopHeaderMenu({ scrolled }: Props) {
   const { isHome } = usePage();
   const { locale, dict } = useLocale();
 
@@ -21,7 +25,7 @@ export default function DesktopHeaderMenu() {
               title={menuItem.title}
               className={cn(
                 `font-medium text-sm`,
-                isHome ? "md:text-white" : ""
+                isHome && !scrolled ? "md:text-white" : ""
               )}
             >
               {dict?.common?.[menuItem.title] ?? menuItem.title}

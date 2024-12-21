@@ -6,7 +6,6 @@ import DesktopHeader from "./desktop";
 import { MainContainer } from "@/components/containers";
 import { useEffect, useState } from "react";
 import { cn } from "@/app/lib/utils";
-import { usePathname } from "next/navigation";
 
 export const headerMenuItems: { title: string; href: string }[] = [
   { title: "about_us", href: "/about" },
@@ -16,8 +15,6 @@ export const headerMenuItems: { title: string; href: string }[] = [
 ];
 
 export default function MainHeaderPart() {
-  const pathname = usePathname();
-
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const scrollHandler = () => {
@@ -43,7 +40,7 @@ export default function MainHeaderPart() {
       <MainContainer className='main-header'>
         {/* DESKTOP */}
         <div className='hidden md:flex desktop-header'>
-          <DesktopHeader />
+          <DesktopHeader scrolled={scrolled} />
         </div>
         {/* DESKTOP */}
         {/* Mobile */}

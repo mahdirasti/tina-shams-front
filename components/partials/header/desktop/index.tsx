@@ -3,11 +3,15 @@ import React from "react";
 import LanguageSwitcher from "../language-switcher";
 import DesktopHeaderMenu from "./menu";
 
-export default function DesktopHeader() {
+type Props = {
+  scrolled: boolean;
+};
+
+export default function DesktopHeader({ scrolled }: Props) {
   return (
     <div className='flex flex-row items-center justify-between w-full'>
       <Logo />
-      <DesktopHeaderMenu />
+      <DesktopHeaderMenu scrolled={scrolled} />
       <LanguageSwitcher />
     </div>
   );
