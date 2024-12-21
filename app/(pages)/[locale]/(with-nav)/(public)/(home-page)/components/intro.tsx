@@ -12,7 +12,6 @@ import SimpleVideo from "@/components/shared/simple-video";
 import BlurFade from "@/components/ui/blur-fade";
 import { buttonVariants } from "@/components/ui/button";
 import { Cormorant } from "next/font/google";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
