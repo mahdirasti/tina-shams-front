@@ -21,7 +21,7 @@ export default function Intro() {
         fill
         className='object-cover object-center'
       />
-      <div className='details absolute z-[1] bottom-6 md:bottom-24 left-0 w-full flex flex-col items-center gap-y-8 py-6 text-neutral-on-foreground'>
+      <div className='details absolute z-[10] bottom-6 md:bottom-24 left-0 w-full flex flex-col items-center gap-y-8 py-6 text-neutral-on-foreground'>
         <div className='flex flex-col gap-y-4 items-center w-[700px] max-w-[90%]'>
           <h1 className='text-center text-4xl md:text-5xl font-medium whitespace-pre-line md:whitespace-nowrap'>
             {dict.common.about_title}

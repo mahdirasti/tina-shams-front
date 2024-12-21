@@ -53,7 +53,7 @@ export default async function PiecesPage({
   const categories: CategoryType[] = categoryRes?.data?.data?.items ?? [];
 
   return (
-    <BlurFade inView className='md:mt-24'>
+    <BlurFade inView className='mt-16 md:mt-24'>
       <MainContainer>
         <Slider items={sliders.filter((a) => a.location === "home")} />
         <OSpace height={80} />

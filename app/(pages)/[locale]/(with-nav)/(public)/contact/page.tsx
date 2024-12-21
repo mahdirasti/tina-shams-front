@@ -13,7 +13,7 @@ export default async function ContactPage() {
   const settings = res?.data?.data;
 
   return (
-    <BlurFade inView className='md:mt-32'>
+    <BlurFade inView className='mt-16 md:mt-32'>
       <MainContainer>
         <Heading />
         <OSpace height={32} />

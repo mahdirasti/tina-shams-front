@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { usePage } from "@/app/hooks/use-page";
 import { cn } from "@/app/lib/utils";
 import { ChevronDown } from "@/components/icons";
 import { OrgButton, OrgPopover } from "@/components/shared-ui";
@@ -11,6 +12,7 @@ import React from "react";
 export default function LanguageSwitcher() {
   const pathname = usePathname();
 
+  const { isHome } = usePage();
   const { dict, locale, dir } = useLocale();
 
   return (
@@ -23,8 +25,9 @@ export default function LanguageSwitcher() {
             variant={"outlined"}
             endIcon={<ChevronDown />}
             className={cn(
-              "w-[80px] min-w-[auto] justify-between border-white text-white [&_path]:fill-white",
-              dir === "ltr" ? "pl-4" : "pr-4"
+              "w-[80px] min-w-[auto] justify-between",
+              dir === "ltr" ? "pl-4" : "pr-4",
+              isHome ? "border-white text-white [&_path]:fill-white" : ""
             )}
           >
             {dict?.common?.[locale as any] ?? locale}

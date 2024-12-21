@@ -84,7 +84,7 @@ export default function RootLayout({
 }>) {
   const dir = params.locale === "en" ? "ltr" : "rtl";
 
-  let className = "select-none antialiased pt-4 md:pt-0";
+  let className = "select-none antialiased";
 
   switch (params.locale) {
     case "en":
