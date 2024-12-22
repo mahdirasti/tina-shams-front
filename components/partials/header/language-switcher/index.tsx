@@ -9,7 +9,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-export default function LanguageSwitcher() {
+type Props = {
+  scrolled: boolean;
+};
+
+export default function LanguageSwitcher({ scrolled }: Props) {
   const pathname = usePathname();
 
   const { isHome } = usePage();
@@ -27,7 +31,9 @@ export default function LanguageSwitcher() {
             className={cn(
               "w-[80px] min-w-[auto] justify-between",
               dir === "ltr" ? "pl-4" : "pr-4",
-              isHome ? "border-white text-white [&_path]:fill-white" : ""
+              isHome && !scrolled
+                ? "border-white text-white [&_path]:fill-white"
+                : ""
             )}
           >
             {dict?.common?.[locale as any] ?? locale}

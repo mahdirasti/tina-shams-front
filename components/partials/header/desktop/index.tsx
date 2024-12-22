@@ -12,7 +12,7 @@ export default function DesktopHeader({ scrolled }: Props) {
     <div className='flex flex-row items-center justify-between w-full'>
       <Logo />
       <DesktopHeaderMenu scrolled={scrolled} />
-      <LanguageSwitcher />
+      <LanguageSwitcher scrolled={scrolled} />
     </div>
   );
 }
