@@ -1,24 +1,24 @@
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { getLinkWithLocale } from "@/app/lib/utils";
+import TinaShamsIcon from "@/components/icons/tinashams";
+import TinaShamsSymbolIcon from "@/components/icons/tinashams-symbol";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 type Props = {
   clickable?: boolean;
+  color?: string;
 };
 
-export default function Logo({ clickable = true }: Props) {
+export default function Logo({ clickable = true, color }: Props) {
   const { locale } = useLocale();
 
   let logoContent = (
-    <Image
-      width={44}
-      height={44}
-      src={`/assets/images/tina-shams-logo.svg`}
-      alt='Tina Shams'
-      className='w-[24px] h-[24px] md:w-[44px] md:h-[44px]'
-    />
+    <>
+      <TinaShamsIcon className='hidden md:flex' color={color} />
+      <TinaShamsSymbolIcon className='md:hidden' color={color} />
+    </>
   );
 
   return clickable ? (
