@@ -9,11 +9,11 @@ type Props = {
 };
 
 export default function DesktopHeader({ scrolled }: Props) {
-  const { isAbout } = usePage();
+  const { isAbout, isHome } = usePage();
 
   return (
     <div className='flex flex-row items-center justify-between w-full'>
-      <Logo color={!scrolled && !isAbout ? "#ffffff" : "#000000"} />
+      <Logo color={(isHome || isAbout) && !scrolled ? "#ffffff" : "#000000"} />
       <DesktopHeaderMenu scrolled={scrolled} />
       <LanguageSwitcher scrolled={scrolled} />
     </div>
