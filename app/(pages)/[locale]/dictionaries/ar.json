@@ -80,6 +80,7 @@
        "email_is_required":"البريد الإلكتروني مطلوب",
        "full_name_is_required":"الاسم الكامل مطلوب",
        "explore_all":"استكشاف الكل",
-       "show_less":"إظهار أقل"
+       "show_less":"إظهار أقل",
+       "select_lang":"اختر اللغة"
     }    
 }

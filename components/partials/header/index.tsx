@@ -6,6 +6,7 @@ import DesktopHeader from "./desktop";
 import { MainContainer } from "@/components/containers";
 import { useEffect, useState } from "react";
 import { cn } from "@/app/lib/utils";
+import MobileLanguageSwitcher from "./mobile-language-switcher";
 
 export const headerMenuItems: { title: string; href: string }[] = [
   { title: "about_us", href: "/about" },
@@ -48,7 +49,10 @@ export default function MainHeaderPart() {
           <div className='relative z-20'>
             <Logo />
           </div>
-          <BurgerMenu />
+          <div className='flex flex-row items-center gap-x-2'>
+            <MobileLanguageSwitcher />
+            <BurgerMenu />
+          </div>
         </div>
         {/* Mobile */}
       </MainContainer>

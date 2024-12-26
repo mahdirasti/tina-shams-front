@@ -2,7 +2,7 @@ import { IconPropsType, defaultColor } from ".";
 
 type Props = { className?: string } & IconPropsType;
 
-const TinaShamsIcon = ({ className, color = defaultColor }: Props) => {
+const TinaShamsIcon = ({ className, color = "#000000" }: Props) => {
   return (
     <svg
       width='166'
