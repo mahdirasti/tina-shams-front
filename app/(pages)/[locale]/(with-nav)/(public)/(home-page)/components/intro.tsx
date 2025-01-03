@@ -54,7 +54,7 @@ export default function Intro() {
             className={buttonVariants({
               variant: "outlined",
               class:
-                "w-full md:w-[194px] max-w-full hover:bg-neutral-foreground hover:text-neutral-on-foreground text-white border-white",
+                "w-full md:w-[194px] max-w-full hover:bg-neutral-foreground text-white hover:bg-white md:hover:text-black border-white",
             })}
           >
             {dict.common.explore}
@@ -64,7 +64,7 @@ export default function Intro() {
             className={buttonVariants({
               variant: "default",
               class:
-                "w-full md:w-[194px] max-w-full hover:bg-neutral-foreground hover:text-neutral-on-foreground",
+                "w-full md:w-[194px] max-w-full bg-black hover:bg-white hover:text-black",
             })}
           >
             {dict.common.about_us}
