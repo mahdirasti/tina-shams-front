@@ -16,7 +16,7 @@ export default function DesktopHeaderMenu({ scrolled }: Props) {
   const { locale, dict } = useLocale();
 
   return (
-    <nav>
+    <nav className='absolute left-[50%] translate-x-[-50%]'>
       <ul className='flex flex-row items-center justify-center gap-x-12'>
         {headerMenuItems.map((menuItem, key) => (
           <li key={key}>

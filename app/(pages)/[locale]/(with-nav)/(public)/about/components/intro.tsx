@@ -16,7 +16,7 @@ export default function Intro() {
       id='intro'
     >
       <Image
-        src={`/assets/images/tina-shams.jpg`}
+        src={`/assets/images/tina-shams-collaboration.jpg`}
         alt=''
         fill
         className='object-cover object-center'
