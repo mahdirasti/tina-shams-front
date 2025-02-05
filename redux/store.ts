@@ -17,6 +17,7 @@ import {
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import authReducer from "./slices/auth-slice";
+import generalReducer from "./slices/general-slice";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ export const resetStoreAction = createAction("RESET");
 
 const combinedReducers = combineReducers({
   authReducer: authReducer,
+  general: generalReducer,
 });
 
 const rootReducer = (

@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { PieceType } from "@/types/piece";
 import Image from "next/image";
 import Link from "next/link";
+import PieceThumbnail from "./thumbnail";
 
 type Props = {
   item: PieceType;
@@ -16,14 +17,7 @@ export default function PieceCard({ item }: Props) {
   return (
     <div className='w-full rounded-xl border border-neutral-100 overflow-hidden'>
       <Link href={link} className='flex h-[397px] relative'>
-        {!!item.thumbnail && (
-          <Image
-            fill
-            src={getFullAssets(item.thumbnail.fileName)}
-            alt=''
-            className='object-cover object-center'
-          />
-        )}
+        <PieceThumbnail piece={item} />
       </Link>
       <div className='p-4 flex flex-col gap-y-6'>
         <div className='flex flex-col gap-y-1'>

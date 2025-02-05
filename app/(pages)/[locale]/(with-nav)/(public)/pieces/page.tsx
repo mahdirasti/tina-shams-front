@@ -44,11 +44,11 @@ export default async function PiecesPage({
 }: Props) {
   setDefaultLocale(locale);
 
-  const productsRes = await getPieces(searchParams.categories);
+  // const productsRes = await getPieces(searchParams.categories);
   const sliderRes = await getPiecesSliders();
   const categoryRes = await getCategories();
 
-  const products: PieceType[] = productsRes?.data?.data?.items ?? [];
+  // const products: PieceType[] = productsRes?.data?.data?.items ?? [];
   const sliders: SliderType[] = sliderRes?.data?.data ?? [];
   const categories: CategoryType[] = categoryRes?.data?.data?.items ?? [];
 
@@ -59,7 +59,7 @@ export default async function PiecesPage({
         <OSpace height={80} />
         <CategoryChips items={categories} />
         <OSpace height={80} />
-        <PiecesItems items={products} />
+        <PiecesItems categories={searchParams.categories} />
         <OSpace height={80} />
         <PiecesBanners items={sliders.filter((a) => a.location === "pieces")} />
       </MainContainer>

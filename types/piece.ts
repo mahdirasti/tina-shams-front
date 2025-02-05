@@ -13,10 +13,13 @@ export type PieceType = {
   seo_description: string;
   seo_keyword: string;
   thumbnail: FileType;
+  mobile_thumbnail?: FileType;
   cover: FileType;
+  mobile_cover?: FileType;
   categories: CategoryType[];
   createdAt: string;
   updatedAt: string;
   weight: string;
   id: string;
+  similarProducts: PieceType[];
 };

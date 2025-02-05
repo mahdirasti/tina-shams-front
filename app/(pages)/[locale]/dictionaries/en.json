@@ -6,7 +6,7 @@
        "radience_title":"Unveil \n Your Radiance",
        "radience_desc":"Tina Shams brand is a luxury jewelry brand that captures elegance and modern sophistication. With a unique blend of timeless craftsmanship and contemporary design, Tina Shams brand offers stunning collections that bring out the brilliance in every piece. Whether its for a special occasion or everyday glam, the brand lives by its slogan, Bling and Shine, ensuring every wearer sparkles with confidence.",
        "read_more":"Read More",
-       "pieces_title":"Some of our pieces",
+       "pieces_title":"Our popular pieces",
        "view_details":"View details",
        "about_title":"About \n Tina Shams brand",
        "about_desc":"At Tina Shams brand, we believe that jewelry is more than an accessory it’s a reflection of your unique story. Our brand is built on a passion for craftsmanship and a love for creating pieces that are as bold and radiant as the individuals who wear them.",
@@ -72,7 +72,7 @@
        "en":"EN",
        "fa":"FA",
        "ar":"AR",
-       "copyright":"© Copyright 2024. All Rights Reserved.",
+       "copyright":"© Copyright 2025. All Rights Reserved.",
        "collaboration":"Collaboration",
        "contact":"Contact",
        "pieces":"Pieces",
@@ -81,6 +81,9 @@
        "please_insert_valid_email":"Please insert valid email",
        "explore_all":"Explore All",
        "show_less":"Show Less",
-       "select_lang":"Select Language"
+       "select_lang":"Select Language",
+       "show_more":"Show More",
+       "recent_piece_views":"Recent piece views",
+       "similar_products":"Similar Products"
     }
 }

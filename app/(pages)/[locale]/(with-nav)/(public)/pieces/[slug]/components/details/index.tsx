@@ -11,6 +11,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { PieceType } from "@/types/piece";
 import Link from "next/link";
+import SinglePieceCover from "./cover";
 
 type Props = {
   product: PieceType;
@@ -21,13 +22,7 @@ export default function PiecesDetails({ product }: Props) {
   return (
     <div className='px-4 md:px-0'>
       <div className='product-details h-auto md:h-[400px] relative w-full overflow-hidden'>
-        {!!product?.cover && (
-          <img
-            src={getFullAssets(product.cover.fileName)}
-            alt=''
-            className='object-cover object-center md:absolute md:top-0 md:left-0 md:right-0 md:bottom-0 mb-4 md:mb-0 w-full'
-          />
-        )}
+        <SinglePieceCover piece={product} />
         <div
           className={cn(
             "details relative md:absolute md:top-12 flex flex-col items-center md:items-start gap-y-4",
