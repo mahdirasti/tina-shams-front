@@ -30,8 +30,6 @@ export default async function PiecesSinglePage({
   const res = await getPiece(slug);
   const product: PieceType = res?.data?.data;
 
-  console.log("product", product);
-
   return (
     <BlurFade inView className='md:mt-24'>
       <MainContainer className='px-0 min-h-[calc(100vh-260px)] md:min-h-[calc(100vh-248px)] flex flex-col gap-y-4'>

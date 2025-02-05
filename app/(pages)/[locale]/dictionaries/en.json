@@ -85,6 +85,7 @@
        "select_lang":"Select Language",
        "show_more":"Show More",
        "recent_piece_views":"Recent piece views",
-       "similar_products":"Similar Products"
+       "similar_products":"Similar Products",
+       "blog":"Blog"
     }
 }

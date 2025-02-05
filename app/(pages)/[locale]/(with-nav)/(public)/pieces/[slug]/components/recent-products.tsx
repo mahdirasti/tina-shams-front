@@ -14,7 +14,7 @@ export default function RecentProductViews() {
   return (
     <Pieces
       title={dict.common.recent_piece_views}
-      items={[...recent_view_pieces].reverse()}
+      items={[...recent_view_pieces].reverse().slice(0, 3)}
     />
   );
 }

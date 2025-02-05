@@ -21,7 +21,11 @@ export default function DesktopHeaderMenu({ scrolled }: Props) {
         {headerMenuItems.map((menuItem, key) => (
           <li key={key}>
             <Link
-              href={getLinkWithLocale(menuItem.href, locale)}
+              href={
+                menuItem?.forceLink
+                  ? menuItem.forceLink
+                  : getLinkWithLocale(menuItem.href, locale)
+              }
               title={menuItem.title}
               className={cn(
                 `font-medium text-sm`,

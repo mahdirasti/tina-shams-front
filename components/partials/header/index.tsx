@@ -8,10 +8,15 @@ import { useEffect, useState } from "react";
 import { cn } from "@/app/lib/utils";
 import MobileLanguageSwitcher from "./mobile-language-switcher";
 
-export const headerMenuItems: { title: string; href: string }[] = [
+export const headerMenuItems: {
+  title: string;
+  href: string;
+  forceLink?: string;
+}[] = [
   { title: "about_us", href: "/about" },
   { title: "pieces", href: "/pieces" },
   { title: "contact", href: "/contact" },
+  { title: "blog", href: "/blog", forceLink: "/en/blog" },
   { title: "collaboration", href: "/collaboration" },
 ];
 
