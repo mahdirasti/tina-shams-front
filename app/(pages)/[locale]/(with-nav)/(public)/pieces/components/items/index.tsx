@@ -3,9 +3,7 @@
 import { OSpace } from "@/components/shared-ui";
 import Pieces from "@/components/shared/pieces/items";
 import { PieceType } from "@/types/piece";
-import ExpandAll from "./exapnd-all";
 import PaginationMaker from "@/components/shared/pagination-maker";
-import { urlWithQueryParams } from "@/app/lib/utils";
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 
 type Props = {

@@ -12,6 +12,7 @@ import { CategoryType } from "@/types/category";
 import CategoryChips from "./components/chips";
 import { urlWithQueryParams } from "@/app/lib/utils";
 import BlurFade from "@/components/ui/blur-fade";
+import PiecesPageItems from "./[slug]/components/items";
 
 type Props = {
   params: {
@@ -59,7 +60,7 @@ export default async function PiecesPage({
         <OSpace height={80} />
         <CategoryChips items={categories} />
         <OSpace height={80} />
-        <PiecesItems categories={searchParams.categories} />
+        <PiecesPageItems categories={searchParams.categories} />
         <OSpace height={80} />
         <PiecesBanners items={sliders.filter((a) => a.location === "pieces")} />
       </MainContainer>
