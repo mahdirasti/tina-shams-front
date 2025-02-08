@@ -13,11 +13,11 @@ export default function GoldShower({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "h-10 rounded-full text-white px-3 border border-white flex flex-row items-center text-sm",
+        "h-10 rounded-full text-white px-3 border border-white flex flex-row items-center text-sm gap-1",
         className
       )}
     >
-      <Coins size={16} className='mr-1' />
+      <Coins size={16} />
       {`${price?.value} ${dict.common.rial}`}
     </div>
   );
