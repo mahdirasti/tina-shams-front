@@ -7,6 +7,7 @@ import { MainContainer } from "@/components/containers";
 import { useEffect, useState } from "react";
 import { cn } from "@/app/lib/utils";
 import MobileLanguageSwitcher from "./mobile-language-switcher";
+import GoldShower from "./gold-shower";
 
 export const headerMenuItems: {
   title: string;
@@ -55,6 +56,7 @@ export default function MainHeaderPart() {
             <Logo />
           </div>
           <div className='flex flex-row items-center gap-x-2'>
+            <GoldShower className={cn("border-transparent text-black")} />
             <MobileLanguageSwitcher />
             <BurgerMenu />
           </div>
