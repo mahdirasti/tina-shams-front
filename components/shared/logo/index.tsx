@@ -1,9 +1,10 @@
+"use client";
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { getLinkWithLocale } from "@/app/lib/utils";
 import TinaShamsIcon from "@/components/icons/tinashams";
 import TinaShamsNonPersianIcon from "@/components/icons/tinashams-non-persian";
 import TinaShamsSymbolIcon from "@/components/icons/tinashams-symbol";
-import Image from "next/image";
+
 import Link from "next/link";
 import React from "react";
 
