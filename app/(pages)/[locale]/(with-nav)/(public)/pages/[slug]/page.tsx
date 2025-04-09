@@ -15,7 +15,7 @@ type Props = {
 };
 
 const getPage = (slug: string) => {
-  return axiosInstance.get(`/page/${slug}`);
+  return axiosInstance.get(`/pages/${slug}`);
 };
 
 export default async function PageSinglePage({ params }: Props) {
