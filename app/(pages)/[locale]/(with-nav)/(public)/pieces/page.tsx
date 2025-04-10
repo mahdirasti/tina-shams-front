@@ -30,8 +30,15 @@ const getCategories = () => {
   return axiosInstance.get(`/category`);
 };
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  const dict = await getDictionary("fa");
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{
+    locale: LocaleType;
+  }>;
+}): Promise<Metadata> => {
+  const { locale } = await params;
+  const dict = await getDictionary(locale);
   const canonical = await getCanonicalURL();
   return {
     title: dict.common.pieces,
