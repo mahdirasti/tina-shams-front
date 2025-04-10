@@ -14,12 +14,12 @@ import { getDictionary } from "../../../dictionaries";
 import { getCanonicalURL } from "@/app/actions/canonical";
 import { Metadata } from "next";
 type Props = {
-  params: {
+  params: Promise<{
     locale: LocaleType;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     categories: string;
-  };
+  }>;
 };
 
 const getPiecesSliders = () => {
@@ -51,11 +51,11 @@ export const generateMetadata = async (): Promise<Metadata> => {
   };
 };
 
-export default async function PiecesPage({
-  params: { locale },
-  searchParams,
-}: Props) {
+export default async function PiecesPage({ params, searchParams }: Props) {
+  const { locale } = await params;
   setDefaultLocale(locale);
+
+  const categoriesSearch = await searchParams;
 
   // const productsRes = await getPieces(searchParams.categories);
   const sliderRes = await getPiecesSliders();
@@ -72,7 +72,7 @@ export default async function PiecesPage({
         <OSpace height={80} />
         <CategoryChips items={categories} />
         <OSpace height={80} />
-        <PiecesPageItems categories={searchParams.categories} />
+        <PiecesPageItems categories={categoriesSearch.categories} />
         <OSpace height={80} />
         <PiecesBanners items={sliders.filter((a) => a.location === "pieces")} />
       </MainContainer>

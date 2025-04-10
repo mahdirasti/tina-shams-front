@@ -12,7 +12,8 @@ export type UserSession = {
 };
 
 export default async function getServerSession() {
-  const token = cookies().get(_VARZ.tokenCookieKey)?.value || "";
+  const cookieStore = await cookies();
+  const token = cookieStore.get(_VARZ.tokenCookieKey)?.value || "";
 
   let data = undefined;
   data = decodeWithSecret(token);

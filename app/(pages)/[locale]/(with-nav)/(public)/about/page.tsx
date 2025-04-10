@@ -13,12 +13,13 @@ const getPieces = () => {
 };
 
 type Props = {
-  params: {
+  params: Promise<{
     locale: LocaleType;
-  };
+  }>;
 };
 
-export default async function AboutPage({ params: { locale } }: Props) {
+export default async function AboutPage({ params }: Props) {
+  const { locale } = await params;
   setDefaultLocale(locale);
 
   const productsRes = await getPieces();

@@ -32,12 +32,13 @@ export const generateMetadata = async ({
 };
 
 type Props = {
-  params: {
+  params: Promise<{
     locale: LocaleType;
-  };
+  }>;
 };
 
-export default async function HomePage({ params: { locale } }: Props) {
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
   setDefaultLocale(locale);
 
   const home = await getHome();

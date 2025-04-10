@@ -16,10 +16,10 @@ import { getCanonicalURL } from "@/app/actions/canonical";
 import { getDictionary } from "@/app/(pages)/[locale]/dictionaries";
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
     locale: string;
-  };
+  }>;
 };
 
 const getPiece = (slug: string) => {
@@ -66,9 +66,8 @@ export const generateMetadata = async ({
   };
 };
 
-export default async function PiecesSinglePage({
-  params: { slug, locale },
-}: Props) {
+export default async function PiecesSinglePage({ params }: Props) {
+  const { slug, locale } = await params;
   setDefaultLocale(locale);
 
   const res = await getPiece(slug);

@@ -10,10 +10,10 @@ import { getCanonicalURL } from "@/app/actions/canonical";
 import { Metadata } from "next";
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
     locale: string;
-  };
+  }>;
 };
 
 const getBlog = (slug: string) => {
@@ -23,12 +23,13 @@ const getBlog = (slug: string) => {
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
-  const res = await getBlog(params.slug);
+  const { slug, locale } = await params;
+  const res = await getBlog(slug);
   const blog: BlogType = res?.data?.data;
 
   const canonical = await getCanonicalURL({ depth: 2 });
 
-  const dict = await getDictionary(params.locale);
+  const dict = await getDictionary(locale);
 
   return {
     title: blog.title,
@@ -49,12 +50,13 @@ export const generateMetadata = async ({
 };
 
 export default async function BlogSinglePage({ params }: Props) {
-  setDefaultLocale(params.locale);
+  const { locale, slug } = await params;
+  setDefaultLocale(locale);
 
-  const res = await getBlog(params.slug);
+  const res = await getBlog(slug);
   const blog: BlogType = res?.data?.data;
 
-  const dict = await getDictionary(params.locale);
+  const dict = await getDictionary(locale);
 
   return (
     <BlurFade inView className='mt-24 md:mt-32'>

@@ -11,10 +11,10 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
     locale: string;
-  };
+  }>;
 };
 
 const getPage = (slug: string) => {
@@ -25,12 +25,13 @@ export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
   try {
-    setDefaultLocale(params.locale);
+    const { slug, locale } = await params;
+    setDefaultLocale(locale);
 
-    const res = await getPage(params.slug);
+    const res = await getPage(slug);
     const page: PageType = res?.data?.data;
 
-    const dict = await getDictionary(params.locale);
+    const dict = await getDictionary(locale);
 
     const canonical = await getCanonicalURL();
 
@@ -52,11 +53,12 @@ export const generateMetadata = async ({
 };
 export default async function PageSinglePage({ params }: Props) {
   try {
-    setDefaultLocale(params.locale);
+    const { locale, slug } = await params;
+    setDefaultLocale(locale);
 
-    const dict = await getDictionary(params.locale);
+    const dict = await getDictionary(locale);
 
-    const res = await getPage(params.slug);
+    const res = await getPage(slug);
     const page: PageType = res?.data?.data;
 
     if (!page) {
