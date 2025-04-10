@@ -10,10 +10,26 @@ import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
 import { SliderType } from "@/types/slider";
 import { getFullAssets, getLinkWithLocale } from "@/app/lib/utils";
 import BlurFade from "@/components/ui/blur-fade";
+import { Metadata } from "next";
+import { getDictionary } from "@/app/(pages)/[locale]/dictionaries";
 
 async function getHome() {
   return axiosInstance.get(`/home`);
 }
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ locale: LocaleType }>;
+}): Promise<Metadata> => {
+  const { locale } = await params;
+
+  const dict = await getDictionary(locale);
+
+  return {
+    title: dict.common.home_page,
+  };
+};
 
 type Props = {
   params: {

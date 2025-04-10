@@ -5,6 +5,7 @@ import LocaleContext from "../locale-context";
 import { LocaleType } from "@/types/locale";
 import { getDictionary } from "../dictionaries";
 import FooterPart from "@/components/partials/footer";
+import { Metadata } from "next";
 
 type Props = LayoutProps & { params: { locale: LocaleType } };
 

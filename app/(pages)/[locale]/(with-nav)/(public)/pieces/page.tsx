@@ -1,19 +1,18 @@
 import { MainContainer } from "@/components/containers";
 import React from "react";
 import Slider from "./components/slider";
-import PiecesItems from "./components/items";
 import { OSpace } from "@/components/shared-ui";
 import PiecesBanners from "./components/banner";
 import { LocaleType } from "@/types/locale";
 import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
-import { PieceType } from "@/types/piece";
 import { SliderType } from "@/types/slider";
 import { CategoryType } from "@/types/category";
 import CategoryChips from "./components/chips";
-import { urlWithQueryParams } from "@/app/lib/utils";
 import BlurFade from "@/components/ui/blur-fade";
 import PiecesPageItems from "./[slug]/components/items";
-
+import { getDictionary } from "../../../dictionaries";
+import { getCanonicalURL } from "@/app/actions/canonical";
+import { Metadata } from "next";
 type Props = {
   params: {
     locale: LocaleType;
@@ -23,20 +22,33 @@ type Props = {
   };
 };
 
-const getPieces = (categories?: string) => {
-  const filterQuery: { [key: string]: string } = {};
-
-  if (categories) filterQuery["categories"] = categories;
-
-  return axiosInstance.get(urlWithQueryParams(`/products`, filterQuery));
-};
-
 const getPiecesSliders = () => {
   return axiosInstance.get(`/slider/search`);
 };
 
 const getCategories = () => {
   return axiosInstance.get(`/category`);
+};
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const dict = await getDictionary("fa");
+  const canonical = await getCanonicalURL();
+  return {
+    title: dict.common.pieces,
+    description: dict.common.pieces_description,
+    openGraph: {
+      title: dict.common.pieces,
+      description: dict.common.blog_description,
+    },
+    alternates: {
+      canonical: canonical,
+      languages: {
+        en: process.env.NEXT_PUBLIC_BASE_URL + "/en",
+        fa: process.env.NEXT_PUBLIC_BASE_URL + "/fa",
+        ar: process.env.NEXT_PUBLIC_BASE_URL + "/ar",
+      },
+    },
+  };
 };
 
 export default async function PiecesPage({

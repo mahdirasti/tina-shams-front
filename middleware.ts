@@ -1,68 +1,56 @@
-import { match } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Supported locales and default locale
-let locales = ["en", "fa", "ar"];
-let defaultLocale = "en";
+const PUBLIC_FILE = /\.(.*)$/;
 
-// Function to get the locale from the request or URL path
-function getLocale(request: NextRequest) {
-  // Extract the accept-language header from the request
-  const acceptLanguage = request.headers.get("lang");
+//Assuming we have only /en,tr and fr now
 
-  // If accept-language header exists, use it to find the best matching locale
-  if (acceptLanguage) {
-    let languages = new Negotiator({
-      headers: { lang: acceptLanguage },
-    }).languages();
-    return match(languages, locales, defaultLocale); // Return the best matching locale
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  //setting current url to header
+  req.headers.set("x-url", req.url);
+
+  // Ignore requests to public files, api routes, or already localized paths
+  if (
+    PUBLIC_FILE.test(pathname) ||
+    pathname.startsWith("/api") ||
+    pathname.match(/^\/(en|ar|fa)(\/|$)/)
+  ) {
+    return NextResponse.next({ headers: req.headers });
   }
 
-  // If no accept-language header, return the default locale
-  return defaultLocale;
-}
-
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  // Check if the pathname has a valid locale (e.g., /en, /fa, /ar)
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-
-  let locale = defaultLocale; // Default locale
-
-  // If the URL contains a locale, extract it
-  if (pathnameHasLocale) {
-    const matchedLocale = locales.find(
-      (locale) =>
-        pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-    );
-    if (matchedLocale) {
-      locale = matchedLocale;
-    }
-  } else {
-    // If no locale in the URL, get the locale from the accept-language header
-    locale = getLocale(request);
+  // Check for language cookie
+  const localeCookie = req.cookies.get("NEXT_LOCALE")?.value;
+  if (localeCookie) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/${localeCookie}${pathname}`;
+    return NextResponse.redirect(url, { headers: req.headers });
   }
 
-  // Set the lang header in the request for the response
-  const newHeaders = new Headers(request.headers);
-  newHeaders.set("lang", locale);
+  // Detect locale based on GeoIP (for Vercel Edge or custom logic)
+  const country = "IR"; // Default to 'US' if no geo data is available
 
-  // If there is no locale in the URL path, redirect to the correct locale-based URL
-  if (!pathnameHasLocale) {
-    // Update the URL with the correct locale
-    request.nextUrl.pathname = `/${locale}${pathname}`;
-    return NextResponse.redirect(request.nextUrl, { headers: newHeaders });
-  }
+  // Define your locale mapping
+  const countryLocaleMap: Record<string, string> = {
+    IR: "fa",
+    US: "en",
+    AE: "ar",
+  };
 
-  // Continue with the request and return the updated headers
-  return NextResponse.next({ headers: newHeaders });
+  const detectedLocale = countryLocaleMap[country] || "en";
+
+  // Redirect to the localized route
+  const url = req.nextUrl.clone();
+  url.pathname = `/${detectedLocale}${pathname}`;
+
+  // Set cookie for future requests
+  const response = NextResponse.redirect(url, { headers: req.headers });
+  response.cookies.set("NEXT_LOCALE", detectedLocale, { path: "/" });
+
+  return response;
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|assets|favicon|manifest).*)/"],
+  matcher: ["/((?!_next|favicon.ico).*)"],
 };

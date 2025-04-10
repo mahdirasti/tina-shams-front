@@ -1,3 +1,5 @@
+"use client";
+
 import { BlogType } from "@/types/blog";
 import Link from "next/link";
 import BlogThumbnail from "./thumbnail";
@@ -8,9 +10,9 @@ type Props = {
   item: BlogType;
 };
 export default function BlogCard({ item }: Props) {
-  const { dict } = useLocale();
+  const { locale, dict } = useLocale();
 
-  const link = `/en/blog/${item.slug}`;
+  const link = `/${locale}/blog/${item.slug}`;
 
   return (
     <div className='w-full rounded-xl border border-neutral-100 overflow-hidden'>
@@ -19,10 +21,12 @@ export default function BlogCard({ item }: Props) {
       </Link>
       <div className='p-4 flex flex-col gap-y-6'>
         <div className='flex flex-col gap-y-2'>
-          <h3 className='font-bold text-base'>{item.title}</h3>
+          <h3 className='font-bold text-base min-h-[50px]'>{item.title}</h3>
           {!!item.excerpt && (
             <p className='text-sm text-neutral-150 min-h-[80px]'>
-              {item.excerpt}
+              {item.excerpt.length > 200
+                ? item.excerpt.slice(0, 200) + "..."
+                : item.excerpt}
             </p>
           )}
         </div>

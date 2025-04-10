@@ -1,6 +1,7 @@
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { useApi } from "@/app/hooks";
 import { cn } from "@/app/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 import { Coins } from "lucide-react";
 import React from "react";
 
@@ -13,7 +14,8 @@ export default function GoldShower({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "h-10 rounded-full text-white px-3 border border-white flex flex-row items-center text-sm gap-1",
+        "h-10 rounded-full px-3 flex flex-row items-center text-sm gap-1",
+        buttonVariants({ variant: "outlined" }),
         className
       )}
     >

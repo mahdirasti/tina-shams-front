@@ -10,6 +10,10 @@ import SinglePieceThumbnail from "./components/thumbnail";
 import PieceClientActions from "./components/piece-client";
 import RecentProductViews from "./components/recent-products";
 import SimilarProducts from "./components/similar-products";
+import { Metadata } from "next";
+import { LocaleType } from "@/types/locale";
+import { getCanonicalURL } from "@/app/actions/canonical";
+import { getDictionary } from "@/app/(pages)/[locale]/dictionaries";
 
 type Props = {
   params: {
@@ -20,6 +24,46 @@ type Props = {
 
 const getPiece = (slug: string) => {
   return axiosInstance.get(`/products/${slug}`);
+};
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: LocaleType }>;
+}): Promise<Metadata> => {
+  const { slug, locale } = await params;
+
+  const dict = await getDictionary(locale);
+
+  const res = await getPiece(slug);
+  const product: PieceType = res?.data?.data;
+
+  const canonical = await getCanonicalURL({ depth: 2 });
+
+  return {
+    title: product.title,
+    description: product.short_desc,
+    openGraph: {
+      title: product.title,
+      description: product.short_desc,
+    },
+    alternates: {
+      canonical: canonical,
+    },
+    other: {
+      "product:price:currency": "IRR",
+      "product:availability": "in stock",
+      "product:condition": "new",
+      "product:brand": dict.common.company_name,
+      "product:category": product.categories?.map((cat) => cat.name).join(", "),
+      "product:retailer_item_id": product.id,
+      // "product:color": product.color,
+      "product:material": `Gold - ${product.purity}`,
+      // "product:size": ,
+      "product:weight": `${product.weight?.toString()}g`,
+      // "product:dimensions": product.dimensions,
+    },
+  };
 };
 
 export default async function PiecesSinglePage({
@@ -42,8 +86,10 @@ export default async function PiecesSinglePage({
           />
         </div>
         <PiecesDetails product={product} />
-        <SimilarProducts similar_products={product.similarProducts ?? []} />
-        <RecentProductViews />
+        <div className='flex flex-col gap-y-12'>
+          <SimilarProducts similar_products={product.similarProducts ?? []} />
+          <RecentProductViews />
+        </div>
       </MainContainer>
     </BlurFade>
   );

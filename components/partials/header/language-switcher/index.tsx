@@ -7,6 +7,7 @@ import { ChevronDown } from "@/components/icons";
 import { OrgButton, OrgPopover } from "@/components/shared-ui";
 import React from "react";
 import LanguageSwitcherContent from "./content";
+import { buttonVariants } from "@/components/ui/button";
 
 type Props = {
   scrolled: boolean;
@@ -22,19 +23,19 @@ export default function LanguageSwitcher({ scrolled }: Props) {
         align='start'
         contentClassName='p-0'
         trigger={
-          <OrgButton
-            variant={"outlined"}
-            endIcon={<ChevronDown />}
+          <div
             className={cn(
-              "w-[80px] min-w-[auto] justify-between",
+              "w-[80px] min-w-[auto] justify-between gap-x-2",
               dir === "ltr" ? "pl-4" : "pr-4",
               isHome && !scrolled
                 ? "border-white text-white [&_path]:fill-white"
-                : ""
+                : "",
+              buttonVariants({ variant: "outlined" })
             )}
           >
             {dict?.common?.[locale as any] ?? locale}
-          </OrgButton>
+            <ChevronDown />
+          </div>
         }
       >
         <LanguageSwitcherContent />

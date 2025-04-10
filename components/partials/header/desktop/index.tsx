@@ -19,7 +19,7 @@ export default function DesktopHeader({ scrolled }: Props) {
       <DesktopHeaderMenu scrolled={scrolled} />
       <div className='flex flex-row items-center gap-x-2'>
         <GoldShower
-          className={cn(scrolled ? "border-black/30 text-black" : "text-white")}
+          className={cn(scrolled ? "" : isHome ? "text-white" : "")}
         />
         <LanguageSwitcher scrolled={scrolled} />
       </div>

@@ -87,6 +87,15 @@
         "recent_piece_views":"نمایش محصولات اخیر",
         "similar_products":"محصولات مشابه",
         "blog":"بلاگ",
-        "rial":"ریال"
+        "rial":"ریال",
+        "terms_of_use":"قوانین و مقررات",
+        "faq":"سوالات متداول",
+        "company_name":"تینا شمس",
+        "home_page":"صفحه اصلی",
+        "blog_description": "آخرین مقالات و آموزش های تینا شمس",
+        "blog_title":"بلاگ",
+        "updated_at":"به روز شده در",
+        "author":"نویسنده",
+        "pieces_description":"قطعات جواهری تینا شمس"
     }
 }

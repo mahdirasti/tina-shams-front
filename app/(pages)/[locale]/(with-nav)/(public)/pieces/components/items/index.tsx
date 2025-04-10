@@ -19,6 +19,7 @@ export default function PiecesItems({ title, categories }: Props) {
       <PaginationMaker<PieceType>
         endpoint={`/products`}
         queries={{ categories }}
+        keyOfQueriesDeps='categories'
         showMoreText={dict.common.show_more}
       >
         {(items) => {

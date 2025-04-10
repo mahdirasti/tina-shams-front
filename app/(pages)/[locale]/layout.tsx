@@ -14,8 +14,46 @@ import "swiper/css/free-mode";
 import { LocaleType } from "@/types/locale";
 import ClientInit from "./init";
 import { cn } from "@/app/lib/utils";
+import { getDictionary } from "./dictionaries";
 
 export const dynamic = "force-dynamic";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ locale: LocaleType }>;
+}): Promise<Metadata> => {
+  const defaultTitle = "Tina Shams";
+
+  const { locale } = await params;
+
+  const dict = await getDictionary(locale);
+
+  let template = `%s | ${dict.common.company_name}`;
+
+  return {
+    title: {
+      default: defaultTitle, // Default title if no page-specific title is set
+      template: template,
+    },
+    alternates: {
+      languages: {
+        en: process.env.NEXT_PUBLIC_BASE_URL + "/en",
+        fa: process.env.NEXT_PUBLIC_BASE_URL + "/fa",
+        ar: process.env.NEXT_PUBLIC_BASE_URL + "/ar",
+      },
+    },
+    manifest: "/manifest.json",
+    keywords: ["tina shams"],
+    themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#000000" }],
+    viewport:
+      "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
+    icons: [
+      { rel: "apple-touch-icon", url: "/assets/favicon/icon-192x192.png" },
+      { rel: "icon", url: "/assets/favicon/icon-192x192.png" },
+    ],
+  };
+};
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700"],
@@ -62,11 +100,6 @@ const yekanBakh = localFont({
   weight: "100 900",
   display: "swap",
 });
-
-export const metadata: Metadata = {
-  title: "Tina Shams",
-  description: "Tina Shams",
-};
 
 export const viewport: Viewport = {
   width: "device-width",

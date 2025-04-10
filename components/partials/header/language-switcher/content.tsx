@@ -28,6 +28,7 @@ export default function LanguageSwitcherContent() {
 
         return (
           <Link
+            key={item.locale}
             className='hover:bg-neutral-25 w-full py-2 px-3 text-sm'
             href={finalPathname}
           >

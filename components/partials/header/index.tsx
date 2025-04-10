@@ -17,7 +17,7 @@ export const headerMenuItems: {
   { title: "about_us", href: "/about" },
   { title: "pieces", href: "/pieces" },
   { title: "contact", href: "/contact" },
-  { title: "blog", href: "/blog", forceLink: "/en/blog" },
+  { title: "blog", href: "/blog", forceLink: "/fa/blog" },
   { title: "collaboration", href: "/collaboration" },
 ];
 

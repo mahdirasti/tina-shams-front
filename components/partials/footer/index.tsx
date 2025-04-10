@@ -8,20 +8,20 @@ import CopyRight from "./copyright";
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { getLinkWithLocale } from "@/app/lib/utils";
 export default function FooterPart() {
-  const { locale } = useLocale();
+  const { locale, dict } = useLocale();
 
   return (
     <footer className='border-t border-t-black py-8 mt-16 flex flex-col gap-y-4'>
-      <MainContainer className='flex flex-col md:flex-row items-center gap-y-4 justify-between'>
+      <MainContainer className='flex flex-col md:flex-row md:grid md:grid-cols-3 items-center gap-y-4 justify-between'>
         <CopyRight />
-        <div className='flex flex-row gap-x-4 items-center'>
+        <div className='flex flex-row gap-x-4 items-center justify-center'>
           {[
             {
-              label: "Terms of Use",
+              label: dict.common.terms_of_use,
               link: getLinkWithLocale("/pages/terms-of-use", locale),
             },
             {
-              label: "FAQ",
+              label: dict.common.faq,
               link: getLinkWithLocale("/pages/faq", locale),
             },
           ].map((item, index) => (
@@ -35,7 +35,7 @@ export default function FooterPart() {
             </Link>
           ))}
         </div>
-        <div className='social-medias flex flex-row items-center gap-x-4'>
+        <div className='social-medias flex flex-row items-center justify-end gap-x-4'>
           {[
             // {
             //   icon: (

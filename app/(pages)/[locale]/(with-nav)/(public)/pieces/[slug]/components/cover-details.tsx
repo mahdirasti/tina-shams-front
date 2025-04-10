@@ -20,7 +20,7 @@ export default function CoverDetails({ title, desc }: Props) {
       )}
     >
       <strong className={cn("text-5xl")}>{title ?? ""}</strong>
-      {!!desc && <desc className='font-medium text-sm'>{desc ?? ""}</desc>}
+      {!!desc && <p className='font-medium text-sm'>{desc ?? ""}</p>}
     </div>
   );
 }

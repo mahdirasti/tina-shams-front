@@ -13,6 +13,9 @@ export default function SimilarProducts({ similar_products }: Props) {
   const { dict } = useLocale();
 
   return (
-    <Pieces title={dict.common.similar_products} items={similar_products} />
+    <Pieces
+      title={dict.common.similar_products}
+      items={similar_products?.slice(0, 3)}
+    />
   );
 }
