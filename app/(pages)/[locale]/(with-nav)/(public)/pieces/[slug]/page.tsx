@@ -4,7 +4,6 @@ import PiecesDetails from "./components/details";
 import CoverDetails from "./components/cover-details";
 import axiosInstance, { setDefaultLocale } from "@/app/lib/axios";
 import { PieceType } from "@/types/piece";
-import { getFullAssets } from "@/app/lib/utils";
 import BlurFade from "@/components/ui/blur-fade";
 import SinglePieceThumbnail from "./components/thumbnail";
 import PieceClientActions from "./components/piece-client";

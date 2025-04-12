@@ -4,6 +4,7 @@ import React from "react";
 import BlogFetcher from "./components/blog-fetcher";
 import { getDictionary } from "../../../dictionaries";
 import { getCanonicalURL } from "@/app/actions/canonical";
+import { setDefaultLocale } from "@/app/lib/axios";
 
 export const generateMetadata = async () => {
   const dict = await getDictionary("fa");
@@ -21,8 +22,15 @@ export const generateMetadata = async () => {
   };
 };
 
-export default async function BlogPage() {
-  const dict = await getDictionary("fa");
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function BlogPage({ params }: Props) {
+  const { locale } = await params;
+  setDefaultLocale(locale);
+
+  const dict = await getDictionary(locale);
   return (
     <BlurFade inView className='mt-24 md:mt-32'>
       <MainContainer>
