@@ -13,10 +13,8 @@ export default function CoverDetails({ title, desc }: Props) {
   return (
     <div
       className={cn(
-        "absolute left-0 w-full bottom-24 p-6 md:p-0 md:bottom-12 flex flex-col gap-y-4 text-neutral-on-foreground z-[2] text-center",
-        dir === "ltr"
-          ? " md:left-12 md:text-left"
-          : " md:right-12 md:text-right"
+        "absolute left-0 w-full bottom-6 p-6 md:p-0 md:bottom-6 flex flex-col gap-y-4 text-neutral-on-foreground z-[2] text-center",
+        dir === "ltr" ? " md:left-6 md:text-left" : " md:right-6 md:text-right"
       )}
     >
       <strong className={cn("text-5xl")}>{title ?? ""}</strong>
