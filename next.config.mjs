@@ -13,6 +13,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "api.tinashams.com",
       },
+      {
+        protocol: "https",
+        hostname: "back.tinashams.com",
+      },
     ],
   },
 }
