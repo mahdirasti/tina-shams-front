@@ -36,6 +36,22 @@ export default function FooterPart() {
           ))}
         </div>
         <div className='social-medias flex flex-row items-center justify-end gap-x-4'>
+          <div className='flex items-center justify-center gap-2'>
+            <a
+              referrerPolicy='origin'
+              target='_blank'
+              href='https://trustseal.enamad.ir/?id=626024&Code=MHtp3w9wNVCLzFMyvwYP33CEHRTmWc7c'
+            >
+              <img
+                referrerPolicy='origin'
+                src='https://trustseal.enamad.ir/logo.aspx?id=626024&Code=MHtp3w9wNVCLzFMyvwYP33CEHRTmWc7c'
+                alt=''
+                className='w-[72px] h-auto'
+                //@ts-ignore
+                code='MHtp3w9wNVCLzFMyvwYP33CEHRTmWc7c'
+              />
+            </a>
+          </div>
           {[
             // {
             //   icon: (
