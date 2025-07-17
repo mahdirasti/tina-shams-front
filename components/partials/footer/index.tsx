@@ -37,6 +37,20 @@ export default function FooterPart() {
         </div>
         <div className='social-medias flex flex-row items-center justify-end gap-x-4'>
           <div className='flex items-center justify-center gap-2'>
+            <img
+              referrerPolicy='origin'
+              id='rgvjoeukjxlzwlaosizpfukz'
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open(
+                  "https://logo.samandehi.ir/Verify.aspx?id=381496&p=xlaomcsirfthaodspfvlgvka",
+                  "Popup",
+                  "toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30"
+                )
+              }
+              alt='logo-samandehi'
+              src='https://logo.samandehi.ir/logo.aspx?id=381496&p=qftiaqgwnbpdshwlbsiywlbq'
+            />
             <a
               referrerPolicy='origin'
               target='_blank'
