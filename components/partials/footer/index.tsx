@@ -40,8 +40,7 @@ export default function FooterPart() {
             <img
               referrerPolicy='origin'
               id='rgvjoeukjxlzwlaosizpfukz'
-              style={{ cursor: "pointer" }}
-              className='w-[72px] h-auto'
+              style={{ cursor: "pointer", width: "72px", height: "auto" }}
               onClick={() =>
                 window.open(
                   "https://logo.samandehi.ir/Verify.aspx?id=381496&p=xlaomcsirfthaodspfvlgvka",
