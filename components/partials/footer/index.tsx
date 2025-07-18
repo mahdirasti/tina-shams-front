@@ -41,6 +41,7 @@ export default function FooterPart() {
               referrerPolicy='origin'
               id='rgvjoeukjxlzwlaosizpfukz'
               style={{ cursor: "pointer" }}
+              className='w-[72px] h-auto'
               onClick={() =>
                 window.open(
                   "https://logo.samandehi.ir/Verify.aspx?id=381496&p=xlaomcsirfthaodspfvlgvka",
