@@ -116,6 +116,15 @@
        "support":"Support",
        "all_rights_reserved":"All rights reserved",
        "shop_description":"Explore our latest collection of jewelry and accessories.",
-       "home":"Home"
+       "home":"Home",
+       "auth_sign_in_title":"Sign in to your account",
+       "continue":"Continue",
+       "back_to_home":"Back to home",
+       "continue_shopping":"Continue shopping",
+       "or":"or",
+       "remove":"Remove",
+       "qty":"Qty",
+       "shipping_and_taxes_calculated_at_checkout":"Shipping and taxes calculated at checkout.",
+       "checkout":"Checkout"
     }
 }

@@ -8,6 +8,8 @@ export type IconPropsType = {
 export const defaultColor = colors["gray"][700];
 
 export { default as HomeIcon } from "./home";
+export { default as AccountIcon } from "./account";
+export { default as CallIcon } from "./call";
 export { default as FillCartIcon } from "./fill-cart";
 export { default as FillProfileIcon } from "./fill-profile";
 export { default as EditIcon } from "./edit";

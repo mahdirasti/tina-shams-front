@@ -8,6 +8,7 @@ import { OrgButton, OrgPopover } from "@/components/shared-ui";
 import React from "react";
 import LanguageSwitcherContent from "./content";
 import { buttonVariants } from "@/components/ui/button";
+import { ChevronRight } from "lucide-react";
 
 type Props = {
   scrolled: boolean;
@@ -27,14 +28,12 @@ export default function LanguageSwitcher({ scrolled }: Props) {
             className={cn(
               "w-[80px] min-w-[auto] justify-between gap-x-2",
               dir === "ltr" ? "pl-4" : "pr-4",
-              isHome && !scrolled
-                ? "border-white text-white [&_path]:fill-white"
-                : "",
-              buttonVariants({ variant: "outlined" })
+              isHome && !scrolled ? "text-white" : "",
+              buttonVariants({ variant: "text" })
             )}
           >
             {dict?.common?.[locale as any] ?? locale}
-            <ChevronDown />
+            <ChevronRight size={16} />
           </div>
         }
       >

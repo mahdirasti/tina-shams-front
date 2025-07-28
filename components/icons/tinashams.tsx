@@ -1,12 +1,12 @@
-import { IconPropsType, defaultColor } from ".";
+import { IconPropsType } from ".";
 
 type Props = { className?: string } & IconPropsType;
 
 const TinaShamsIcon = ({ className, color = "#000000" }: Props) => {
   return (
     <svg
-      width='166'
-      height='29'
+      width='144'
+      height='24'
       viewBox='0 0 166 29'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'

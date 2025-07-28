@@ -112,6 +112,15 @@
         "support":"پشتیبانی",
         "all_rights_reserved":"تمامی حقوق محفوظ است",
         "shop_description":"بررسی مجموعه جدید ما از جواهرات و اکسسوری ها",
-        "home":"صفحه اصلی"
+        "home":"صفحه اصلی",
+        "auth_sign_in_title":"ورود به حساب کاربری",
+        "continue":"ادامه",
+        "back_to_home":"بازگشت به صفحه اصلی",
+        "continue_shopping":"ادامه خرید",
+        "or":"یا",
+        "remove":"حذف",
+        "qty":"تعداد",
+        "shipping_and_taxes_calculated_at_checkout":"هزینه حمل و سفارش به صورت خودکار در پایان خرید محاسبه می شود.",
+        "checkout":"پرداخت"
     }
 }

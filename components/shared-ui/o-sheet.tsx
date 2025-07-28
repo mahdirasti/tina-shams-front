@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/app/lib/utils";
 import {
   Sheet,
   SheetContent,
@@ -38,7 +39,7 @@ export default function CSheet({
       <SheetContent
         hasClose={hasClose}
         {...config}
-        className='h-full overflow-y-auto z-[1000]'
+        className={cn("h-full overflow-y-auto z-[1000]", config?.className)}
       >
         <SheetTitle hidden className='hidden' />
         {children(handleOpen, handleClose)}

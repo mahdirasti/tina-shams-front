@@ -112,6 +112,15 @@
        "support":"الدعم",
        "all_rights_reserved":"جميع الحقوق محفوظة",
        "shop_description":"استكشاف مجموعتنا الأحدث من المجوهرات والملحقات",
-       "home":"الصفحة الرئيسية"
+       "home":"الصفحة الرئيسية",
+       "auth_sign_in_title":"تسجيل الدخول إلى حسابك",
+       "continue":"استمرار",
+       "back_to_home":"العودة إلى الصفحة الرئيسية",
+       "continue_shopping":"استمرار التسوق",
+       "or":"أو",
+       "remove":"حذف",
+       "qty":"الكمية",
+       "shipping_and_taxes_calculated_at_checkout":"يتم حساب تكلفة الشحن والضرائب في نهاية الدفع.",
+       "checkout":"الدفع"
     }    
 }

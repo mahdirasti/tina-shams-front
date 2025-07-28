@@ -296,7 +296,7 @@ export default function HeaderMenu({ scrolled, color }: Props) {
       <OrgSheet
         trigger={(open) => (
           <OrgIconButton className='bg-transparent' onClick={open}>
-            <BurgerMenu color={color} />
+            <BurgerMenu color={color} size={28} />
           </OrgIconButton>
         )}
         config={{
