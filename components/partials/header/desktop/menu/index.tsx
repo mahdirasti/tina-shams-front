@@ -246,11 +246,10 @@ export default function HeaderMenu({ scrolled, color }: Props) {
                       href={getLinkWithLocale(banner.href, locale)}
                       className='flex w-full h-[200px] relative'
                     >
-                      <Image
-                        fill
+                      <img
                         src={banner.image}
                         alt={banner.title}
-                        className='object-cover'
+                        className='object-cover absolute top-0 left-0 w-full h-full object-center'
                       />
                       <strong className='absolute top-0 left-0 w-full h-full flex flex-col items-center justify-start py-6'>
                         <span
