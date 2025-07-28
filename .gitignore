@@ -131,3 +131,7 @@ dist
 
 public/sw
 public/workbox*
+public/sw*
+
+.env.development
+.env.production
