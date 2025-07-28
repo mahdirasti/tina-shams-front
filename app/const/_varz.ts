@@ -8,6 +8,7 @@ export let _VARZ = {
   assetsUrl: process.env.NEXT_PUBLIC_ASSETS_URL,
   mapCenterCoords: [51.3347, 35.7219],
   mapboxToken: process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "",
+  apiUrl: process.env.NEXT_PUBLIC_API_URL,
 };
 
 export const _BUS = {
@@ -17,4 +18,9 @@ export const _BUS = {
   logout: "LOGOUT",
   showCart: "SHOW_CART",
   closeCart: "CLOSE_CART",
+};
+
+export const _CACHE = {
+  commonRevalidation: 120, //equal to two minutes
+  longRevalidation: 1000, //equal to two minutes
 };

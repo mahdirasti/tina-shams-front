@@ -8,6 +8,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
 const querystring = require("querystring");
 const getQueryParams = (obj: object) => querystring.stringify(obj);
 

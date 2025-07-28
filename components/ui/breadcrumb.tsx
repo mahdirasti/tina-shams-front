@@ -1,7 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { ChevronLeft, MoreHorizontal } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "@/app/lib/utils";
+import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import Link from "next/link";
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
@@ -44,12 +48,13 @@ const BreadcrumbLink = React.forwardRef<
     asChild?: boolean;
   }
 >(({ asChild, className, ...props }, ref) => {
-  const Comp = asChild ? Slot : "a";
+  const Comp = asChild ? Slot : Link;
 
   return (
     <Comp
       ref={ref}
       className={cn("transition-colors hover:text-foreground", className)}
+      href={props.href ?? ""}
       {...props}
     />
   );
@@ -75,16 +80,20 @@ const BreadcrumbSeparator = ({
   children,
   className,
   ...props
-}: React.ComponentProps<"li">) => (
-  <li
-    role='presentation'
-    aria-hidden='true'
-    className={cn("[&>svg]:w-3.5 [&>svg]:h-3.5", className)}
-    {...props}
-  >
-    {children ?? <ChevronLeft />}
-  </li>
-);
+}: React.ComponentProps<"li">) => {
+  const { dir } = useLocale();
+
+  return (
+    <li
+      role='presentation'
+      aria-hidden='true'
+      className={cn("[&>svg]:w-3.5 [&>svg]:h-3.5", className)}
+      {...props}
+    >
+      {children ?? (dir === "rtl" ? <ChevronLeft /> : <ChevronRight />)}
+    </li>
+  );
+};
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 
 const BreadcrumbEllipsis = ({

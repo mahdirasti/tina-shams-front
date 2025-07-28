@@ -22,4 +22,10 @@ export type PieceType = {
   weight: string;
   id: string;
   similarProducts: PieceType[];
+
+  //Shop
+  rating?: number;
+  reviewCount?: number;
+  images: FileType[];
+  details: string[];
 };
