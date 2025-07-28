@@ -98,6 +98,18 @@
        "author":"نویسنده",
        "pieces_description":"القطع الجواهرية تینا شمس",
        "sketch_and_deployment":"الرسم والتطبيق",
-       "sketch_and_deployment_description":"نحن فريق من المصممين والمطورين الذين يهتمون بإنشاء مواقع ويب جذابة ودالة. نحن ملتزمون بتقديم خدماتنا الأفضل لعملائنا."
+       "sketch_and_deployment_description":"نحن فريق من المصممين والمطورين الذين يهتمون بإنشاء مواقع ويب جذابة ودالة. نحن ملتزمون بتقديم خدماتنا الأفضل لعملائنا.",
+       "fast_access":"الدخول السريع",
+       "shop":"المتجر",
+       "account":"الحساب",
+       "cart":"السلة",
+       "wishlist":"المفضلة",
+       "about":"عن الشركة",
+       "tina_shams":"تینا شمس",
+       "ordering_and_payment":"الطلب والدفع",
+       "return_and_refund":"الإسترجاع والإسترجاع",
+       "privacy_policy":"سياسة الخصوصية",
+       "support":"الدعم",
+       "all_rights_reserved":"جميع الحقوق محفوظة"
     }    
 }

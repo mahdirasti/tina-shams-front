@@ -10,6 +10,7 @@ export const headerMenuItems: {
   href: string;
   forceLink?: string;
 }[] = [
+  { title: "shop", href: "/shop" },
   { title: "about_us", href: "/about" },
   { title: "pieces", href: "/pieces" },
   { title: "contact", href: "/contact" },

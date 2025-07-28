@@ -102,6 +102,18 @@
        "close":"Close",
        "back":"Back",
        "collections":"Collections",
-       "categories":"Categories"
+       "categories":"Categories",
+       "fast_access":"Fast Access",
+       "shop":"Shop",
+       "account":"Account",
+       "cart":"Cart",
+       "wishlist":"Wishlist",
+       "about":"About",
+       "tina_shams":"Tina Shams",
+       "ordering_and_payment":"Ordering and Payment",
+       "return_and_refund":"Return and Refund",
+       "privacy_policy":"Privacy Policy",
+       "support":"Support",
+       "all_rights_reserved":"All rights reserved"
     }
 }
