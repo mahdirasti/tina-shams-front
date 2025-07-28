@@ -1,13 +1,9 @@
 "use client";
 
-import Logo from "@/components/shared/logo";
-import BurgerMenu from "./burger-menu";
 import DesktopHeader from "./desktop";
 import { MainContainer } from "@/components/containers";
 import { useEffect, useState } from "react";
 import { cn } from "@/app/lib/utils";
-import MobileLanguageSwitcher from "./mobile-language-switcher";
-import GoldShower from "./gold-shower";
 
 export const headerMenuItems: {
   title: string;
@@ -46,12 +42,10 @@ export default function MainHeaderPart() {
     >
       <MainContainer className='main-header'>
         {/* DESKTOP */}
-        <div className='hidden md:flex desktop-header'>
-          <DesktopHeader scrolled={scrolled} />
-        </div>
+        <DesktopHeader scrolled={scrolled} />
         {/* DESKTOP */}
         {/* Mobile */}
-        <div className='flex flex-row items-center justify-between md:hidden p-4 px-4 z-[1000] mobile-header'>
+        {/* <div className='flex flex-row items-center justify-between md:hidden p-4 px-4 z-[1000] mobile-header'>
           <div className='relative z-20'>
             <Logo />
           </div>
@@ -60,7 +54,7 @@ export default function MainHeaderPart() {
             <MobileLanguageSwitcher />
             <BurgerMenu />
           </div>
-        </div>
+        </div> */}
         {/* Mobile */}
       </MainContainer>
     </header>

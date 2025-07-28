@@ -1,4 +1,4 @@
-import { Roboto, Almarai } from "next/font/google";
+import { Roboto, Lato, Almarai } from "next/font/google";
 import localFont from "next/font/local";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { Metadata, Viewport } from "next";
@@ -55,8 +55,13 @@ export const generateMetadata = async ({
   };
 };
 
-const roboto = Roboto({
-  weight: ["100", "300", "400", "500", "700"],
+// const roboto = Roboto({
+//   weight: ["100", "300", "400", "500", "700"],
+//   subsets: ["latin"],
+// });
+
+const lato = Lato({
+  weight: ["100", "300", "400", "700", "900"],
   subsets: ["latin"],
 });
 
@@ -121,7 +126,7 @@ export default function RootLayout({
 
   switch (params.locale) {
     case "en":
-      className = cn(className, roboto.className);
+      className = cn(className, lato.className);
       break;
     case "fa":
       className = cn(className, yekanBakh.className);
@@ -136,7 +141,7 @@ export default function RootLayout({
       <ClientInit lang={params.locale} />
       <ReduxWrapper>
         {children}
-        <Toaster dir={dir} className={`${roboto.className}`} />
+        <Toaster dir={dir} className={`${lato.className}`} />
         <div id='portal'></div>
       </ReduxWrapper>
     </main>

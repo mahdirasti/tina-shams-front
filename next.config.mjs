@@ -17,6 +17,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "back.tinashams.com",
       },
+      {
+        protocol: "https",
+        hostname: "www.vancleefarpels.com",
+      },
     ],
   },
 }

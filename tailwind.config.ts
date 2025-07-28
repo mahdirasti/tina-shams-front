@@ -338,6 +338,7 @@ const config: Config = {
         },
       });
     }),
+    require("tailwindcss-animate"),
   ],
 };
 export default config;
