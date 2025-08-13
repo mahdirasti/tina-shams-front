@@ -84,7 +84,9 @@ export default async function SingleProductPage({ params }: Props) {
                 <h1 className='text-xl font-medium text-gray-900'>
                   {product.title}
                 </h1>
-                <p className='text-xl font-medium text-gray-900'>$100</p>
+                <p className='text-xl font-medium text-gray-900'>
+                  {parseFloat(product.weight).toLocaleString()} GR
+                </p>
               </div>
               {/* Reviews */}
               <div className='mt-4'>

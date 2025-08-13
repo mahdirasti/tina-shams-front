@@ -89,12 +89,32 @@ const authSlice = createSlice({
       const { accessToken, refreshToken } = action.payload.tokens;
       state.access_token = accessToken;
       state.refresh_token = refreshToken;
+
+      // Debug: Log auth state for persistence verification
+      console.log("Auth credentials set:", {
+        hasAccessToken: !!accessToken,
+        hasRefreshToken: !!refreshToken,
+        user: action.payload.user ? "present" : "null",
+      });
     },
     clearCredentials: (state) => {
       state.access_token = null;
       state.refresh_token = null;
       state.user = null;
       state.is_loading = false;
+
+      // Debug: Log auth state cleared
+      console.log("Auth credentials cleared");
+    },
+
+    // Debug action to log auth state
+    logAuthState: (state) => {
+      console.log("Current auth state:", {
+        hasAccessToken: !!state.access_token,
+        hasRefreshToken: !!state.refresh_token,
+        hasUser: !!state.user,
+        isLoading: state.is_loading,
+      });
     },
   },
   extraReducers: (builder) => {
@@ -119,6 +139,13 @@ const authSlice = createSlice({
             state.access_token = accessToken;
             state.refresh_token = refreshToken;
             state.user = user;
+
+            // Debug: Log successful login
+            console.log("Login successful:", {
+              hasAccessToken: !!accessToken,
+              hasRefreshToken: !!refreshToken,
+              user: user ? "present" : "null",
+            });
           }
         )
         .addCase(loginHandler.rejected, (state) => {
@@ -139,5 +166,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, clearCredentials } = authSlice.actions;
+export const { setCredentials, clearCredentials, logAuthState } =
+  authSlice.actions;
 export default authSlice.reducer;

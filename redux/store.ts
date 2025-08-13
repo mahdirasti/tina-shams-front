@@ -18,10 +18,15 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import authReducer from "./slices/auth-slice";
 import generalReducer from "./slices/general-slice";
+import cartReducer from "./slices/cart-slice";
 
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["cart", "authReducer"], // Persist both cart and auth state
+  serialize: true,
+  deserialize: true,
+  debug: true, // Enable debug logging for persistence
 };
 
 export const resetStoreAction = createAction("RESET");
@@ -29,6 +34,7 @@ export const resetStoreAction = createAction("RESET");
 const combinedReducers = combineReducers({
   authReducer: authReducer,
   general: generalReducer,
+  cart: cartReducer,
 });
 
 const rootReducer = (

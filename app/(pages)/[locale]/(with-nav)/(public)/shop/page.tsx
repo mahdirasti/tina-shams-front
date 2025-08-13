@@ -70,7 +70,7 @@ export default async function ShopPage({ params }: Props) {
 
   //Setting two minutes for caching
   const fetchingConfig = {
-    next: { revalidate: _CACHE.commonRevalidation },
+    // next: { revalidate: _CACHE.commonRevalidation },
     headers: {
       lang: locale,
     },
@@ -93,16 +93,7 @@ export default async function ShopPage({ params }: Props) {
           {t.common.shop_description}
         </p>
       </div>
-      <ProductListPage
-        items={products?.map((item) => ({
-          id: item.id,
-          imageSrc: getFullAssets(item.thumbnail?.fileName),
-          imageAlt: item.title,
-          name: item.title,
-          price: 2400,
-          href: getLinkWithLocale(`/shop/${item.slug}`, locale),
-        }))}
-      />
+      <ProductListPage items={products} />
     </BlurFade>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductType } from "@/types/product";
+import { PieceType } from "@/types/piece";
 import {
   ChevronDownIcon,
   Filter,
@@ -28,7 +28,7 @@ function classNames(...classes: string[]) {
 }
 
 type Props = {
-  items: ProductType[];
+  items: PieceType[];
 };
 
 const filters = {
