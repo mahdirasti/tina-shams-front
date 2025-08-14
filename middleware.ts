@@ -10,6 +10,7 @@ export async function middleware(req: NextRequest) {
 
   //setting current url to header
   req.headers.set("x-url", req.url);
+  req.headers.set("x-pathname", pathname);
 
   // Ignore requests to public files, api routes, or already localized paths
   if (

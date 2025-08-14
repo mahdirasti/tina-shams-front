@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MainContainer } from "@/components/containers";
 import { useAuth } from "@/hooks/use-auth";
 import { useCart } from "@/hooks/use-cart";
@@ -50,45 +50,70 @@ export type PaymentMethodType = {
   title: string;
 };
 
-const DELIVERY_METHODS: DeliveryMethodType[] = [
-  {
-    id: "standard",
-    title: "Standard",
-    turnaround: "4–10 business days",
-    price: 50000,
-  },
-  {
-    id: "express",
-    title: "Express",
-    turnaround: "2–5 business days",
-    price: 160000,
-  },
-];
+// Methods are derived from translations
 
-const PAYMENT_METHODS: PaymentMethodType[] = [
-  { id: "credit-card", title: "Credit card" },
-  { id: "cod", title: "Cash on delivery" },
-];
-
-const CheckoutValidationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  first_name: Yup.string().required("Required"),
-  last_name: Yup.string().required("Required"),
-  phone: Yup.string().required("Required"),
-  address_line1: Yup.string().required("Required"),
-  city: Yup.string().required("Required"),
-  country: Yup.string().required("Required"),
-  region: Yup.string().required("Required"),
-  postal_code: Yup.string().required("Required"),
-  delivery_method_id: Yup.string().required("Required"),
-  payment_method_id: Yup.string().required("Required"),
-});
+// Validation schema will be built inside the component to access translations
 
 export default function CheckoutWrapper() {
-  const { locale } = useLocale();
+  const { locale, dict } = useLocale();
+  const DELIVERY_METHODS = useMemo<DeliveryMethodType[]>(
+    () => [
+      {
+        id: "standard",
+        title: dict?.common?.standard || "Standard",
+        turnaround: dict?.common?.business_days_4_10 || "4–10 business days",
+        price: 50000,
+      },
+      {
+        id: "express",
+        title: dict?.common?.express || "Express",
+        turnaround: dict?.common?.business_days_2_5 || "2–5 business days",
+        price: 160000,
+      },
+    ],
+    [dict]
+  );
+
+  const PAYMENT_METHODS = useMemo<PaymentMethodType[]>(
+    () => [
+      { id: "credit-card", title: dict?.common?.credit_card || "Credit card" },
+      {
+        id: "cod",
+        title: dict?.common?.cash_on_delivery || "Cash on delivery",
+      },
+    ],
+    [dict]
+  );
   const { user } = useAuth();
   const cartHook = useCart();
   const router = useRouter();
+  type ShippingAddress = {
+    _id: string;
+    address_line1: string;
+    address_line2?: string;
+    city: string;
+    country: string;
+    region: string;
+    postal_code: string;
+    is_default?: boolean;
+  };
+  const [defaultAddress, setDefaultAddress] = useState<ShippingAddress | null>(
+    null
+  );
+
+  useEffect(() => {
+    const loadDefaultAddress = async () => {
+      try {
+        const res = await axiosInstance.get("/users/me/shipping-addresses");
+        const list = ((res as any)?.data?.data || []) as ShippingAddress[];
+        const def = list.find((a) => a.is_default) || list[0] || null;
+        setDefaultAddress(def);
+      } catch (e) {
+        setDefaultAddress(null);
+      }
+    };
+    loadDefaultAddress();
+  }, [user?.id]);
 
   const initialValues: CheckoutFormValues = useMemo(
     () => ({
@@ -97,26 +122,40 @@ export default function CheckoutWrapper() {
       last_name: user?.surename || "",
       phone: user?.mobile || "",
       company: "",
-      address_line1: "",
-      address_line2: "",
-      city: "",
-      country: "IR",
-      region: "",
-      postal_code: "",
+      address_line1: defaultAddress?.address_line1 || "",
+      address_line2: defaultAddress?.address_line2 || "",
+      city: defaultAddress?.city || "",
+      country: defaultAddress?.country || "IR",
+      region: defaultAddress?.region || "",
+      postal_code: defaultAddress?.postal_code || "",
       delivery_method_id: DELIVERY_METHODS[0]?.id || "standard",
       payment_method_id: PAYMENT_METHODS[0]?.id || "credit-card",
     }),
-    [user]
+    [user, defaultAddress, DELIVERY_METHODS, PAYMENT_METHODS]
   );
 
   let content = (
     <MainContainer>
-      <h2 className='sr-only'>Checkout</h2>
+      <h2 className='sr-only'>{dict.common.checkout}</h2>
 
       <Formik
         enableReinitialize
         initialValues={initialValues}
-        validationSchema={CheckoutValidationSchema}
+        validationSchema={Yup.object().shape({
+          email: Yup.string()
+            .email(dict.common.invalid_email)
+            .required(dict.common.required),
+          first_name: Yup.string().required(dict.common.required),
+          last_name: Yup.string().required(dict.common.required),
+          phone: Yup.string().required(dict.common.required),
+          address_line1: Yup.string().required(dict.common.required),
+          city: Yup.string().required(dict.common.required),
+          country: Yup.string().required(dict.common.required),
+          region: Yup.string().required(dict.common.required),
+          postal_code: Yup.string().required(dict.common.required),
+          delivery_method_id: Yup.string().required(dict.common.required),
+          payment_method_id: Yup.string().required(dict.common.required),
+        })}
         onSubmit={async (values, { setSubmitting }) => {
           try {
             const payload = {
@@ -165,11 +204,11 @@ export default function CheckoutWrapper() {
             // For now, skip external payment redirects and always go to thanks page
             if (orderId) {
               // Empty cart immediately in Redux (persisted)
-              cartHook.clearCartSync();
-              // Optionally notify backend (non-blocking)
-              try {
-                cartHook.clearCartAsync();
-              } catch (e) {}
+              // cartHook.clearCartSync();
+              // // Optionally notify backend (non-blocking)
+              // try {
+              //   cartHook.clearCartAsync();
+              // } catch (e) {}
               router.push(`/${locale}/checkout/${orderId}/thanks`);
             }
           } finally {
@@ -205,15 +244,15 @@ export default function CheckoutWrapper() {
       <MainContainer>
         <div className='flex flex-col gap-y-6 items-center justify-center h-full min-h-[500px]'>
           <Logo />
-          <h2 className='text-2xl font-bold'>No items in cart</h2>
+          <h2 className='text-2xl font-bold'>{dict.common.no_items_in_cart}</h2>
           <p className='text-gray-500 text-center'>
-            Please add some items to your cart to continue.
+            {dict.common.add_items_to_cart_to_continue}
           </p>
           <Link
             className={buttonVariants()}
             href={getLinkWithLocale(`/shop`, locale)}
           >
-            Continue shopping
+            {dict.common.continue_shopping}
           </Link>
         </div>
       </MainContainer>

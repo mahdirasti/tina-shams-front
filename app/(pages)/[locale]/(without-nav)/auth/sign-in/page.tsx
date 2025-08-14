@@ -16,6 +16,7 @@ import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { useAuth } from "@/app/hooks";
 import axiosInstance from "@/app/lib/axios";
 import { useQueryParams } from "@/app/utils";
+import { storeUserToken } from "@/app/actions/auth";
 
 type Props = {
   params: Promise<{ locale: LocaleType }>;
@@ -58,7 +59,9 @@ export default function AuthSignInPage({ params }: Props) {
       setTempOtp(response.data.tempOtp || "4444"); // For testing, show the temp OTP
       setStep("otp");
     } catch (error: any) {
-      setError(error?.response?.data?.message || "Failed to send OTP");
+      setError(
+        error?.response?.data?.message || dict.common.failed_to_send_otp
+      );
     } finally {
       setIsLoading(false);
     }
@@ -77,6 +80,11 @@ export default function AuthSignInPage({ params }: Props) {
         })
       );
 
+      //@ts-ignore
+      if (result?.payload?.tokens?.accessToken)
+        //@ts-ignore
+        storeUserToken(result?.payload?.tokens?.accessToken);
+
       if (loginHandler.fulfilled.match(result)) {
         const redirect = query.redirect;
 
@@ -86,10 +94,12 @@ export default function AuthSignInPage({ params }: Props) {
           router.push(getLinkWithLocale("/", currentLocale));
         }
       } else {
-        setError((result.payload as any)?.message || "Invalid OTP code");
+        setError(
+          (result.payload as any)?.message || dict.common.invalid_otp_code
+        );
       }
     } catch (error) {
-      setError("Network error. Please try again.");
+      setError(dict.common.network_error_try_again);
     } finally {
       setIsLoading(false);
     }
@@ -121,7 +131,7 @@ export default function AuthSignInPage({ params }: Props) {
               <h2 className='text-2xl/9 font-bold tracking-tight text-gray-900'>
                 {step === "phone"
                   ? dict.common.auth_sign_in_title
-                  : "Enter Verification Code"}
+                  : dict.common.enter_verification_code}
               </h2>
               {step === "otp" && (
                 <p className='mt-2 text-sm text-gray-600'>
@@ -188,7 +198,7 @@ export default function AuthSignInPage({ params }: Props) {
                       type='text'
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
-                      placeholder='Enter 4-digit code'
+                      placeholder={dict.common.enter_4_digit_code}
                       maxLength={4}
                       required
                       className='block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 text-center tracking-widest'

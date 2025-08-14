@@ -8,7 +8,7 @@ import { OrgButton, OrgPopover } from "@/components/shared-ui";
 import React from "react";
 import LanguageSwitcherContent from "./content";
 import { buttonVariants } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type Props = {
   scrolled: boolean;
@@ -33,7 +33,11 @@ export default function LanguageSwitcher({ scrolled }: Props) {
             )}
           >
             {dict?.common?.[locale as any] ?? locale}
-            <ChevronRight size={16} />
+            {dir === "ltr" ? (
+              <ChevronRight size={16} />
+            ) : (
+              <ChevronLeft size={16} />
+            )}
           </div>
         }
       >

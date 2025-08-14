@@ -6,6 +6,7 @@ import { PieceType } from "@/types/piece";
 import Link from "next/link";
 import { useCart } from "@/app/hooks";
 import { useState } from "react";
+import { CheckIcon } from "lucide-react";
 
 type Props = {
   item: PieceType;
@@ -59,7 +60,7 @@ export default function ProductCard({ item }: Props) {
         </div>
         {isInCart && (
           <div className='absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full'>
-            ✓
+            <CheckIcon className='h-4 w-4' />
           </div>
         )}
       </div>
@@ -70,7 +71,7 @@ export default function ProductCard({ item }: Props) {
         </Link>
       </h3>
       <p className='mt-1 text-sm text-gray-500'>
-        {parseFloat(item.weight).toLocaleString()} IRR
+        {parseFloat(item.weight).toLocaleString()} {dict.common.rial}
       </p>
     </div>
   );

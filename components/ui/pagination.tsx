@@ -3,6 +3,7 @@ import * as React from "react";
 import { ButtonProps, buttonVariants } from "@/components/ui/button";
 import { ChevronLeftIcon, ChevronRightIcon, Ellipsis } from "lucide-react";
 import { cn } from "@/app/lib/utils";
+import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -64,40 +65,56 @@ const PaginationPrevious = ({
   className,
   disabled,
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { disabled?: boolean }) => (
-  <PaginationLink
-    aria-label='Go to previous page'
-    size='default'
-    className={cn(
-      "gap-1 pl-2.5 cursor-pointer",
-      className,
-      disabled ? "pointer-events-none opacity-30" : ""
-    )}
-    {...props}
-  >
-    <ChevronRightIcon className='h-4 w-4' />
-  </PaginationLink>
-);
+}: React.ComponentProps<typeof PaginationLink> & { disabled?: boolean }) => {
+  const { dir, dict } = useLocale();
+
+  return (
+    <PaginationLink
+      aria-label={dict?.common?.go_to_previous_page || "Go to previous page"}
+      size='default'
+      className={cn(
+        "gap-1 pl-2.5 cursor-pointer",
+        className,
+        disabled ? "pointer-events-none opacity-30" : ""
+      )}
+      {...props}
+    >
+      {dir === "rtl" ? (
+        <ChevronLeftIcon className='h-4 w-4' />
+      ) : (
+        <ChevronRightIcon className='h-4 w-4' />
+      )}
+    </PaginationLink>
+  );
+};
 PaginationPrevious.displayName = "PaginationPrevious";
 
 const PaginationNext = ({
   className,
   disabled,
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { disabled?: boolean }) => (
-  <PaginationLink
-    aria-label='Go to next page'
-    size='default'
-    className={cn(
-      "gap-1 pr-2.5 cursor-pointer",
-      className,
-      disabled ? "pointer-events-none opacity-30" : ""
-    )}
-    {...props}
-  >
-    <ChevronLeftIcon className='h-4 w-4' />
-  </PaginationLink>
-);
+}: React.ComponentProps<typeof PaginationLink> & { disabled?: boolean }) => {
+  const { dir, dict } = useLocale();
+
+  return (
+    <PaginationLink
+      aria-label={dict?.common?.go_to_next_page || "Go to next page"}
+      size='default'
+      className={cn(
+        "gap-1 pr-2.5 cursor-pointer",
+        className,
+        disabled ? "pointer-events-none opacity-30" : ""
+      )}
+      {...props}
+    >
+      {dir === "rtl" ? (
+        <ChevronLeftIcon className='h-4 w-4' />
+      ) : (
+        <ChevronRightIcon className='h-4 w-4' />
+      )}
+    </PaginationLink>
+  );
+};
 PaginationNext.displayName = "PaginationNext";
 
 const PaginationEllipsis = ({

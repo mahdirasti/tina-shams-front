@@ -11,6 +11,20 @@ export type CartItemType = {
     [key: string]: string | number;
   };
   added_at: string;
+  variant_id?: {
+    product: string;
+    attributeValues: {
+      attribute: string;
+      value: string;
+    }[];
+    price: number;
+    sku: string;
+    stock: number;
+    combinationKey: string;
+    createdAt: string;
+    updatedAt: string;
+    id: string;
+  };
 };
 
 // Ensure the cart state is serializable for persistence
@@ -84,10 +98,12 @@ export const addItemToCart = createAsyncThunk(
       piece,
       quantity = 1,
       selected_options = {},
+      variant_id,
     }: {
       piece: PieceType;
       quantity?: number;
       selected_options?: { [key: string]: string | number };
+      variant_id?: string;
     },
     { rejectWithValue }
   ) => {
@@ -98,6 +114,7 @@ export const addItemToCart = createAsyncThunk(
           piece_id: piece.id,
           quantity,
           selected_options,
+          ...(variant_id ? { variant_id } : {}),
         }
       );
       return response.data.data;
@@ -256,7 +273,8 @@ export const syncCartWithServer = createAsyncThunk(
 // Helper function to calculate cart totals
 const calculateCartTotals = (
   items: CartItemType[],
-  discount_amount: number = 0
+  discount_amount: number = 0,
+  shipping_cost: number = 0
 ) => {
   const subtotal = items.reduce((sum, item) => {
     const itemPrice = parseFloat(item.piece.weight) || 0; // Assuming weight represents price
@@ -264,7 +282,7 @@ const calculateCartTotals = (
   }, 0);
 
   const tax_amount = subtotal * 0; // 9% tax rate
-  const total_amount = subtotal + tax_amount - discount_amount;
+  const total_amount = subtotal + shipping_cost + tax_amount - discount_amount;
 
   return {
     subtotal,
@@ -290,7 +308,11 @@ const cartSlice = createSlice({
         state.items.push(action.payload);
       }
 
-      const totals = calculateCartTotals(state.items, state.discount_amount);
+      const totals = calculateCartTotals(
+        state.items,
+        state.discount_amount,
+        state.shipping_cost
+      );
       Object.assign(state, totals);
       state.last_updated = new Date().toISOString();
 
@@ -317,7 +339,11 @@ const cartSlice = createSlice({
           state.items[itemIndex].quantity = action.payload.quantity;
         }
 
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.last_updated = new Date().toISOString();
       }
@@ -325,7 +351,11 @@ const cartSlice = createSlice({
 
     removeItem: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
-      const totals = calculateCartTotals(state.items, state.discount_amount);
+      const totals = calculateCartTotals(
+        state.items,
+        state.discount_amount,
+        state.shipping_cost
+      );
       Object.assign(state, totals);
       state.last_updated = new Date().toISOString();
     },
@@ -346,14 +376,22 @@ const cartSlice = createSlice({
 
     setShippingCost: (state, action: PayloadAction<number>) => {
       state.shipping_cost = action.payload;
-      const totals = calculateCartTotals(state.items, state.discount_amount);
+      const totals = calculateCartTotals(
+        state.items,
+        state.discount_amount,
+        state.shipping_cost
+      );
       Object.assign(state, totals);
       state.total_amount += state.shipping_cost;
     },
 
     setDiscountAmount: (state, action: PayloadAction<number>) => {
       state.discount_amount = action.payload;
-      const totals = calculateCartTotals(state.items, state.discount_amount);
+      const totals = calculateCartTotals(
+        state.items,
+        state.discount_amount,
+        state.shipping_cost
+      );
       Object.assign(state, totals);
     },
 
@@ -407,7 +445,11 @@ const cartSlice = createSlice({
       .addCase(fetchCartFromServer.fulfilled, (state, action) => {
         state.is_loading = false;
         state.items = action.payload;
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.last_updated = new Date().toISOString();
 
@@ -440,7 +482,11 @@ const cartSlice = createSlice({
           state.items.push(action.payload);
         }
 
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.last_updated = new Date().toISOString();
       })
@@ -465,7 +511,11 @@ const cartSlice = createSlice({
           state.items[itemIndex] = action.payload;
         }
 
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.last_updated = new Date().toISOString();
 
@@ -490,7 +540,11 @@ const cartSlice = createSlice({
       .addCase(removeItemFromCart.fulfilled, (state, action) => {
         state.is_loading = false;
         state.items = state.items.filter((item) => item.id !== action.payload);
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.last_updated = new Date().toISOString();
 
@@ -539,7 +593,11 @@ const cartSlice = createSlice({
       .addCase(applyCoupon.fulfilled, (state, action) => {
         state.is_loading = false;
         state.discount_amount = action.payload.discount_amount;
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.last_updated = new Date().toISOString();
       })
@@ -557,7 +615,11 @@ const cartSlice = createSlice({
       .addCase(removeCoupon.fulfilled, (state) => {
         state.is_loading = false;
         state.discount_amount = 0;
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.last_updated = new Date().toISOString();
       })
@@ -575,7 +637,11 @@ const cartSlice = createSlice({
       .addCase(calculateShipping.fulfilled, (state, action) => {
         state.is_loading = false;
         state.shipping_cost = action.payload.shipping_cost;
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.total_amount += state.shipping_cost;
         state.last_updated = new Date().toISOString();
@@ -594,7 +660,11 @@ const cartSlice = createSlice({
       .addCase(syncCartWithServer.fulfilled, (state, action) => {
         state.is_loading = false;
         state.items = action.payload;
-        const totals = calculateCartTotals(state.items, state.discount_amount);
+        const totals = calculateCartTotals(
+          state.items,
+          state.discount_amount,
+          state.shipping_cost
+        );
         Object.assign(state, totals);
         state.last_updated = new Date().toISOString();
       })

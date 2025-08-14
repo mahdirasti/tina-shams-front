@@ -141,7 +141,7 @@ export default function RootLayout({
       <ClientInit lang={params.locale} />
       <ReduxWrapper>
         {children}
-        <Toaster dir={dir} className={`${lato.className}`} />
+        <Toaster dir={dir} className={className} />
         <div id='portal'></div>
       </ReduxWrapper>
     </main>

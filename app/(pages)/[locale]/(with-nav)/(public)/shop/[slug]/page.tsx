@@ -9,16 +9,16 @@ import { getDictionary } from "@/app/(pages)/[locale]/dictionaries";
 import { FetchDataType } from "@/app/lib/axios";
 import { MainContainer } from "@/components/containers";
 
-const policies = [
+const policies = (t: any) => [
   {
-    name: "International delivery",
+    name: t.common.international_delivery,
     icon: Globe,
-    description: "Get your order in 2 years",
+    description: t.common.international_delivery_desc,
   },
   {
-    name: "Loyalty rewards",
+    name: t.common.loyalty_rewards,
     icon: DollarSign,
-    description: "Don't look at other tees",
+    description: t.common.loyalty_rewards_desc,
   },
 ];
 
@@ -53,10 +53,10 @@ export default async function SingleProductPage({ params }: Props) {
   const productReviewCount = product.reviewCount ?? 0;
   const productImages = [product.thumbnail, product.cover];
   const productDetails = [
-    "925 Sterling Gold",
-    "Handcrafted",
-    "Hypoallergenic",
-    "Professional Polish",
+    t.common.detail_925_gold,
+    t.common.detail_handcrafted,
+    t.common.detail_hypoallergenic,
+    t.common.detail_professional_polish,
   ];
 
   return (
@@ -85,16 +85,16 @@ export default async function SingleProductPage({ params }: Props) {
                   {product.title}
                 </h1>
                 <p className='text-xl font-medium text-gray-900'>
-                  {parseFloat(product.weight).toLocaleString()} GR
+                  {parseFloat(product.weight).toLocaleString()} {t.common.grams}
                 </p>
               </div>
               {/* Reviews */}
               <div className='mt-4'>
-                <h2 className='sr-only'>Reviews</h2>
+                <h2 className='sr-only'>{t.common.reviews}</h2>
                 <div className='flex items-center'>
                   <p className='text-sm text-gray-700'>
                     {product.rating}
-                    <span className='sr-only'> out of 5 stars</span>
+                    <span className='sr-only'> {t.common.out_of_5_stars}</span>
                   </p>
                   <div className='ml-1 flex items-center'>
                     {[0, 1, 2, 3, 4].map((rating) => (
@@ -122,7 +122,10 @@ export default async function SingleProductPage({ params }: Props) {
                         href='#'
                         className='text-sm font-medium text-indigo-600 hover:text-indigo-500'
                       >
-                        See all {productReviewCount} reviews
+                        {t.common.see_all_reviews.replace(
+                          "{count}",
+                          String(productReviewCount)
+                        )}
                       </a>
                     </div>
                   )}
@@ -132,9 +135,9 @@ export default async function SingleProductPage({ params }: Props) {
 
             {/* Image gallery */}
             <div className='mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0'>
-              <h2 className='sr-only'>Images</h2>
+              <h2 className='sr-only'>{t.common.images}</h2>
 
-              <div className='grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8'>
+              <div className='grid grid-cols-1 lg:grid-cols-2 lg:gap-8'>
                 {productImages
                   ?.filter((a) => a.fileName)
                   .map((image, index) => (
@@ -159,7 +162,7 @@ export default async function SingleProductPage({ params }: Props) {
               {/* Product details */}
               <div className='mt-10'>
                 <h2 className='text-sm font-medium text-gray-900'>
-                  Description
+                  {t.common.description}
                 </h2>
 
                 <div
@@ -170,7 +173,7 @@ export default async function SingleProductPage({ params }: Props) {
 
               <div className='mt-8 border-t border-gray-200 pt-8'>
                 <h2 className='text-sm font-medium text-gray-900'>
-                  Fabric &amp; Care
+                  {t.common.fabric_and_care}
                 </h2>
 
                 {productDetails?.length > 0 && (
@@ -192,11 +195,11 @@ export default async function SingleProductPage({ params }: Props) {
               {/* Policies */}
               <section aria-labelledby='policies-heading' className='mt-10'>
                 <h2 id='policies-heading' className='sr-only'>
-                  Our Policies
+                  {t.common.our_policies}
                 </h2>
 
                 <dl className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2'>
-                  {policies.map((policy) => (
+                  {policies(t).map((policy) => (
                     <div
                       key={policy.name}
                       className='rounded-lg border border-gray-200 bg-gray-50 p-6 text-center'

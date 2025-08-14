@@ -66,7 +66,7 @@ export default function NewFooter() {
           <div className='space-y-8'>
             <Logo />
             <p className='text-balance text-sm/6 text-gray-600'>
-              Illuminate your elegance, bling & shine.
+              {dict.common.footer_slogan}
             </p>
             <div className='flex gap-x-6'>
               {navigation.social.map((item) => (

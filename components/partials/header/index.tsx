@@ -24,6 +24,9 @@ const defaultSrolledStateRoutes = [
   "/shop",
   "/checkout",
   "/shop/[^/]+",
+  "/profile",
+  "/profile/orders/[^/]+",
+  "/profile/[^/]+",
   "/checkout/[order_id]/thanks",
 ];
 

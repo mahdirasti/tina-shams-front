@@ -1,8 +1,12 @@
-import { refreshAccessToken } from "@/redux/slices/auth-slice";
+import {
+  clearCredentials,
+  refreshAccessToken,
+} from "@/redux/slices/auth-slice";
 import { resetStoreAction, store } from "@/redux/store";
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { toast } from "sonner";
 import { _VARZ } from "../const/_varz";
+import { clearUserToken } from "../actions/auth";
 
 export type Pagination<T, Z = any> = {
   data: {
@@ -76,36 +80,40 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    const originalRequest = error.config;
+    const originalRequest = error.config || {};
     const state = store.getState();
     const refreshToken = state?.authReducer?.refresh_token;
 
     // If the error is due to an expired access token
-    if (error?.response?.status === 401 && !axiosRetry && refreshToken) {
+    if (error?.response?.status === 401 && !axiosRetry) {
       axiosRetry = true;
 
-      if (!refreshToken) {
-        store.dispatch(resetStoreAction());
-        return Promise.reject(error);
-      }
-
       try {
-        const res = await store.dispatch(refreshAccessToken(refreshToken));
+        if (refreshToken) {
+          const res = await store.dispatch(refreshAccessToken(refreshToken));
+          const newAccessToken = (res as any)?.payload?.tokens?.accessToken as
+            | string
+            | undefined;
 
-        const newAccessToken = (res.payload as any)?.tokens
-          ?.accessToken as string;
-
-        if (newAccessToken) {
-          originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          return axiosInstance(originalRequest);
+          if (newAccessToken) {
+            originalRequest.headers = originalRequest.headers || {};
+            originalRequest.headers[
+              "Authorization"
+            ] = `Bearer ${newAccessToken}`;
+            axiosRetry = false;
+            return axiosInstance(originalRequest);
+          }
         }
-      } catch (err) {
-        //User refresh token wasn't valid
+        // No refresh token or missing new token → logout
+        store.dispatch(clearCredentials());
         store.dispatch(resetStoreAction());
-        //Redirect user to logout
-        // window.location.href = _VARZ.signOutApiPage;
-
+        clearUserToken(false);
+      } catch (err) {
+        // Refresh flow failed → logout
+        store.dispatch(resetStoreAction());
         return Promise.reject(err);
+      } finally {
+        axiosRetry = false;
       }
     }
 

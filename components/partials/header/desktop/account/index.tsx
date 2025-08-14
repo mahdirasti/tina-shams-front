@@ -3,6 +3,7 @@
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { cn, getLinkWithLocale } from "@/app/lib/utils";
 import { AccountIcon } from "@/components/icons";
+import { useAuth } from "@/hooks/use-auth";
 import Link from "next/link";
 import React from "react";
 
@@ -13,9 +14,15 @@ type Props = {
 export default function Account({ scrolled }: Props) {
   const { locale } = useLocale();
 
+  const { isAuthenticated } = useAuth();
+
+  const link = isAuthenticated
+    ? getLinkWithLocale(`/profile`, locale)
+    : getLinkWithLocale(`/auth/sign-in`, locale);
+
   return (
     <Link
-      href={getLinkWithLocale(`/auth/sign-in`, locale)}
+      href={link}
       className={cn("bg-transparent", scrolled ? "" : "text-white")}
     >
       <AccountIcon size={24} color={scrolled ? "black" : "white"} />

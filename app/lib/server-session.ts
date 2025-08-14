@@ -15,11 +15,10 @@ export default async function getServerSession() {
   const cookieStore = await cookies();
   const token = cookieStore.get(_VARZ.tokenCookieKey)?.value || "";
 
-  let data = undefined;
-  data = decodeWithSecret(token);
-
   return {
-    data,
-    isAuthenticated: !!data?.accessToken,
+    data: {
+      accessToken: token,
+    },
+    isAuthenticated: !!token,
   } as UserSession;
 }

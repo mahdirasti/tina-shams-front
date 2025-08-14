@@ -45,7 +45,9 @@ export default function OrderSummary({
       </h2>
 
       <div className='mt-4 rounded-lg border border-gray-200 bg-white shadow-sm'>
-        <h3 className='sr-only'>Items in your cart</h3>
+        <h3 className='sr-only'>
+          {dict?.checkout?.items_in_your_cart || "Items in your cart"}
+        </h3>
         <ul role='list' className='divide-y divide-gray-200'>
           {items.map((ci) => (
             <li key={ci.id} className='flex px-4 py-6 sm:px-6'>
@@ -61,10 +63,24 @@ export default function OrderSummary({
 
               <div className='ml-6 flex flex-1 flex-col'>
                 <div className='flex'>
-                  <div className='min-w-0 flex-1'>
-                    <h4 className='text-sm font-medium text-gray-700'>
-                      {ci.piece.title}
-                    </h4>
+                  <div className='flex flex-col gap-y-2 w-full'>
+                    <div className='min-w-0 flex-1'>
+                      <h4 className='text-sm font-medium text-gray-700'>
+                        {ci.piece.title}
+                      </h4>
+                    </div>
+                    <div className='flex items-center gap-2 flex-wrap'>
+                      {ci.variant_id?.attributeValues
+                        .map((a) => a.value)
+                        .map((a) => (
+                          <div
+                            key={a}
+                            className='text-sm text-gray-500 capitalize'
+                          >
+                            {a}
+                          </div>
+                        ))}
+                    </div>
                   </div>
 
                   <div className='ml-4 flow-root shrink-0'>
@@ -88,7 +104,7 @@ export default function OrderSummary({
                       <select
                         id={`quantity-${ci.id}`}
                         name={`quantity-${ci.id}`}
-                        aria-label='Quantity'
+                        aria-label={dict?.common?.quantity || "Quantity"}
                         value={ci.quantity}
                         onChange={(e) =>
                           updateCartItemQuantityAsync(
