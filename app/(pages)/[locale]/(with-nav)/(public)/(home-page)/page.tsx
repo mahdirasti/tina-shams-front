@@ -59,7 +59,7 @@ export default async function HomePage({ params }: Props) {
           background: item.cover ? getFullAssets(item.cover.fileName) : "",
           desc: item.desc,
           title: item.title,
-          link: getLinkWithLocale(item.link, locale),
+          link: item.link,
         }))}
       />
     </BlurFade>

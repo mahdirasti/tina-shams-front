@@ -6,6 +6,8 @@ import { useEffect, useMemo, useState } from "react";
 import { cn, getLinkWithLocale } from "@/app/lib/utils";
 import { usePathname } from "next/navigation";
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import Banners from "./banners";
+import { useApi } from "@/app/hooks";
 
 export const headerMenuItems: {
   title: string;
@@ -98,19 +100,54 @@ export default function MainHeaderPart() {
     return scrolled;
   }, [scrolled, pathname, locale]);
 
+  const { data: bannersRes } = useApi(`/banners/search`);
+  const bannerItems = useMemo(() => {
+    let raw: any[] = [];
+    if (Array.isArray(bannersRes?.data)) raw = bannersRes.data;
+    else if (Array.isArray(bannersRes?.data?.data?.items))
+      raw = bannersRes.data.data.items;
+    else if (Array.isArray(bannersRes?.data?.data)) raw = bannersRes.data.data;
+    else if (Array.isArray(bannersRes?.data?.items))
+      raw = bannersRes.data.items;
+
+    return raw
+      .map((banner) => {
+        const titleField = banner?.title as
+          | Array<{ language: string; value: string }>
+          | string
+          | undefined;
+        let titleValue = "";
+        if (Array.isArray(titleField)) {
+          titleValue =
+            titleField.find((t) => t.language === locale)?.value ??
+            titleField[0]?.value ??
+            "";
+        } else if (typeof titleField === "string") {
+          titleValue = titleField;
+        }
+
+        const linkValue = banner?.link ? banner.link : "";
+
+        return { title: titleValue, link: linkValue };
+      })
+      .filter((b) => b.title);
+  }, [bannersRes, locale]);
+
   return (
-    <header
-      className={cn(
-        "px-0 md:px-2 fixed left-0 w-full top-0 z-[1000] md:py-6 transition-all",
-        scrolled ? "bg-white/50 backdrop-blur-md" : ""
-      )}
-    >
-      <MainContainer className='main-header'>
-        {/* DESKTOP */}
-        <DesktopHeader scrolled={finalScrolled} />
-        {/* DESKTOP */}
-        {/* Mobile */}
-        {/* <div className='flex flex-row items-center justify-between md:hidden p-4 px-4 z-[1000] mobile-header'>
+    <>
+      <Banners items={bannerItems} />
+      <header
+        className={cn(
+          "px-0 md:px-2 sticky left-0 w-full top-0 z-[1000] md:py-6 transition-all",
+          scrolled ? "bg-white/50 backdrop-blur-md" : ""
+        )}
+      >
+        <MainContainer className='main-header'>
+          {/* DESKTOP */}
+          <DesktopHeader scrolled={finalScrolled} />
+          {/* DESKTOP */}
+          {/* Mobile */}
+          {/* <div className='flex flex-row items-center justify-between md:hidden p-4 px-4 z-[1000] mobile-header'>
           <div className='relative z-20'>
             <Logo />
           </div>
@@ -120,8 +157,9 @@ export default function MainHeaderPart() {
             <BurgerMenu />
           </div>
         </div> */}
-        {/* Mobile */}
-      </MainContainer>
-    </header>
+          {/* Mobile */}
+        </MainContainer>
+      </header>
+    </>
   );
 }
