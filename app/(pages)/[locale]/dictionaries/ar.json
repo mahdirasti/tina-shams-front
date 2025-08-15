@@ -247,6 +247,24 @@
         "error_desc":"يرجى المحاولة مرة أخرى.",
         "back_to_checkout":"العودة إلى الدفع",
         "your_payment_was_successful":"تم الدفع بنجاح",
-        "your_payment_was_successful_desc":"تم الدفع بنجاح. يمكنك الآن عرض طلبك في حسابك."  
+        "your_payment_was_successful_desc":"تم الدفع بنجاح. يمكنك الآن عرض طلبك في حسابك."  ,
+        "added_to_cart":"تمت الإضافة إلى السلة",
+        "contact_information":"المعلومات الاتصالية",
+        "shipping_information":"المعلومات الشحنية",
+        "first_name":"الاسم الأول",
+        "last_name":"الاسم الأخير",
+        "company":"الشركة",
+        "address":"العنوان",
+        "iran":"إيران",
+        "turkey":"تركيا",
+        "uae":"الإمارة العربية المتحدة",
+        "phone":"الهاتف",
+        "delivery_method":"طريقة الشحن",
+        "payment":"الدفع",
+        "order_summary":"ملخص الطلب",
+        "submitting":"جاري الإرسال...",
+        "confirm_order":"تأكيد الطلب",
+        "payment_successful":"تم الدفع بنجاح",
+        "thanks_for_ordering":"شكرا لك على الطلب"
     }    
 }

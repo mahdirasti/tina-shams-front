@@ -83,15 +83,15 @@ export default function CheckoutThanksWrapper() {
       <div className='py-16 lg:py-24'>
         <div className='max-w-3xl'>
           <h1 className='text-sm font-medium text-green-600'>
-            {dict?.checkout?.payment_successful || "Payment successful"}
+            {dict?.common?.payment_successful || "Payment successful"}
           </h1>
           <p className='mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
-            {dict?.checkout?.thanks_for_ordering || "Thanks for ordering"}
+            {dict?.common?.thanks_for_ordering || "Thanks for ordering"}
           </p>
           {!!order.tracking_code && (
             <dl className='mt-6 text-sm font-medium'>
               <dt className='text-gray-900'>
-                {dict?.checkout?.tracking_number || "Tracking number"}
+                {dict?.common?.tracking_number || "Tracking number"}
               </dt>
               <dd className='mt-2 text-indigo-600'>{order.tracking_code}</dd>
             </dl>
@@ -142,7 +142,7 @@ export default function CheckoutThanksWrapper() {
           </div>
 
           <div className='flex justify-between'>
-            <dt>{dict?.checkout?.shipping || "Shipping"}</dt>
+            <dt>{dict?.common?.shipping || "Shipping"}</dt>
             <dd className='text-gray-900'>
               {order.pricing.shipping_cost.toLocaleString()}{" "}
               {order.pricing.currency}
@@ -150,7 +150,7 @@ export default function CheckoutThanksWrapper() {
           </div>
 
           <div className='flex justify-between'>
-            <dt>{dict?.checkout?.taxes || "Taxes"}</dt>
+            <dt>{dict?.common?.taxes || "Taxes"}</dt>
             <dd className='text-gray-900'>
               {order.pricing.tax_amount.toLocaleString()}{" "}
               {order.pricing.currency}
@@ -158,7 +158,7 @@ export default function CheckoutThanksWrapper() {
           </div>
 
           <div className='flex items-center justify-between border-t border-gray-200 pt-6 text-gray-900'>
-            <dt className='text-base'>{dict?.checkout?.total || "Total"}</dt>
+            <dt className='text-base'>{dict?.common?.total || "Total"}</dt>
             <dd className='text-base'>
               {order.pricing.total_amount.toLocaleString()}{" "}
               {order.pricing.currency}
@@ -166,7 +166,7 @@ export default function CheckoutThanksWrapper() {
           </div>
         </dl>
 
-        <div className='mt-10 grid grid-cols-2 gap-4 w-[300px] max-w-full'>
+        <div className='mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 w-[400px] max-w-full'>
           <Link
             className={buttonVariants({
               class: "gap-x-2",

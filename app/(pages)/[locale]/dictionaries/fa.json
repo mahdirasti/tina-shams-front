@@ -118,6 +118,7 @@
         "back_to_home":"بازگشت به صفحه اصلی",
         "continue_shopping":"ادامه خرید",
         "add_to_cart":"افزودن به سبد خرید",
+        "added_to_cart":"به سبد خرید اضافه شد",
         "in_cart":"در سبد خرید",
         "quantity":"تعداد",
         "adding":"در حال افزودن به سبد...",
@@ -247,6 +248,23 @@
          "error_desc":"لطفا دوباره تلاش کنید.",
          "back_to_checkout":"بازگشت به پرداخت",
          "your_payment_was_successful":"پرداخت شما با موفقیت انجام شد",
-         "your_payment_was_successful_desc":"پرداخت شما با موفقیت انجام شد. شما می توانید سفارش خود را در حساب کاربری خود مشاهده کنید."
+         "your_payment_was_successful_desc":"پرداخت شما با موفقیت انجام شد. شما می توانید سفارش خود را در حساب کاربری خود مشاهده کنید.",
+         "contact_information":"اطلاعات تماس",
+         "shipping_information":"اطلاعات حمل",
+         "first_name":"نام",
+         "last_name":"نام خانوادگی",
+         "company":"شرکت",
+         "address":"آدرس",
+         "iran":"ایران",
+         "turkey":"تركيا",
+         "uae":"إمارة الكويت",
+         "phone":"شماره تلفن",
+         "delivery_method":"روش حمل",
+         "payment":"پرداخت",
+         "order_summary":"خلاصه سفارش",
+         "submitting":"در حال ارسال...",
+         "confirm_order":"تایید سفارش",
+         "payment_successful":"پرداخت موفق",
+         "thanks_for_ordering":"با تشکر از سفارش شما"
     }
 }

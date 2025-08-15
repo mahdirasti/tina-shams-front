@@ -55,7 +55,7 @@ export default function OrderSummary({
         </h3>
         <ul role='list' className='divide-y divide-gray-200'>
           {items.map((ci) => (
-            <li key={ci.id} className='flex px-4 py-6 sm:px-6'>
+            <li key={ci.id} className='flex px-4 py-6 sm:px-6 gap-6'>
               <div className='shrink-0'>
                 <Image
                   alt={ci.piece.title}
@@ -66,7 +66,7 @@ export default function OrderSummary({
                 />
               </div>
 
-              <div className='ml-6 flex flex-1 flex-col'>
+              <div className='flex flex-1 flex-col'>
                 <div className='flex'>
                   <div className='flex flex-col gap-y-2 w-full'>
                     <div className='min-w-0 flex-1'>
@@ -174,8 +174,8 @@ export default function OrderSummary({
             className='w-full text-base'
           >
             {isSubmitting
-              ? dict?.checkout?.submitting || "Submitting..."
-              : dict?.checkout?.confirm_order || "Confirm order"}
+              ? dict?.common?.submitting || "Submitting..."
+              : dict?.common?.confirm_order || "Confirm order"}
           </Button>
         </div>
       </div>

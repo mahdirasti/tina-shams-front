@@ -14,7 +14,7 @@ export default function PaymentMethods({
   return (
     <div>
       <h2 className='text-lg font-medium text-gray-900'>
-        {dict?.checkout?.payment || "Payment"}{" "}
+        {dict?.common?.payment || "Payment"}{" "}
         <span className='text-red-600'>*</span>
       </h2>
       <div className='mt-4 grid grid-cols-1 gap-4'>

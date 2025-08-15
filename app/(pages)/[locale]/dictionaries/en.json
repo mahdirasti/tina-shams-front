@@ -257,6 +257,23 @@
       "back_to_checkout":"Back to checkout",
       "your_payment_was_successful":"Your payment was successful",
       "your_payment_was_successful_desc":"Your payment was successful. You can now view your order in your profile.",
-      "view_orders":"View orders"
+      "view_orders":"View orders",
+      "contact_information":"Contact information",
+      "shipping_information":"Shipping information",
+      "first_name":"First name",
+      "last_name":"Last name",
+      "company":"Company",
+      "address":"Address",
+      "iran":"Iran",
+      "turkey":"Turkey",
+      "uae":"UAE",
+      "phone":"Phone",
+      "delivery_method":"Delivery method",
+      "payment":"Payment",
+      "order_summary":"Order summary",
+      "submitting":"Submitting...",
+      "confirm_order":"Confirm order",
+      "payment_successful":"Payment successful",
+      "thanks_for_ordering":"Thanks for ordering"
     }
 }

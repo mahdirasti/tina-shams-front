@@ -8,7 +8,7 @@ export default function ContactInformation() {
   return (
     <div>
       <h2 className='text-lg font-medium text-gray-900'>
-        {dict?.checkout?.contact_information || "Contact information"}
+        {dict?.common?.contact_information || "Contact information"}
       </h2>
 
       <div className='mt-4'>
@@ -16,7 +16,7 @@ export default function ContactInformation() {
           htmlFor='email'
           className='block text-sm/6 font-medium text-gray-700'
         >
-          {dict?.checkout?.email_address || "Email address"}{" "}
+          {dict?.common?.email_address || "Email address"}{" "}
           <span className='text-red-600'>*</span>
         </label>
         <div className='mt-2'>

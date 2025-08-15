@@ -15,7 +15,7 @@ export default function DeliveryMethod({
   return (
     <fieldset>
       <legend className='text-lg font-medium text-gray-900'>
-        {dict?.checkout?.delivery_method || "Delivery method"}{" "}
+        {dict?.common?.delivery_method || "Delivery method"}{" "}
         <span className='text-red-600'>*</span>
       </legend>
 
