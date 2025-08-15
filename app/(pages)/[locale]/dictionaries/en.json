@@ -251,6 +251,12 @@
       "make_default":"Make default",
       "delete":"Delete",
       "favorites_desc":"Your saved items will appear here.",
-      "footer_slogan":"Illuminate your elegance, bling & shine."
+      "footer_slogan":"Illuminate your elegance, bling & shine.",
+      "error":"Error",
+      "error_desc":"Please try again.",
+      "back_to_checkout":"Back to checkout",
+      "your_payment_was_successful":"Your payment was successful",
+      "your_payment_was_successful_desc":"Your payment was successful. You can now view your order in your profile.",
+      "view_orders":"View orders"
     }
 }

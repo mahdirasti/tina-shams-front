@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { headerMenuItems } from "../..";
 import Link from "next/link";
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
-import { cn, getLinkWithLocale } from "@/app/lib/utils";
+import { cn, getFullAssets, getLinkWithLocale } from "@/app/lib/utils";
 import { OrgIconButton, OrgSheet } from "@/components/shared-ui";
 import BurgerMenu from "@/components/icons/burger-menu";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -12,6 +12,8 @@ import { HeaderBannerType } from "@/types/banner";
 import { useState } from "react";
 import BlurFade from "@/components/ui/blur-fade";
 import Image from "next/image";
+import { useApi } from "@/app/hooks";
+import { FetchDataType } from "@/app/lib/axios";
 
 type Props = {
   scrolled: boolean;
@@ -31,85 +33,91 @@ export default function HeaderMenu({ scrolled, color }: Props) {
   const [selectedCategory, setSelectedCategory] =
     useState<HeaderCategory | null>(null);
 
-  const dummyCategories: HeaderCategory[] = [
+  const { data, isLoading } = useApi<
+    FetchDataType<{
+      id: string;
+      name: string;
+      type: string;
+      value: string;
+    }>
+  >(`/setting/keys/mega-menu`);
+
+  const megaMenu = data?.data?.value;
+
+  const finalMegaMenu = useMemo(() => {
+    if (!megaMenu) return [];
+
+    try {
+      const parsedMegaMenu = JSON.parse(megaMenu);
+
+      return parsedMegaMenu;
+    } catch (error) {
+      return [];
+    }
+  }, [megaMenu]);
+
+  const staticDummy: HeaderCategory[] = [
     {
       title: "High Jewelry",
       href: "/high-jewelry",
       children: [
-        {
-          title: "NECKLACES AND PENDANTS",
-          href: "/necklaces-and-pendants",
-        },
-        {
-          title: "BRACELETS",
-          href: "/bracelets",
-        },
-        {
-          title: "RINGS",
-          href: "/rings",
-        },
-        {
-          title: "EARRINGS",
-          href: "/earrings",
-        },
-        {
-          title: "Clips & brooches",
-          href: "/clips-and-brooches",
-        },
-        {
-          title: "jewelry watches",
-          href: "/jewelry-watches",
-        },
-        {
-          title: "Cufflinks",
-          href: "/cufflinks",
-        },
-      ],
-      banners: [
-        {
-          id: "1",
-          title: "High Jewelry",
-          href: "/high-jewelry",
-          image:
-            "https://www.vancleefarpels.com/content/dam/vancleefarpels/collections/high-jewelry/classic-high-jewelry/univers-corpo-2024/van-cleef-arpels-classic-high-jewelry-1-snowflake-cover-1328x747.jpg.transform.vca-w550-2x.jpg",
-          description: "High Jewelry",
-          createdAt: "2021-01-01",
-          updatedAt: "2021-01-01",
-        },
-        {
-          id: "2",
-          title: "Treasure Island by Van Cleef & Arpels",
-          href: "/treasure-island-by-van-cleef-arpels",
-          image:
-            "https://www.vancleefarpels.com/content/dam/vancleefarpels/menu-navigation-assets/high-jewelry/thematic-collections/treasure-islance/van-cleef-arpels-menu-ambiance-haute-joaillerie-IAT-1328-747-01.jpg.transform.vca-w550-2x.jpg",
-          description:
-            "The Van Cleef & Arpels Treasure Island collection is a tribute to the legendary pirate Jack Sparrow, who is known for his love of treasure and his adventures on the high seas. The collection features a range of high jewelry pieces, including necklaces, rings, and bracelets, all inspired by the world of pirates and the sea.",
-          createdAt: "2021-01-01",
-          updatedAt: "2021-01-01",
-          textNotWhite: true,
-        },
-        {
-          id: "3",
-          title: "Flowers",
-          href: "/flowers",
-          image:
-            "https://www.vancleefarpels.com/content/dam/vancleefarpels/menu-navigation-assets/high-jewelry/signature-collections/flowers/van-cleef-arpels-summer-2024-menu-1328-747.jpg.transform.vca-w550-2x.jpg",
-          createdAt: "2021-01-01",
-          updatedAt: "2021-01-01",
-        },
-        {
-          id: "4",
-          title: "Heritage Collection",
-          href: "/heritage-collection",
-          image:
-            "https://www.vancleefarpels.com/content/dam/vancleefarpels/menu-navigation-assets/high-jewelry/signature-collections/van-cleef-arpels-collection-heritage-thumbnail-nav-menu-1328-747-V2.png.transform.vca-w550-2x.png",
-          createdAt: "2021-01-01",
-          updatedAt: "2021-01-01",
-          textNotWhite: true,
-        },
+        { title: "NECKLACES AND PENDANTS", href: "/necklaces-and-pendants" },
+        { title: "BRACELETS", href: "/bracelets" },
+        { title: "RINGS", href: "/rings" },
+        { title: "EARRINGS", href: "/earrings" },
+        { title: "Clips & brooches", href: "/clips-and-brooches" },
+        { title: "jewelry watches", href: "/jewelry-watches" },
+        { title: "Cufflinks", href: "/cufflinks" },
       ],
     },
   ];
+
+  const dummyCategories: HeaderCategory[] = React.useMemo(() => {
+    if (
+      !finalMegaMenu ||
+      !Array.isArray(finalMegaMenu) ||
+      finalMegaMenu.length === 0
+    )
+      return [];
+
+    const getTitle = (titleArr: any) => {
+      if (!titleArr) return "";
+      if (Array.isArray(titleArr)) {
+        const targetLanguage = titleArr.find((t: any) => t.language === locale);
+        return targetLanguage?.value ?? titleArr[0]?.value ?? "";
+      }
+      return String(titleArr);
+    };
+
+    try {
+      return finalMegaMenu.map((node: any) => {
+        const links = node.children?.filter((c: any) => c.type === "link");
+        const banners = node.children?.filter((c: any) => c.type === "banner");
+
+        let output: HeaderCategory = {
+          title: getTitle(node.title),
+          href: node.href ?? "",
+          children:
+            links?.map((c: any) => ({
+              title: getTitle(c.title),
+              href: c.href ?? "",
+            })) ?? [],
+          banners:
+            banners?.map((b: any) => ({
+              alt: b.alt ?? "",
+              title: getTitle(b.title),
+              href: b.href ?? "",
+              image: getFullAssets(b.image?.fileName ?? "") ?? "",
+              textNotWhite: b.textNotWhite ?? false,
+            })) ?? [],
+        };
+
+        return output;
+      });
+    } catch (e) {
+      return [];
+    }
+  }, [finalMegaMenu, locale]);
 
   const SheetContent = (close?: () => void) => {
     let content = (

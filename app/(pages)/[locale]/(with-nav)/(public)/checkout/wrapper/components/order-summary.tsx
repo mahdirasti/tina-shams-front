@@ -7,6 +7,7 @@ import { FormikContextType, useFormikContext } from "formik";
 import { ChevronDownIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
+import { useEffect } from "react";
 
 export default function OrderSummary({
   isSubmitting,
@@ -37,6 +38,10 @@ export default function OrderSummary({
       ? getFullAssets(fileName)
       : "/assets/images/product-cover-2.jpg";
   };
+
+  useEffect(() => {
+    // server returns unified cart totals; no client-preview needed
+  }, [items.length]);
 
   return (
     <div className='mt-10 lg:mt-0'>

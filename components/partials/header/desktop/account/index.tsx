@@ -17,7 +17,7 @@ export default function Account({ scrolled }: Props) {
   const { isAuthenticated } = useAuth();
 
   const link = isAuthenticated
-    ? getLinkWithLocale(`/profile`, locale)
+    ? getLinkWithLocale(`/profile/orders`, locale)
     : getLinkWithLocale(`/auth/sign-in`, locale);
 
   return (

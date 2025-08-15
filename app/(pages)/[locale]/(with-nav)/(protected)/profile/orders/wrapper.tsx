@@ -15,6 +15,7 @@ import { getFullAssets } from "@/app/lib/utils";
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { FileType } from "@/types/file";
 import { CategoryType } from "@/types/category";
+import DeliveryIcon from "@/components/icons/delivery";
 
 type Order = {
   user: string;
@@ -252,9 +253,7 @@ export default function MyOrdersWrapper() {
                         );
                         break;
                       case "delivered":
-                        statusIcon = (
-                          <CheckCircleIcon className='size-5 text-green-500' />
-                        );
+                        statusIcon = <DeliveryIcon color='#1976D2' />;
                         break;
                       case "failed":
                         statusIcon = (

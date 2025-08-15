@@ -26,8 +26,6 @@ export default function CartItemRow({
     (parseFloat(item?.piece?.weight ?? "0") || 0) * (item?.quantity ?? 0)
   ).toLocaleString();
 
-  console.log("item", item);
-
   return (
     <li key={item.id} className='flex py-6 gap-x-4'>
       <div className='size-24 shrink-0 overflow-hidden rounded-md border border-gray-200'>
@@ -41,14 +39,20 @@ export default function CartItemRow({
       <div className='flex flex-1 flex-col'>
         <div>
           <div className='flex justify-between text-base font-medium text-gray-900'>
-            <div>
-              <h3>
-                <Link
-                  href={getLinkWithLocale(`/shop/${item?.piece?.slug}`, locale)}
-                >
-                  {item?.piece?.title}
-                </Link>
-              </h3>
+            <div className='w-full'>
+              <div className='flex flex-row items-center justify-between gap-x-2 w-full'>
+                <h3>
+                  <Link
+                    href={getLinkWithLocale(
+                      `/shop/${item?.piece?.slug}`,
+                      locale
+                    )}
+                  >
+                    {item?.piece?.title}
+                  </Link>
+                </h3>
+                <span className='text-xs text-gray-500'>{`${item.variant_id?.weight} ${dict.common.grams}`}</span>
+              </div>
               {item?.variant_id?.attributeValues
                 .map((a) => a.value)
                 .map((a) => (
@@ -57,9 +61,6 @@ export default function CartItemRow({
                   </div>
                 ))}
             </div>
-            <p>
-              {totalPrice} {currency}
-            </p>
           </div>
 
           {item?.selected_options &&

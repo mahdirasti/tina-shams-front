@@ -76,10 +76,9 @@ export default function CheckoutWrapper() {
 
   const PAYMENT_METHODS = useMemo<PaymentMethodType[]>(
     () => [
-      { id: "credit-card", title: dict?.common?.credit_card || "Credit card" },
       {
-        id: "cod",
-        title: dict?.common?.cash_on_delivery || "Cash on delivery",
+        id: "zarinpal",
+        title: dict?.common?.zarinpal || "Zarinpal",
       },
     ],
     [dict]
@@ -201,14 +200,60 @@ export default function CheckoutWrapper() {
             const data = (res as any)?.data?.data || {};
             const orderId = data?.order_id;
 
-            // For now, skip external payment redirects and always go to thanks page
             if (orderId) {
-              // Empty cart immediately in Redux (persisted)
-              // cartHook.clearCartSync();
-              // // Optionally notify backend (non-blocking)
-              // try {
-              //   cartHook.clearCartAsync();
-              // } catch (e) {}
+              // If selected payment is Zarinpal, try to redirect to gateway
+              if (values.payment_method_id === "zarinpal") {
+                const paymentUrlFromOrder =
+                  data?.payment_redirect_url ||
+                  data?.payment?.payment_link ||
+                  data?.payment_url;
+
+                if (paymentUrlFromOrder) {
+                  window.location.href = paymentUrlFromOrder;
+                  return;
+                }
+
+                // Request transaction link from server and redirect
+                try {
+                  const trxReq = {
+                    amount: cartHook.total_amount,
+                    description: `Order ${orderId} payment`,
+                    gateway: "zarinpal",
+                    metadata: {
+                      order_id: orderId,
+                      callback_url: `${window.location.origin}/${locale}/checkout/callback`,
+                    },
+                  };
+                  const trxRes = await axiosInstance.post(
+                    "/transactions/request",
+                    trxReq
+                  );
+                  const trxData = (trxRes as any)?.data?.data || {};
+                  const paymentUrl =
+                    trxData?.payment_url ||
+                    trxData?.raw?.payment_url ||
+                    trxData?.data?.payment_url;
+                  if (paymentUrl) {
+                    window.location.href = paymentUrl;
+                    return;
+                  }
+                  // fallback: show error if no link
+                  alert(
+                    dict?.checkout?.payment_request_failed ||
+                      "Failed to obtain payment link. Please try again later."
+                  );
+                } catch (e) {
+                  alert(
+                    dict?.checkout?.payment_request_failed ||
+                      "Failed to obtain payment link. Please try again later."
+                  );
+                }
+              }
+
+              // For non-redirect flows or fallback, go to thanks page
+              try {
+                cartHook.clearCartSync?.();
+              } catch (e) {}
               router.push(`/${locale}/checkout/${orderId}/thanks`);
             }
           } finally {

@@ -24,6 +24,9 @@ export type CartItemType = {
     createdAt: string;
     updatedAt: string;
     id: string;
+    weight: number;
+    construction_fee_percent: number;
+    accessories_fee: number;
   };
 };
 
@@ -77,12 +80,12 @@ const initialState: CartState = {
 
 export const fetchCartFromServer = createAsyncThunk(
   "cart/fetchCartFromServer",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       const response = await axiosInstance.get<FetchDataType<CartItemType[]>>(
         "/cart"
       );
-      return response.data.data;
+      return response.data.data; // server returns unified cart object
     } catch (error: any) {
       return rejectWithValue(
         error?.response?.data?.message || "Failed to fetch cart"
@@ -105,7 +108,7 @@ export const addItemToCart = createAsyncThunk(
       selected_options?: { [key: string]: string | number };
       variant_id?: string;
     },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     try {
       const response = await axiosInstance.post<FetchDataType<CartItemType>>(
@@ -117,7 +120,7 @@ export const addItemToCart = createAsyncThunk(
           ...(variant_id ? { variant_id } : {}),
         }
       );
-      return response.data.data;
+      return response.data.data; // server now returns unified cart
     } catch (error: any) {
       return rejectWithValue(
         error?.response?.data?.message || "Failed to add item to cart"
@@ -136,17 +139,45 @@ export const updateCartItemQuantity = createAsyncThunk(
       item_id: string;
       quantity: number;
     },
-    { rejectWithValue }
+    { rejectWithValue, dispatch, getState }
   ) => {
+    const stateBefore = getState() as { cart: CartState };
+    const prevItem =
+      stateBefore.cart.items.find((it) => it.id === item_id) || null;
+    const prevQuantity = prevItem ? prevItem.quantity : 0;
+
+    // Optimistic update
     try {
-      const response = await axiosInstance.patch<FetchDataType<CartItemType>>(
+      dispatch({
+        type: "cart/updateItemQuantity",
+        payload: { item_id, quantity },
+      });
+      // optimistic local totals updated; server will return authoritative cart
+    } catch (err) {
+      console.warn("Failed to apply optimistic update", err);
+    }
+
+    try {
+      const response = await axiosInstance.patch<FetchDataType<any>>(
         `/cart/items/${item_id}`,
         {
           quantity,
         }
       );
-      return response.data.data;
+
+      return response.data.data; // unified cart from server
     } catch (error: any) {
+      // Revert optimistic update
+      try {
+        dispatch({
+          type: "cart/updateItemQuantity",
+          payload: { item_id, quantity: prevQuantity },
+        });
+        // optimistic revert applied
+      } catch (err) {
+        console.warn("Failed to revert optimistic update", err);
+      }
+
       return rejectWithValue(
         error?.response?.data?.message || "Failed to update item quantity"
       );
@@ -156,11 +187,35 @@ export const updateCartItemQuantity = createAsyncThunk(
 
 export const removeItemFromCart = createAsyncThunk(
   "cart/removeItemFromCart",
-  async (item_id: string, { rejectWithValue }) => {
+  async (item_id: string, { rejectWithValue, dispatch, getState }) => {
+    const stateBefore = getState() as { cart: CartState };
+    const prevItem =
+      stateBefore.cart.items.find((it) => it.id === item_id) || null;
+
+    // Optimistic remove
     try {
-      await axiosInstance.delete(`/cart/items/${item_id}`);
-      return item_id;
+      dispatch({ type: "cart/removeItem", payload: item_id });
+      // optimistic local remove; server will return authoritative cart
+    } catch (err) {
+      console.warn("Failed to apply optimistic remove", err);
+    }
+
+    try {
+      const res = await axiosInstance.delete<FetchDataType<any>>(
+        `/cart/items/${item_id}`
+      );
+      return res.data.data; // unified cart
     } catch (error: any) {
+      // Revert removal
+      try {
+        if (prevItem) {
+          dispatch({ type: "cart/addItem", payload: prevItem });
+          // revert applied
+        }
+      } catch (err) {
+        console.warn("Failed to revert optimistic remove", err);
+      }
+
       return rejectWithValue(
         error?.response?.data?.message || "Failed to remove item from cart"
       );
@@ -186,15 +241,13 @@ export const applyCoupon = createAsyncThunk(
   "cart/applyCoupon",
   async (coupon_code: string, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post<
-        FetchDataType<{
-          discount_amount: number;
-          coupon_code: string;
-        }>
-      >("/cart/apply-coupon", {
-        coupon_code,
-      });
-      return response.data.data;
+      const response = await axiosInstance.post<FetchDataType<any>>(
+        "/cart/apply-coupon",
+        {
+          coupon_code,
+        }
+      );
+      return response.data.data; // may return unified cart or coupon data
     } catch (error: any) {
       return rejectWithValue(
         error?.response?.data?.message || "Failed to apply coupon"
@@ -230,16 +283,15 @@ export const calculateShipping = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axiosInstance.post<
-        FetchDataType<{
-          shipping_cost: number;
-          estimated_delivery: string;
-        }>
-      >("/cart/calculate-shipping", {
-        address,
-        shipping_method,
-      });
-      return response.data.data;
+      const response = await axiosInstance.post<FetchDataType<any>>(
+        "/cart/calculate-shipping",
+        {
+          address,
+          shipping_method,
+        }
+      );
+
+      return response.data.data; // may return unified cart or shipping info
     } catch (error: any) {
       return rejectWithValue(
         error?.response?.data?.message || "Failed to calculate shipping"
@@ -255,13 +307,13 @@ export const syncCartWithServer = createAsyncThunk(
       const state = getState() as { cart: CartState };
       const localItems = state.cart.items;
 
-      const response = await axiosInstance.post<FetchDataType<CartItemType[]>>(
+      const response = await axiosInstance.post<FetchDataType<any>>(
         "/cart/sync",
         {
           items: localItems,
         }
       );
-      return response.data.data;
+      return response.data.data; // unified cart
     } catch (error: any) {
       return rejectWithValue(
         error?.response?.data?.message || "Failed to sync cart"
@@ -269,6 +321,8 @@ export const syncCartWithServer = createAsyncThunk(
     }
   }
 );
+
+// NOTE: cart preview/calculate-price removed — server now returns unified cart for cart-changing endpoints
 
 // Helper function to calculate cart totals
 const calculateCartTotals = (
@@ -436,6 +490,41 @@ const cartSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Helper to apply unified cart responses from server
+    const applyServerCart = (state: CartState, payload: any) => {
+      if (!payload) return;
+
+      // If server returned array (legacy), treat as items
+      if (Array.isArray(payload)) {
+        state.items = payload;
+      } else if (payload.items) {
+        state.items = payload.items;
+      }
+
+      // Map totals (support different naming variants)
+      state.subtotal =
+        payload.subtotal ??
+        payload.sub_total ??
+        payload.subTotal ??
+        state.subtotal;
+      state.tax_amount = payload.tax ?? payload.tax_amount ?? state.tax_amount;
+      state.shipping_cost =
+        payload.shipping ?? payload.shipping_cost ?? state.shipping_cost;
+      state.discount_amount =
+        payload.discount ?? payload.discount_amount ?? state.discount_amount;
+      state.total_amount =
+        payload.total ?? payload.total_amount ?? state.total_amount;
+
+      // Recalculate total_items from items array when available
+      if (state.items && Array.isArray(state.items)) {
+        state.total_items = state.items.reduce(
+          (sum, it) => sum + (it.quantity || 0),
+          0
+        );
+      }
+
+      state.last_updated = new Date().toISOString();
+    };
     // Fetch cart from server
     builder
       .addCase(fetchCartFromServer.pending, (state) => {
@@ -444,20 +533,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCartFromServer.fulfilled, (state, action) => {
         state.is_loading = false;
-        state.items = action.payload;
-        const totals = calculateCartTotals(
-          state.items,
-          state.discount_amount,
-          state.shipping_cost
-        );
-        Object.assign(state, totals);
-        state.last_updated = new Date().toISOString();
-
-        // Debug: Log cart loaded from server
-        console.log("Cart loaded from server:", {
-          items: state.items.length,
-          total_items: state.total_items,
-        });
+        applyServerCart(state, action.payload);
       })
       .addCase(fetchCartFromServer.rejected, (state, action) => {
         state.is_loading = false;
@@ -472,23 +548,8 @@ const cartSlice = createSlice({
       })
       .addCase(addItemToCart.fulfilled, (state, action) => {
         state.is_loading = false;
-        const existingItemIndex = state.items.findIndex(
-          (item) => item.id === action.payload.id
-        );
-
-        if (existingItemIndex >= 0) {
-          state.items[existingItemIndex] = action.payload;
-        } else {
-          state.items.push(action.payload);
-        }
-
-        const totals = calculateCartTotals(
-          state.items,
-          state.discount_amount,
-          state.shipping_cost
-        );
-        Object.assign(state, totals);
-        state.last_updated = new Date().toISOString();
+        // server returns unified cart; apply it
+        applyServerCart(state, action.payload);
       })
       .addCase(addItemToCart.rejected, (state, action) => {
         state.is_loading = false;
@@ -503,28 +564,10 @@ const cartSlice = createSlice({
       })
       .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
         state.is_loading = false;
-        const itemIndex = state.items.findIndex(
-          (item) => item.id === action.payload.id
-        );
-
-        if (itemIndex >= 0) {
-          state.items[itemIndex] = action.payload;
-        }
-
-        const totals = calculateCartTotals(
-          state.items,
-          state.discount_amount,
-          state.shipping_cost
-        );
-        Object.assign(state, totals);
-        state.last_updated = new Date().toISOString();
-
-        // Debug: Log quantity update
-        console.log("Cart item quantity updated:", {
-          itemId: action.payload.id,
-          newQuantity: action.payload.quantity,
-          totalItems: state.total_items,
-        });
+        // server returns unified cart; apply it
+        applyServerCart(state, action.payload);
+        // Debug
+        console.log("Cart updated from server after quantity change");
       })
       .addCase(updateCartItemQuantity.rejected, (state, action) => {
         state.is_loading = false;
@@ -539,21 +582,9 @@ const cartSlice = createSlice({
       })
       .addCase(removeItemFromCart.fulfilled, (state, action) => {
         state.is_loading = false;
-        state.items = state.items.filter((item) => item.id !== action.payload);
-        const totals = calculateCartTotals(
-          state.items,
-          state.discount_amount,
-          state.shipping_cost
-        );
-        Object.assign(state, totals);
-        state.last_updated = new Date().toISOString();
-
-        // Debug: Log item removal
-        console.log("Cart item removed:", {
-          itemId: action.payload,
-          remainingItems: state.items.length,
-          totalItems: state.total_items,
-        });
+        // server returns unified cart; apply it
+        applyServerCart(state, action.payload);
+        console.log("Cart updated from server after removal");
       })
       .addCase(removeItemFromCart.rejected, (state, action) => {
         state.is_loading = false;
@@ -629,27 +660,27 @@ const cartSlice = createSlice({
       });
 
     // Calculate shipping
-    builder
-      .addCase(calculateShipping.pending, (state) => {
-        state.is_loading = true;
-        state.error = null;
-      })
-      .addCase(calculateShipping.fulfilled, (state, action) => {
-        state.is_loading = false;
-        state.shipping_cost = action.payload.shipping_cost;
-        const totals = calculateCartTotals(
-          state.items,
-          state.discount_amount,
-          state.shipping_cost
-        );
-        Object.assign(state, totals);
-        state.total_amount += state.shipping_cost;
-        state.last_updated = new Date().toISOString();
-      })
-      .addCase(calculateShipping.rejected, (state, action) => {
-        state.is_loading = false;
-        state.error = action.payload as string;
-      });
+    // builder
+    //   .addCase(calculateShipping.pending, (state) => {
+    //     state.is_loading = true;
+    //     state.error = null;
+    //   })
+    //   .addCase(calculateShipping.fulfilled, (state, action) => {
+    //     state.is_loading = false;
+    //     state.shipping_cost = action.payload.shipping_cost;
+    //     const totals = calculateCartTotals(
+    //       state.items,
+    //       state.discount_amount,
+    //       state.shipping_cost
+    //     );
+    //     Object.assign(state, totals);
+    //     state.total_amount += state.shipping_cost;
+    //     state.last_updated = new Date().toISOString();
+    //   })
+    //   .addCase(calculateShipping.rejected, (state, action) => {
+    //     state.is_loading = false;
+    //     state.error = action.payload as string;
+    //   });
 
     // Sync cart with server
     builder
@@ -672,6 +703,8 @@ const cartSlice = createSlice({
         state.is_loading = false;
         state.error = action.payload as string;
       });
+
+    // No preview thunk — server responses for cart endpoints are authoritative
   },
 });
 

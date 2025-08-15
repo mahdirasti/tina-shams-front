@@ -25,6 +25,7 @@ export const headerMenuItems: {
 const defaultSrolledStateRoutes = [
   "/shop",
   "/checkout",
+  "/checkout/[^/]+",
   "/shop/[^/]+",
   "/profile",
   "/profile/orders/[^/]+",

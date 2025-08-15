@@ -107,7 +107,7 @@ axiosInstance.interceptors.response.use(
         // No refresh token or missing new token → logout
         store.dispatch(clearCredentials());
         store.dispatch(resetStoreAction());
-        clearUserToken(false);
+        clearUserToken();
       } catch (err) {
         // Refresh flow failed → logout
         store.dispatch(resetStoreAction());
