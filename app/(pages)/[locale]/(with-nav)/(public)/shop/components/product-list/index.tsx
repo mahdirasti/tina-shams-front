@@ -73,9 +73,9 @@ export default function ProductList({ items }: Props) {
 
   return (
     <>
-      <div className='bg-white'>
-        {/* Filters */}
-        <Disclosure
+      {/* <div className='bg-white'> */}
+      {/* Filters */}
+      {/* <Disclosure
           as='section'
           aria-labelledby='filter-heading'
           className='grid items-center border-b border-t border-gray-200'
@@ -336,7 +336,7 @@ export default function ProductList({ items }: Props) {
             </div>
           </div>
         </Disclosure>
-      </div>
+      </div> */}
       <MainContainer>
         <div className='mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3'>
           <div className='mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-x-6 lg:gap-x-8'>

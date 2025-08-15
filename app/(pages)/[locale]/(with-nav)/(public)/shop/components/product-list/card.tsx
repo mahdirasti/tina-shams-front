@@ -71,7 +71,7 @@ export default function ProductCard({ item }: Props) {
         </Link>
       </h3>
       <p className='mt-1 text-sm text-gray-500'>
-        {parseFloat(item.weight).toLocaleString()} {dict.common.rial}
+        {parseFloat(item.weight).toLocaleString()} {dict.common.grams}
       </p>
     </div>
   );
