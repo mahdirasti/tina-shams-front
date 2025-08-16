@@ -1,4 +1,5 @@
 import { Viewport } from "next";
+import ClientGlobally from "./client";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className='md:pt-0'>{children}</body>
+      <body className='md:pt-0'>
+        {children} <ClientGlobally />
+      </body>
     </html>
   );
 }
