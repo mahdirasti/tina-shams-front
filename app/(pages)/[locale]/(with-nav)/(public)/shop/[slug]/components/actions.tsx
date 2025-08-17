@@ -506,7 +506,8 @@ export default function ProductActions({ item }: Props) {
       <button
         type='button'
         onClick={handleAddToCart}
-        disabled={isAddingToCart}
+        // disabled={isAddingToCart}
+        disabled
         className='mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-primary px-8 py-3 text-base font-medium text-white hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
       >
         {isAddingToCart
