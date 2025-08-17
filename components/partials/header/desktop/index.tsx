@@ -2,12 +2,9 @@ import Logo from "@/components/shared/logo";
 import React from "react";
 import LanguageSwitcher from "../language-switcher";
 import { usePage } from "@/app/hooks/use-page";
-import GoldShower from "../gold-shower";
-import { cn } from "@/app/lib/utils";
 import HeaderMenu from "./menu";
 import ShopCart from "./cart";
 import Account from "./account";
-import Support from "./support";
 
 type Props = {
   scrolled: boolean;

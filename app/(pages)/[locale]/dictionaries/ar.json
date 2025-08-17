@@ -265,6 +265,7 @@
         "submitting":"جاري الإرسال...",
         "confirm_order":"تأكيد الطلب",
         "payment_successful":"تم الدفع بنجاح",
-        "thanks_for_ordering":"شكرا لك على الطلب"
+        "thanks_for_ordering":"شكرا لك على الطلب",
+        "logout":"تسجيل الخروج"
     }    
 }

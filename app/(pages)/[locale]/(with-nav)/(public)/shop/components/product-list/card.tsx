@@ -43,7 +43,7 @@ export default function ProductCard({ item }: Props) {
         <img
           alt={item.title}
           src={getFullAssets(item.thumbnail.fileName)}
-          className='h-96 w-full object-cover object-center group-hover:opacity-75 sm:aspect-[2/3] sm:h-auto'
+          className='h-96 w-full object-cover object-center group-hover:opacity-75 sm:aspect-[3/3] sm:h-auto'
         />
         <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity'>
           <button
@@ -55,7 +55,7 @@ export default function ProductCard({ item }: Props) {
               ? dict.common.adding
               : isInCart
               ? dict.common.in_cart
-              : dict.common.add_to_cart}
+              : dict.common.view_details}
           </button>
         </div>
         {isInCart && (

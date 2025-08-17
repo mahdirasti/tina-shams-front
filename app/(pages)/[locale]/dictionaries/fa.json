@@ -265,6 +265,7 @@
          "submitting":"در حال ارسال...",
          "confirm_order":"تایید سفارش",
          "payment_successful":"پرداخت موفق",
-         "thanks_for_ordering":"با تشکر از سفارش شما"
+         "thanks_for_ordering":"با تشکر از سفارش شما",
+         "logout":"خروج"
     }
 }

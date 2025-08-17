@@ -28,12 +28,12 @@ export type HeaderCategory = {
 };
 
 export default function HeaderMenu({ scrolled, color }: Props) {
-  const { locale, dict } = useLocale();
+  const { locale, dict, dir } = useLocale();
 
   const [selectedCategory, setSelectedCategory] =
     useState<HeaderCategory | null>(null);
 
-  const { data, isLoading } = useApi<
+  const { data } = useApi<
     FetchDataType<{
       id: string;
       name: string;
@@ -139,15 +139,16 @@ export default function HeaderMenu({ scrolled, color }: Props) {
                 (category?.banners && category?.banners?.length > 0);
 
               let content = (
-                <div key={key} className='flex flex-col w-full gap-y-2'>
+                <div key={key} className='flex flex-col gap-y-2'>
                   <button
                     onClick={() => setSelectedCategory(category)}
                     className={cn(
                       `font-thin opacity-70 hover:opacity-100 transition-all duration-300 text-lg flex flex-row items-center justify-between gap-x-2 uppercase`
                     )}
                   >
+                    {dir === "rtl" && <ChevronLeft size={16} />}
                     {category.title}
-                    <ChevronRight size={16} />
+                    {dir === "ltr" && <ChevronRight size={16} />}
                   </button>
                 </div>
               );
@@ -167,7 +168,15 @@ export default function HeaderMenu({ scrolled, color }: Props) {
                 );
 
               return (
-                <BlurFade inView delay={0.2 + key * 0.1} key={key}>
+                <BlurFade
+                  inView
+                  delay={0.2 + key * 0.1}
+                  key={key}
+                  className={cn(
+                    "flex flex-col",
+                    dir === "ltr" ? "items-start" : "items-end"
+                  )}
+                >
                   {content}
                 </BlurFade>
               );
@@ -185,6 +194,10 @@ export default function HeaderMenu({ scrolled, color }: Props) {
                 onClick={() => {
                   close?.();
                 }}
+                className={cn(
+                  "w-full flex flex-col",
+                  dir === "ltr" ? "items-start" : "items-end"
+                )}
               >
                 <BlurFade
                   delay={0.2 + key * 0.2 + waitForTopAnimationDelay}
@@ -201,8 +214,9 @@ export default function HeaderMenu({ scrolled, color }: Props) {
                       `font-thin text-lg flex flex-row items-center gap-x-2 uppercase`
                     )}
                   >
+                    {dir === "rtl" && <ChevronLeft size={16} />}
                     {dict?.common?.[menuItem.title] ?? menuItem.title}
-                    <ChevronRight size={16} />
+                    {dir === "ltr" && <ChevronRight size={16} />}
                   </Link>
                 </BlurFade>
               </li>
@@ -308,7 +322,7 @@ export default function HeaderMenu({ scrolled, color }: Props) {
           </OrgIconButton>
         )}
         config={{
-          side: "left",
+          side: dir === "ltr" ? "left" : "right",
         }}
         hasClose={false}
       >
