@@ -30,7 +30,7 @@ export default function Banners({ items }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <div className='bg-black h-[64px]'>
+    <div className='bg-black min-h-[88px] md:min-h-[64px] flex items-center'>
       <SmallContainer className='h-full flex items-center justify-between'>
         {items.length > 1 && (
           <OrgIconButton
@@ -48,8 +48,8 @@ export default function Banners({ items }: Props) {
             )}
           </OrgIconButton>
         )}
-        <div className='flex items-center justify-center w-full h-full'>
-          <div className='text-white flex items-center justify-center whitespace-pre'>
+        <div className='flex items-center justify-center w-[calc(100%-180px)] h-full'>
+          <div className='text-white flex flex-wrap text-wrap text-center items-center justify-center whitespace-pre'>
             {currentItem.link ? (
               <Link
                 href={currentItem.link}
