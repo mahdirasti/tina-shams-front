@@ -110,7 +110,7 @@ export default function HeaderMenu({ scrolled, color }: Props) {
           href: "",
           children: categories.map((category) => ({
             title: category.name,
-            href: getLinkWithLocale(`/shop?categories=${category.id}`, locale),
+            href: `/shop?categories=${category.id}`,
           })),
         },
         ...finalOutputs,
