@@ -17,7 +17,8 @@ import {
 import Logo from "@/components/shared/logo";
 import Link from "next/link";
 import { getLinkWithLocale } from "@/app/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants, Button } from "@/components/ui/button";
+import OCustomDialog from "@/components/shared-ui/o-dialog/custom-dialog";
 import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import axiosInstance from "@/app/lib/axios";
 import { useRouter } from "next/navigation";
@@ -86,6 +87,84 @@ export default function CheckoutWrapper() {
   const { user } = useAuth();
   const cartHook = useCart();
   const router = useRouter();
+  const [cartMismatchModalOpen, setCartMismatchModalOpen] = useState(false);
+  const [serverCartTotal, setServerCartTotal] = useState<number | null>(null);
+  const [pendingCheckoutPayload, setPendingCheckoutPayload] =
+    useState<any>(null);
+  // Confirm handler when user accepts updated server price
+  const handleConfirmPriceChange = async (newAmount: number) => {
+    if (!pendingCheckoutPayload) return;
+    try {
+      const res = await axiosInstance.post(
+        "/orders/checkout",
+        pendingCheckoutPayload
+      );
+      const data = (res as any)?.data?.data || {};
+      const orderId = data?.order_id;
+
+      if (orderId) {
+        const paymentMethod =
+          pendingCheckoutPayload?.payment?.method ||
+          pendingCheckoutPayload?.payment_method_id;
+
+        if (paymentMethod === "zarinpal") {
+          const paymentUrlFromOrder =
+            data?.payment_redirect_url ||
+            data?.payment?.payment_link ||
+            data?.payment_url;
+
+          if (paymentUrlFromOrder) {
+            window.location.href = paymentUrlFromOrder;
+            return;
+          }
+
+          try {
+            const trxReq = {
+              amount: newAmount,
+              description: `Order ${orderId} payment`,
+              gateway: "zarinpal",
+              metadata: {
+                order_id: orderId,
+                callback_url: `${window.location.origin}/${locale}/checkout/callback`,
+              },
+            };
+            const trxRes = await axiosInstance.post(
+              "/transactions/request",
+              trxReq
+            );
+            const trxData = (trxRes as any)?.data?.data || {};
+            const paymentUrl =
+              trxData?.payment_url ||
+              trxData?.raw?.payment_url ||
+              trxData?.data?.payment_url;
+            if (paymentUrl) {
+              window.location.href = paymentUrl;
+              return;
+            }
+            alert(
+              dict?.checkout?.payment_request_failed ||
+                "Failed to obtain payment link. Please try again later."
+            );
+          } catch (e) {
+            alert(
+              dict?.checkout?.payment_request_failed ||
+                "Failed to obtain payment link. Please try again later."
+            );
+          }
+        }
+
+        try {
+          cartHook.clearCartSync?.();
+        } catch (e) {}
+        router.push(`/${locale}/checkout/${orderId}/thanks`);
+      }
+    } catch (e) {
+      console.warn("Checkout after price change failed", e);
+    } finally {
+      setPendingCheckoutPayload(null);
+      setServerCartTotal(null);
+    }
+  };
   type ShippingAddress = {
     _id: string;
     address_line1: string;
@@ -136,7 +215,6 @@ export default function CheckoutWrapper() {
   let content = (
     <MainContainer>
       <h2 className='sr-only'>{dict.common.checkout}</h2>
-
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -195,6 +273,32 @@ export default function CheckoutWrapper() {
                 total_amount: cartHook.total_amount,
               },
             };
+
+            // Check current server-side cart total before creating order
+            try {
+              const cartRes = await axiosInstance.get("/cart");
+              const serverCart =
+                (cartRes as any)?.data?.data || (cartRes as any)?.data || {};
+              const serverTotal =
+                serverCart?.total_amount ??
+                serverCart?.total ??
+                serverCart?.totalAmount ??
+                null;
+
+              if (
+                serverTotal != null &&
+                serverTotal !== cartHook.total_amount
+              ) {
+                // Totals differ — ask user to confirm
+                setServerCartTotal(serverTotal);
+                setPendingCheckoutPayload(payload);
+                setCartMismatchModalOpen(true);
+                return;
+              }
+            } catch (e) {
+              // If cart check fails, continue with normal flow (best-effort)
+              console.warn("Failed to fetch server cart for total check", e);
+            }
 
             const res = await axiosInstance.post("/orders/checkout", payload);
             const data = (res as any)?.data?.data || {};
@@ -276,7 +380,6 @@ export default function CheckoutWrapper() {
                 <PaymentMethods paymentMethods={PAYMENT_METHODS} />
               </div>
             </div>
-
             <OrderSummary isSubmitting={isSubmitting} />
           </Form>
         )}
@@ -304,5 +407,70 @@ export default function CheckoutWrapper() {
     );
   }
 
-  return <div className='bg-gray-50 py-24'>{content}</div>;
+  return (
+    <>
+      <div className='bg-gray-50 py-24'>{content}</div>
+      <CheckoutPriceChangeModal
+        open={cartMismatchModalOpen}
+        onOpenChange={(v) => setCartMismatchModalOpen(v)}
+        serverTotal={serverCartTotal}
+        originalTotal={cartHook.total_amount}
+        onConfirm={handleConfirmPriceChange}
+        currency={cartHook.currency}
+      />
+    </>
+  );
+}
+
+// Modal component is placed outside default export to keep component tree simple
+export function CheckoutPriceChangeModal({
+  open,
+  onOpenChange,
+  serverTotal,
+  originalTotal,
+  onConfirm,
+  currency,
+}: {
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+  serverTotal: number | null;
+  originalTotal: number;
+  onConfirm: (newAmount: number) => void;
+  currency: string;
+}) {
+  const { dict } = useLocale();
+
+  return (
+    <OCustomDialog open={open} onOpenChange={onOpenChange}>
+      <div>
+        <h3 className='text-lg font-medium text-gray-900 mb-4'>
+          {dict?.checkout?.price_changed_title || "Price changed"}
+        </h3>
+        <p className='text-sm text-gray-600 mb-6'>
+          {dict?.checkout?.price_changed_message ||
+            `The total price has changed from ${originalTotal.toLocaleString()} ${currency} to ${
+              serverTotal ? serverTotal.toLocaleString() : "N/A"
+            } ${currency}. Do you want to continue with the new price?`}
+        </p>
+        <div className='flex gap-3 justify-end'>
+          <Button
+            variant='outlined'
+            onClick={() => {
+              onOpenChange(false);
+            }}
+          >
+            {dict?.common?.cancel || "Cancel"}
+          </Button>
+          <Button
+            onClick={() => {
+              onOpenChange(false);
+              onConfirm(serverTotal!);
+            }}
+          >
+            {dict?.common?.continue || "Continue"}
+          </Button>
+        </div>
+      </div>
+    </OCustomDialog>
+  );
 }

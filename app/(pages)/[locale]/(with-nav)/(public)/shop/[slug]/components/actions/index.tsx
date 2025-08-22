@@ -10,8 +10,9 @@ import { useLocale } from "@/app/(pages)/[locale]/locale-context";
 import { useRouter } from "next/navigation";
 import { getLinkWithLocale, urlWithQueryParams } from "@/app/lib/utils";
 import axiosInstance from "@/app/lib/axios";
-import ColorPicker from "./color-picker";
-import SizePicker from "./size-picker";
+import ColorPicker from "../color-picker";
+import SizePicker from "../size-picker";
+import ProductPrice from "./product-price";
 
 type Props = {
   item: PieceType;
@@ -87,6 +88,8 @@ export default function ProductActions({ item }: Props) {
             : [],
           price: v.price,
           stock: v.stock,
+          weight: v.weight,
+          construction: v.construction_fee_percent,
         }));
         if (mounted) setVariants(list);
 
@@ -502,7 +505,11 @@ export default function ProductActions({ item }: Props) {
           </div>
         </div>
       )}
-
+      <ProductPrice
+        item={item}
+        variants={variants}
+        selectedOptions={selectedOptions}
+      />
       <button
         type='button'
         onClick={handleAddToCart}

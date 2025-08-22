@@ -9,19 +9,6 @@ import { getDictionary } from "@/app/(pages)/[locale]/dictionaries";
 import { FetchDataType } from "@/app/lib/axios";
 import { MainContainer } from "@/components/containers";
 
-const policies = (t: any) => [
-  {
-    name: t.common.international_delivery,
-    icon: Globe,
-    description: t.common.international_delivery_desc,
-  },
-  {
-    name: t.common.loyalty_rewards,
-    icon: DollarSign,
-    description: t.common.loyalty_rewards_desc,
-  },
-];
-
 type Props = {
   params: Promise<{
     slug: string;
@@ -33,6 +20,21 @@ export default async function SingleProductPage({ params }: Props) {
   const { slug, locale } = await params;
 
   const t = await getDictionary(locale);
+
+  const policies = [
+    {
+      name: t.common.policy_warranty_name,
+      icon: StarIcon,
+    },
+    {
+      name: t.common.policy_free_shipping_name,
+      icon: Globe,
+    },
+    {
+      name: t.common.policy_3hr_tehran_name,
+      icon: DollarSign,
+    },
+  ];
 
   //Setting two minutes for caching
   const fetchingConfig = {
@@ -60,8 +62,8 @@ export default async function SingleProductPage({ params }: Props) {
   ];
 
   return (
-    <div className='bg-white mt-16'>
-      <div className='pb-16 pt-6 sm:pb-24'>
+    <div className='bg-white mt-0 md:mt-4'>
+      <div className='pb-16 pt-4 md:pt-6 sm:pb-24'>
         <MainContainer>
           <OrgBreadcrumb
             items={[
@@ -171,7 +173,7 @@ export default async function SingleProductPage({ params }: Props) {
                 />
               </div>
 
-              <div className='mt-8 border-t border-gray-200 pt-8'>
+              {/* <div className='mt-8 border-t border-gray-200 pt-8'>
                 <h2 className='text-sm font-medium text-gray-900'>
                   {t.common.fabric_and_care}
                 </h2>
@@ -190,7 +192,7 @@ export default async function SingleProductPage({ params }: Props) {
                     </ul>
                   </div>
                 )}
-              </div>
+              </div> */}
 
               {/* Policies */}
               <section aria-labelledby='policies-heading' className='mt-10'>
@@ -198,13 +200,13 @@ export default async function SingleProductPage({ params }: Props) {
                   {t.common.our_policies}
                 </h2>
 
-                <dl className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2'>
-                  {policies(t).map((policy) => (
+                <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2'>
+                  {policies.map((policy, index) => (
                     <div
-                      key={policy.name}
+                      key={index}
                       className='rounded-lg border border-gray-200 bg-gray-50 p-6 text-center'
                     >
-                      <dt>
+                      <div className='flex flex-col items-center'>
                         <policy.icon
                           aria-hidden='true'
                           className='mx-auto size-6 shrink-0 text-gray-400'
@@ -212,13 +214,10 @@ export default async function SingleProductPage({ params }: Props) {
                         <span className='mt-4 text-sm font-medium text-gray-900'>
                           {policy.name}
                         </span>
-                      </dt>
-                      <dd className='mt-1 text-sm text-gray-500'>
-                        {policy.description}
-                      </dd>
+                      </div>
                     </div>
                   ))}
-                </dl>
+                </div>
               </section>
             </div>
           </div>

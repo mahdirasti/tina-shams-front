@@ -13,7 +13,8 @@ import { useState } from "react";
 import BlurFade from "@/components/ui/blur-fade";
 import Image from "next/image";
 import { useApi } from "@/app/hooks";
-import { FetchDataType } from "@/app/lib/axios";
+import { FetchDataType, FetchPaginatedDataType } from "@/app/lib/axios";
+import { CategoryType } from "@/types/category";
 
 type Props = {
   scrolled: boolean;
@@ -32,6 +33,10 @@ export default function HeaderMenu({ scrolled, color }: Props) {
 
   const [selectedCategory, setSelectedCategory] =
     useState<HeaderCategory | null>(null);
+
+  const { data: categoryData } =
+    useApi<FetchDataType<FetchPaginatedDataType<CategoryType>>>(`/category`);
+  const categories = categoryData?.data?.items ?? [];
 
   const { data } = useApi<
     FetchDataType<{
@@ -56,22 +61,6 @@ export default function HeaderMenu({ scrolled, color }: Props) {
     }
   }, [megaMenu]);
 
-  const staticDummy: HeaderCategory[] = [
-    {
-      title: "High Jewelry",
-      href: "/high-jewelry",
-      children: [
-        { title: "NECKLACES AND PENDANTS", href: "/necklaces-and-pendants" },
-        { title: "BRACELETS", href: "/bracelets" },
-        { title: "RINGS", href: "/rings" },
-        { title: "EARRINGS", href: "/earrings" },
-        { title: "Clips & brooches", href: "/clips-and-brooches" },
-        { title: "jewelry watches", href: "/jewelry-watches" },
-        { title: "Cufflinks", href: "/cufflinks" },
-      ],
-    },
-  ];
-
   const dummyCategories: HeaderCategory[] = React.useMemo(() => {
     if (
       !finalMegaMenu ||
@@ -90,7 +79,7 @@ export default function HeaderMenu({ scrolled, color }: Props) {
     };
 
     try {
-      return finalMegaMenu.map((node: any) => {
+      let finalOutputs = finalMegaMenu.map((node: any) => {
         const links = node.children?.filter((c: any) => c.type === "link");
         const banners = node.children?.filter((c: any) => c.type === "banner");
 
@@ -114,10 +103,28 @@ export default function HeaderMenu({ scrolled, color }: Props) {
 
         return output;
       });
+
+      finalOutputs = [
+        {
+          title: dict.common.shop,
+          href: "",
+          children: categories.map((category) => ({
+            title: category.name,
+            href: getLinkWithLocale(`/shop?categories=${category.id}`, locale),
+          })),
+        },
+        ...finalOutputs,
+        {
+          title: dict.common.contact,
+          href: getLinkWithLocale("/contact", locale),
+        },
+      ];
+
+      return finalOutputs;
     } catch (e) {
       return [];
     }
-  }, [finalMegaMenu, locale]);
+  }, [finalMegaMenu, locale, categories]);
 
   const SheetContent = (close?: () => void) => {
     let content = (

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useCart } from "@/app/hooks";
 import { useState } from "react";
 import { CheckIcon } from "lucide-react";
+import ProductPrice from "@/app/(pages)/[locale]/(with-nav)/(public)/shop/[slug]/components/actions/product-price";
 
 type Props = {
   item: PieceType;
@@ -73,6 +74,15 @@ export default function ProductCard({ item }: Props) {
       <p className='mt-1 text-sm text-gray-500'>
         {parseFloat(item.weight).toLocaleString()} {dict.common.grams}
       </p>
+      <ProductPrice
+        className='mt-1 [&_*]:font-normal [&_*]:text-sm'
+        item={item}
+        variants={
+          (item as any).variants && (item as any).variants.length > 0
+            ? [(item as any).variants[0]]
+            : undefined
+        }
+      />
     </div>
   );
 }

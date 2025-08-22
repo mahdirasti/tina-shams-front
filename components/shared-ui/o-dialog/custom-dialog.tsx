@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/app/lib/utils";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ReactNode } from "react";
 import { ODialogProps } from ".";
 
@@ -30,6 +30,7 @@ export default function OCustomDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogTitle hidden className='hidden' />
       <DialogContent className={contentClss}>{children}</DialogContent>
     </Dialog>
   );

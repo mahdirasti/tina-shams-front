@@ -266,6 +266,12 @@
          "confirm_order":"تایید سفارش",
          "payment_successful":"پرداخت موفق",
          "thanks_for_ordering":"با تشکر از سفارش شما",
-         "logout":"خروج"
+         "logout":"خروج",
+         "policy_warranty_name":"گارانتی عمرانه، تعویض ۷ روزه، بازگشت ۳ روزه",
+         "policy_warranty_desc":"گارانتی عمرانه، تعویض ۷ روزه، بازگشت ۳ روزه.",
+         "policy_free_shipping_name":"حمل رایگان به همه مناطق کشور",
+         "policy_free_shipping_desc":"حمل رایگان به همه مناطق کشور.",
+         "policy_3hr_tehran_name":"تحویل سریع در تهران",
+         "policy_3hr_tehran_desc":"تحویل سریع در تهران."
     }
 }
