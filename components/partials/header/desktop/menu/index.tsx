@@ -108,10 +108,16 @@ export default function HeaderMenu({ scrolled, color }: Props) {
         {
           title: dict.common.shop,
           href: "",
-          children: categories.map((category) => ({
-            title: category.name,
-            href: `/shop?categories=${category.id}`,
-          })),
+          children: [
+            {
+              title: dict.common.all_products,
+              href: "/shop",
+            },
+            ...categories.map((category) => ({
+              title: category.name,
+              href: `/shop?categories=${category.id}`,
+            })),
+          ],
         },
         ...finalOutputs,
         {

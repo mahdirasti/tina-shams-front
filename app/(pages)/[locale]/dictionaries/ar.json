@@ -272,6 +272,10 @@
         "confirm_order":"تأكيد الطلب",
         "payment_successful":"تم الدفع بنجاح",
         "thanks_for_ordering":"شكرا لك على الطلب",
-        "logout":"تسجيل الخروج"
+        "logout":"تسجيل الخروج",
+        "all_products":"جميع المنتجات",
+        "calculate_price_method":"طريقة محاسبة السعر",
+        "calculate_price_method_desc": "وزن الذهب x (سعر الذهب + الضريبة) + 7% ربح + الملحقات",
+        "close": "إغلاق"
     }    
 }

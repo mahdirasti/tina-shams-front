@@ -280,6 +280,9 @@
       "submitting":"Submitting...",
       "confirm_order":"Confirm order",
       "payment_successful":"Payment successful",
-      "thanks_for_ordering":"Thanks for ordering"
+      "thanks_for_ordering":"Thanks for ordering",
+      "calculate_price_method":"Calculate price method",
+      "calculate_price_method_desc":"Gold weight x (Gold price + Tax) + 7% profit + Accessories",
+      "all_products":"All products"
     }
 }

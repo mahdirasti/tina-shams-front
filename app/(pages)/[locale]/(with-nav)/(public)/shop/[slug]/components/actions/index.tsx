@@ -13,6 +13,7 @@ import axiosInstance from "@/app/lib/axios";
 import ColorPicker from "../color-picker";
 import SizePicker from "../size-picker";
 import ProductPrice from "./product-price";
+import CalculatePrice from "./calculate-price";
 
 type Props = {
   item: PieceType;
@@ -505,11 +506,14 @@ export default function ProductActions({ item }: Props) {
           </div>
         </div>
       )}
-      <ProductPrice
-        item={item}
-        variants={variants}
-        selectedOptions={selectedOptions}
-      />
+      <div className='flex flex-col md:flex-row items-center justify-between gap-4'>
+        <ProductPrice
+          item={item}
+          variants={variants}
+          selectedOptions={selectedOptions}
+        />
+        <CalculatePrice />
+      </div>
       <button
         type='button'
         onClick={handleAddToCart}

@@ -1,4 +1,4 @@
-import { DollarSign, Globe, StarIcon } from "lucide-react";
+import { Truck, Globe, StarIcon } from "lucide-react";
 import ProductActions from "./components/actions";
 import { classNames, getFullAssets, getLinkWithLocale } from "@/app/lib/utils";
 import { fetchData } from "@/app/lib/fetch";
@@ -8,6 +8,8 @@ import OrgBreadcrumb from "@/components/shared-ui/o-breadcrumb";
 import { getDictionary } from "@/app/(pages)/[locale]/dictionaries";
 import { FetchDataType } from "@/app/lib/axios";
 import { MainContainer } from "@/components/containers";
+import OrgDivider from "@/components/shared-ui/o-divider";
+import SimilarProducts from "../../pieces/[slug]/components/similar-products";
 
 type Props = {
   params: Promise<{
@@ -32,7 +34,7 @@ export default async function SingleProductPage({ params }: Props) {
     },
     {
       name: t.common.policy_3hr_tehran_name,
-      icon: DollarSign,
+      icon: Truck,
     },
   ];
 
@@ -54,12 +56,6 @@ export default async function SingleProductPage({ params }: Props) {
   const productRating = product.rating ?? 0;
   const productReviewCount = product.reviewCount ?? 0;
   const productImages = [product.thumbnail, product.cover];
-  const productDetails = [
-    t.common.detail_925_gold,
-    t.common.detail_handcrafted,
-    t.common.detail_hypoallergenic,
-    t.common.detail_professional_polish,
-  ];
 
   return (
     <div className='bg-white mt-0 md:mt-4'>
@@ -79,6 +75,7 @@ export default async function SingleProductPage({ params }: Props) {
             ]}
           />
         </MainContainer>
+        <OrgDivider className='md:hidden mt-5' />
         <div className='mx-auto mt-8 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-4'>
           <div className='lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8'>
             <div className='lg:col-span-5 lg:col-start-8'>
@@ -223,6 +220,12 @@ export default async function SingleProductPage({ params }: Props) {
           </div>
         </div>
       </div>
+      <MainContainer className='mb-8'>
+        <SimilarProducts
+          similar_products={product.similarProducts ?? []}
+          shop
+        />
+      </MainContainer>
     </div>
   );
 }

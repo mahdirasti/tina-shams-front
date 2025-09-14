@@ -1,7 +1,12 @@
 "use client";
 
 import { cn } from "@/app/lib/utils";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ReactNode, useEffect, useState } from "react";
 
 type BaseDialogProps = {
@@ -100,6 +105,7 @@ export default function ODialog({
         <DialogTrigger asChild>{trigger(handleOpen)}</DialogTrigger>
       )}
       <DialogContent className={contentClss}>
+        <DialogTitle hidden className='hidden' />
         {children(handleClose)}
       </DialogContent>
     </Dialog>

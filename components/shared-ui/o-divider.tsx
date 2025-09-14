@@ -1,5 +1,10 @@
+import { cn } from "@/app/lib/utils";
 import React from "react";
 
-export default function OrgDivider() {
-  return <div className='h-1 bg-inverted-stroke w-full'></div>;
+type Props = {
+  className?: string;
+};
+
+export default function OrgDivider({ className }: Props) {
+  return <div className={cn("h-1 bg-inverted-stroke w-full", className)}></div>;
 }

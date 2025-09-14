@@ -53,8 +53,6 @@ export default function ProductPrice({
         goldValue + constructionValue + Number(accessories || 0)
       );
 
-      console.log("unitPrice", unitPrice);
-
       return unitPrice;
     };
 
@@ -113,7 +111,7 @@ export default function ProductPrice({
   }
 
   return (
-    <div className={cn("mt-6", className)}>
+    <div className={cn(className)}>
       <div className='text-lg font-semibold text-gray-900'>
         {computedPrice.toLocaleString()}{" "}
         {dict.common.rial || dict.common.currency || ""}

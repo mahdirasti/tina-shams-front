@@ -267,11 +267,15 @@
          "payment_successful":"پرداخت موفق",
          "thanks_for_ordering":"با تشکر از سفارش شما",
          "logout":"خروج",
-         "policy_warranty_name":"گارانتی عمرانه، تعویض ۷ روزه، بازگشت ۳ روزه",
-         "policy_warranty_desc":"گارانتی عمرانه، تعویض ۷ روزه، بازگشت ۳ روزه.",
+         "policy_warranty_name": "گارامتی مادام العمر امکان ارسال به سرار دنیا",
+         "policy_warranty_desc": "گارامتی مادام العمر امکان ارسال به سرار دنیا",
          "policy_free_shipping_name":"حمل رایگان به همه مناطق کشور",
          "policy_free_shipping_desc":"حمل رایگان به همه مناطق کشور.",
-         "policy_3hr_tehran_name":"تحویل سریع در تهران",
-         "policy_3hr_tehran_desc":"تحویل سریع در تهران."
+         "policy_3hr_tehran_name": "تحویل ۳ ساعته در تهران",
+         "policy_3hr_tehran_desc": "تحویل ۳ ساعته در تهران.",
+         "calculate_price_method":"نحوه محاسبه قیمت",
+         "calculate_price_method_desc":"وزن طلا x ( قیمت روز طلا +‌اجرت ) +‌ ۷ درصد سود +‌ متعلقات",
+         "close":"بستن",
+         "all_products":"همه محصولات"
     }
 }
