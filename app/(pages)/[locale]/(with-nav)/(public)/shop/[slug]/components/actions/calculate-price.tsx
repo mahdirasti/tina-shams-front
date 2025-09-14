@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 
 export default function CalculatePrice() {
-  const { dict } = useLocale();
+  const { dict, dir } = useLocale();
 
   return (
     <>
@@ -16,8 +16,8 @@ export default function CalculatePrice() {
         )}
       >
         {(close) => (
-          <div dir='rtl' className='space-y-4'>
-            <p>وزن طلا x ( قیمت روز طلا +‌اجرت ) +‌ ۷ درصد سود +‌ متعلقات</p>
+          <div dir={dir} className='space-y-4'>
+            <p>{dict.common.calculate_price_method_desc}</p>
             <Button onClick={close}>{dict.common.close}</Button>
           </div>
         )}
